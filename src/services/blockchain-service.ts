@@ -157,8 +157,38 @@ export class BlockchainRPCService {
         }),
       });
 
+      // Handle HTTP errors (rate limiting, server errors, etc.)
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => 'Unable to read error response');
+        let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+
+        // Common HTTP error interpretations
+        if (response.status === 429) {
+          errorMessage = `Rate limit exceeded (HTTP 429). Public endpoints have usage limits. Please try again later or use Grove Portal for higher limits.`;
+        } else if (response.status === 503) {
+          errorMessage = `Service temporarily unavailable (HTTP 503). The endpoint may be overloaded.`;
+        } else if (response.status >= 500) {
+          errorMessage = `Server error (HTTP ${response.status}). The RPC endpoint encountered an internal error.`;
+        }
+
+        return {
+          success: false,
+          error: errorMessage,
+          data: {
+            httpStatus: response.status,
+            httpStatusText: response.statusText,
+            responseBody: errorText.substring(0, 500), // Limit error body size
+          },
+          metadata: {
+            timestamp: new Date().toISOString(),
+            endpoint: service.rpcUrl,
+          },
+        };
+      }
+
       const data = await response.json();
 
+      // Handle JSON-RPC errors
       if (data.error) {
         return {
           success: false,
@@ -183,6 +213,10 @@ export class BlockchainRPCService {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
+        data: {
+          errorType: error instanceof Error ? error.constructor.name : 'UnknownError',
+          errorStack: error instanceof Error ? error.stack : undefined,
+        },
         metadata: {
           timestamp: new Date().toISOString(),
           endpoint: service.rpcUrl,
