@@ -11,10 +11,26 @@ export class BlockchainRPCService {
     this.services = new Map();
     this.methodAliases = new Map(Object.entries(servicesData.methodAliases || {}));
 
-    // Index services by ID and blockchain name
+    // Index services by ID
     for (const service of servicesData.services) {
       this.services.set(service.id, service);
-      this.services.set(`${service.blockchain}-${service.network}`, service);
+    }
+
+    // Index by blockchain-network, preferring foundation endpoints
+    // First pass: add all services
+    for (const service of servicesData.services) {
+      const key = `${service.blockchain}-${service.network}`;
+      this.services.set(key, service);
+    }
+
+    // Second pass: override with foundation endpoints where they exist
+    for (const service of servicesData.services) {
+      if (service.id.includes('foundation')) {
+        // Foundation endpoint - extract base blockchain name
+        const baseBlockchain = service.blockchain.replace('-foundation', '');
+        const key = `${baseBlockchain}-${service.network}`;
+        this.services.set(key, service);
+      }
     }
   }
 
@@ -44,6 +60,7 @@ export class BlockchainRPCService {
 
   /**
    * Get service by blockchain name
+   * Returns foundation-sponsored endpoints when available (already indexed with preference)
    */
   getServiceByBlockchain(blockchain: string, network: 'mainnet' | 'testnet' = 'mainnet'): BlockchainService | undefined {
     return this.services.get(`${blockchain}-${network}`);
@@ -112,6 +129,9 @@ export class BlockchainRPCService {
       bsc: ['bsc', 'binance', 'bnb'],
       avalanche: ['avalanche', 'avax'],
       solana: ['solana', 'sol'],
+      kaia: ['kaia'],
+      xrplevm: ['xrpl', 'xrplevm', 'xrp evm', 'ripple'],
+      radix: ['radix'],
     };
 
     for (const [chain, keywords] of Object.entries(blockchainKeywords)) {
