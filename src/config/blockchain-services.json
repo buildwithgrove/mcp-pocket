@@ -1,0 +1,183 @@
+{
+  "services": [
+    {
+      "id": "ethereum-mainnet",
+      "name": "Ethereum Mainnet",
+      "blockchain": "ethereum",
+      "network": "mainnet",
+      "rpcUrl": "https://eth.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": [
+        {
+          "name": "eth_blockNumber",
+          "description": "Returns the number of the most recent block (latest height)",
+          "params": [],
+          "example": {"jsonrpc": "2.0", "method": "eth_blockNumber", "params": [], "id": 1},
+          "category": "block"
+        },
+        {
+          "name": "eth_getBlockByNumber",
+          "description": "Returns information about a block by block number",
+          "params": [
+            {"name": "blockNumber", "type": "string", "description": "Block number in hex or 'latest'", "required": true},
+            {"name": "fullTransactions", "type": "boolean", "description": "If true, returns full transaction objects", "required": true, "default": false}
+          ],
+          "example": {"jsonrpc": "2.0", "method": "eth_getBlockByNumber", "params": ["latest", false], "id": 1},
+          "category": "block"
+        },
+        {
+          "name": "eth_getBalance",
+          "description": "Returns the balance of an account",
+          "params": [
+            {"name": "address", "type": "string", "description": "Address to check balance", "required": true},
+            {"name": "blockNumber", "type": "string", "description": "Block number or 'latest'", "required": false, "default": "latest"}
+          ],
+          "example": {"jsonrpc": "2.0", "method": "eth_getBalance", "params": ["0x...", "latest"], "id": 1},
+          "category": "account"
+        },
+        {
+          "name": "eth_call",
+          "description": "Executes a new message call immediately without creating a transaction",
+          "params": [
+            {"name": "transaction", "type": "object", "description": "Transaction call object", "required": true},
+            {"name": "blockNumber", "type": "string", "description": "Block number or 'latest'", "required": false, "default": "latest"}
+          ],
+          "category": "transaction"
+        },
+        {
+          "name": "eth_sendRawTransaction",
+          "description": "Creates new message call transaction or a contract creation for signed transactions",
+          "params": [
+            {"name": "data", "type": "string", "description": "Signed transaction data", "required": true}
+          ],
+          "category": "transaction"
+        },
+        {
+          "name": "eth_getLogs",
+          "description": "Returns an array of all logs matching a given filter object",
+          "params": [
+            {"name": "filter", "type": "object", "description": "Filter options", "required": true}
+          ],
+          "category": "logs"
+        }
+      ]
+    },
+    {
+      "id": "ethereum-sepolia",
+      "name": "Ethereum Sepolia Testnet",
+      "blockchain": "ethereum",
+      "network": "testnet",
+      "rpcUrl": "https://eth-sepolia-testnet.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "polygon-mainnet",
+      "name": "Polygon Mainnet",
+      "blockchain": "polygon",
+      "network": "mainnet",
+      "rpcUrl": "https://polygon.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "arbitrum-one",
+      "name": "Arbitrum One",
+      "blockchain": "arbitrum",
+      "network": "mainnet",
+      "rpcUrl": "https://arbitrum-one.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "optimism-mainnet",
+      "name": "Optimism Mainnet",
+      "blockchain": "optimism",
+      "network": "mainnet",
+      "rpcUrl": "https://optimism.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "base-mainnet",
+      "name": "Base Mainnet",
+      "blockchain": "base",
+      "network": "mainnet",
+      "rpcUrl": "https://base.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "bsc-mainnet",
+      "name": "Binance Smart Chain",
+      "blockchain": "bsc",
+      "network": "mainnet",
+      "rpcUrl": "https://bsc.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "avalanche-mainnet",
+      "name": "Avalanche C-Chain",
+      "blockchain": "avalanche",
+      "network": "mainnet",
+      "rpcUrl": "https://avax.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "solana-mainnet",
+      "name": "Solana Mainnet",
+      "blockchain": "solana",
+      "network": "mainnet",
+      "rpcUrl": "https://solana.rpc.grove.city/v1/01fdb492",
+      "protocol": "json-rpc",
+      "category": "non-evm",
+      "supportedMethods": [
+        {
+          "name": "getBlockHeight",
+          "description": "Returns the current block height of the node",
+          "params": [],
+          "category": "block"
+        },
+        {
+          "name": "getBalance",
+          "description": "Returns the balance of the account of provided Pubkey",
+          "params": [
+            {"name": "pubkey", "type": "string", "description": "Public key of account", "required": true}
+          ],
+          "category": "account"
+        },
+        {
+          "name": "getBlock",
+          "description": "Returns identity and transaction information about a confirmed block",
+          "params": [
+            {"name": "slot", "type": "number", "description": "Slot number", "required": true}
+          ],
+          "category": "block"
+        }
+      ]
+    }
+  ],
+  "methodAliases": {
+    "latest height": ["eth_blockNumber", "getBlockHeight"],
+    "current height": ["eth_blockNumber", "getBlockHeight"],
+    "block number": ["eth_blockNumber", "getBlockHeight"],
+    "get balance": ["eth_getBalance", "getBalance"],
+    "check balance": ["eth_getBalance", "getBalance"],
+    "account balance": ["eth_getBalance", "getBalance"],
+    "get block": ["eth_getBlockByNumber", "getBlock"],
+    "fetch block": ["eth_getBlockByNumber", "getBlock"],
+    "send transaction": ["eth_sendRawTransaction"],
+    "get logs": ["eth_getLogs"],
+    "query logs": ["eth_getLogs"]
+  }
+}

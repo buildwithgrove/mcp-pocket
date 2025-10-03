@@ -1,0 +1,28 @@
+{
+  "name": "mcp-grove",
+  "version": "1.0.0",
+  "description": "MCP server for Grove's public endpoints for Pocket Network and documentation",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "watch": "tsc --watch"
+  },
+  "bin": {
+    "mcp-grove": "./dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "grove",
+    "pocket-network",
+    "endpoints"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  }
+}

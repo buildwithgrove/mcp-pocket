@@ -1,0 +1,21 @@
+{
+  "baseUrls": {
+    "endpoints": "https://grove.city/public-endpoints",
+    "docs": "https://docs.grove.city"
+  },
+  "endpoints": [
+    {
+      "id": "public_endpoints_page",
+      "name": "Public Endpoints Page",
+      "path": "/",
+      "method": "GET",
+      "description": "Fetch the Grove public endpoints HTML page listing all available blockchain networks",
+      "category": "discovery"
+    }
+  ],
+  "categories": [
+    "discovery",
+    "blockchain",
+    "rpc"
+  ]
+}
