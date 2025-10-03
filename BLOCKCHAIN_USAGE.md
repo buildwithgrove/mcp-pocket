@@ -2,6 +2,8 @@
 
 This guide shows how to use the blockchain-specific features of the MCP Grove server.
 
+> **⚠️ Public Endpoints Only**: All RPC calls use Grove's free public endpoints. These are subject to fair-use rate limits. For production applications requiring guaranteed uptime, higher rate limits, or SLA guarantees, use [Grove Portal](https://portal.grove.city) instead.
+
 ## Natural Language Queries
 
 The most powerful feature is `query_blockchain`, which allows you to use natural language:
@@ -259,6 +261,16 @@ Specify `network: "testnet"` to use testnet endpoints:
   "params": []
 }
 ```
+
+## Rate Limits & Fair Use
+
+Grove's public endpoints are free but subject to fair-use rate limits:
+- **No authentication required** - works out of the box
+- **Shared infrastructure** - may experience throttling under heavy load
+- **Best for**: Development, testing, prototyping, education
+- **Not recommended for**: Production applications, high-frequency trading, critical infrastructure
+
+For production use cases, visit [portal.grove.city](https://portal.grove.city) to create an authenticated application with dedicated resources, analytics, and SLA guarantees.
 
 ## Response Format
 

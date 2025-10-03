@@ -1,5 +1,8 @@
 /**
  * Configuration types for the MCP Grove server
+ *
+ * NOTE: This MCP server only supports Grove's public endpoints.
+ * It does NOT support authenticated Portal endpoints or custom API keys.
  */
 
 export interface EndpointConfig {
@@ -10,7 +13,6 @@ export interface EndpointConfig {
   description: string;
   category: string;
   parameters?: ParameterConfig[];
-  requiresAuth?: boolean;
   // Blockchain-specific fields
   blockchain?: string;
   network?: 'mainnet' | 'testnet';

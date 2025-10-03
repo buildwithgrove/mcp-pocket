@@ -1,14 +1,17 @@
 # Grove's Public Endpoints for Pocket Network
 
-An extensible MCP (Model Context Protocol) server for surfacing Grove's public endpoints for Pocket Network and documentation.
+An extensible MCP (Model Context Protocol) server for surfacing Grove's **public endpoints** for Pocket Network and documentation.
+
+> **⚠️ Public Endpoints Only**: This MCP server uses Grove's free, public RPC endpoints available at [grove.city/public-endpoints](https://grove.city/public-endpoints). It does **not** support Grove Portal authenticated endpoints or require an API key. For production use cases requiring higher rate limits, SLAs, or analytics, visit [portal.grove.city](https://portal.grove.city).
 
 ## Features
 
-- **Dynamic Endpoint Discovery**: List and explore all available Grove endpoints for Pocket Network
-- **Live API Calls**: Execute endpoint requests directly from Claude Code
+- **Public RPC Access**: Query 8+ blockchain networks via Grove's free public endpoints
+- **Natural Language Queries**: Ask questions like "get the latest height for ethereum"
+- **Live JSON-RPC Calls**: Execute blockchain RPC methods directly from Claude Code
+- **No Authentication Required**: Uses public endpoints - no API keys needed
 - **Documentation Integration**: Access docs.grove.city content seamlessly
-- **Easy Extensibility**: Add new endpoints via configuration or runtime
-- **Category Organization**: Group endpoints by functionality
+- **Easy Extensibility**: Add new blockchains via configuration
 
 ## Installation
 
