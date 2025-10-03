@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy-config",
+    "copy-config": "mkdir -p dist/config && cp src/config/*.json dist/config/",
     "prepare": "npm run build",
     "watch": "tsc --watch"
   },
