@@ -118,21 +118,23 @@ npm run watch
 
 ## Supported Blockchains
 
-Current blockchain networks available via Grove's public endpoints:
+**69 blockchain networks** available via Grove's public endpoints:
 
 **EVM Chains:**
-- Ethereum (Mainnet + Sepolia Testnet)
-- Polygon
-- Arbitrum One
-- Optimism
-- Base
-- Binance Smart Chain
-- Avalanche C-Chain
+Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM
+
+**Layer 2 Solutions:**
+Arbitrum, Optimism, Base, zkSync Era, zkLink Nova, Scroll, Linea, Mantle, Blast, Boba, Metis, Taiko, Unichain, opBNB, Fraxtal, Polygon zkEVM
+
+**Cosmos Ecosystem:**
+Osmosis, Juno, Akash, Kava, Persistence, Stargaze, AtomOne, Cheqd, Chihuahua, Fetch.ai, Hyperliquid, Jackal, Pocket Network, Seda, Sei, Shentu
 
 **Non-EVM:**
-- Solana
+Solana, NEAR, Sui, Tron, Radix
 
-All using the public endpoint ID: `01fdb492`
+**Plus testnets** for Ethereum, Polygon, Arbitrum, Optimism, Base, Taiko, XRPL EVM, Giwa
+
+Most chains use public endpoint ID `01fdb492`. Some chains have **foundation-sponsored endpoints** with better performance (Kaia, XRPL EVM, Radix) - these are automatically preferred.
 
 ## Example Usage
 
