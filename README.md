@@ -20,41 +20,9 @@ npm install
 npm run build
 ```
 
-## Configuration
+## Adding to Claude Desktop
 
-Configure your endpoints in `src/config/endpoints.json`:
-
-```json
-{
-  "baseUrls": {
-    "endpoints": "https://grove.city/public-endpoints",
-    "docs": "https://docs.grove.city"
-  },
-  "endpoints": [
-    {
-      "id": "get_user",
-      "name": "Get User",
-      "path": "/users/:id",
-      "method": "GET",
-      "description": "Retrieve a user by ID",
-      "category": "users",
-      "parameters": [
-        {
-          "name": "id",
-          "type": "string",
-          "description": "User ID",
-          "required": true
-        }
-      ]
-    }
-  ],
-  "categories": ["users", "data", "operations"]
-}
-```
-
-## Adding to Claude Code
-
-Add to your Claude Code MCP settings:
+Add to your Claude Desktop MCP configuration at `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -66,6 +34,8 @@ Add to your Claude Code MCP settings:
   }
 }
 ```
+
+For detailed setup instructions, see [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md).
 
 ## Available Tools
 
@@ -91,72 +61,51 @@ Add to your Claude Code MCP settings:
 - `get_endpoint_docs` - Get docs for a specific endpoint
 - `search_docs` - Search documentation content
 
-## Extending with New Endpoints
+## Extending with New Blockchains
 
-### Method 1: Configuration File
+To add support for a new blockchain network:
 
-Edit `src/config/endpoints.json` and add your endpoint:
+1. Edit `src/config/blockchain-services.json`
+2. Add a new service entry:
 
 ```json
 {
-  "id": "create_order",
-  "name": "Create Order",
-  "path": "/orders",
-  "method": "POST",
-  "description": "Create a new order",
-  "category": "orders",
-  "parameters": [
+  "id": "newchain-mainnet",
+  "name": "New Chain Mainnet",
+  "blockchain": "newchain",
+  "network": "mainnet",
+  "rpcUrl": "https://newchain.rpc.grove.city/v1/01fdb492",
+  "protocol": "json-rpc",
+  "category": "evm",
+  "supportedMethods": [
     {
-      "name": "items",
-      "type": "array",
-      "description": "Order items",
-      "required": true
+      "name": "eth_blockNumber",
+      "description": "Returns the latest block number",
+      "params": [],
+      "category": "block"
     }
   ]
 }
 ```
 
-Then rebuild: `npm run build`
+3. Rebuild: `npm run build`
+4. Restart Claude Desktop
 
-### Method 2: Runtime via MCP Tool
-
-Use the `add_endpoint` tool from Claude Code:
-
-```
-Can you add a new endpoint with ID "delete_user", path "/users/:id",
-method DELETE, description "Delete a user", category "users"
-```
-
-### Method 3: Programmatic Extension
-
-Create a custom initialization script:
-
-```typescript
-import { EndpointManager } from './services/endpoint-manager.js';
-
-const manager = new EndpointManager(config);
-
-manager.addEndpoint({
-  id: 'custom_endpoint',
-  name: 'Custom Endpoint',
-  path: '/custom',
-  method: 'GET',
-  description: 'My custom endpoint',
-  category: 'custom'
-});
-```
+For more details, see [EXTENDING.md](EXTENDING.md).
 
 ## Architecture
 
 ```
 src/
-├── index.ts                    # MCP server entry point
-├── types.ts                    # TypeScript type definitions
+├── index.ts                       # MCP server entry point
+├── types.ts                       # TypeScript type definitions
 ├── config/
-│   └── endpoints.json          # Endpoint configuration
+│   ├── blockchain-services.json   # Blockchain network configurations
+│   └── endpoints.json             # HTTP endpoint configurations
 └── services/
-    ├── endpoint-manager.ts     # Endpoint CRUD and API calls
-    └── docs-manager.ts         # Documentation retrieval
+    ├── blockchain-service.ts      # Blockchain RPC calls & natural language queries
+    ├── endpoint-manager.ts        # Generic HTTP endpoint manager
+    └── docs-manager.ts            # Documentation retrieval
 ```
 
 ## Development
@@ -167,19 +116,27 @@ Watch mode for development:
 npm run watch
 ```
 
-## Extension Points
+## Supported Blockchains
 
-The server is designed for easy extension:
+Current blockchain networks available via Grove's public endpoints:
 
-1. **Add New Tools**: Edit `src/index.ts` to add new MCP tools
-2. **Custom Managers**: Create new service managers in `src/services/`
-3. **Configuration Schema**: Extend types in `src/types.ts`
-4. **Middleware**: Add request/response processing in managers
-5. **Authentication**: Add auth handling in `endpoint-manager.ts`
+**EVM Chains:**
+- Ethereum (Mainnet + Sepolia Testnet)
+- Polygon
+- Arbitrum One
+- Optimism
+- Base
+- Binance Smart Chain
+- Avalanche C-Chain
+
+**Non-EVM:**
+- Solana
+
+All using the public endpoint ID: `01fdb492`
 
 ## Example Usage
 
-Once configured in Claude Code, you can:
+Once configured in Claude Desktop, you can:
 
 ### Blockchain Queries (Primary Use Case)
 
