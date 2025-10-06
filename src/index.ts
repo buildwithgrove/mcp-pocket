@@ -13,6 +13,7 @@ import { dirname, join } from 'path';
 import { EndpointManager } from './services/endpoint-manager.js';
 import { DocsManager } from './services/docs-manager.js';
 import { BlockchainRPCService } from './services/blockchain-service.js';
+import { DomainResolverService } from './services/domain-resolver.js';
 import { ServerConfig } from './types.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,6 +33,7 @@ const blockchainConfig = JSON.parse(blockchainConfigData);
 const endpointManager = new EndpointManager(config);
 const docsManager = new DocsManager(config);
 const blockchainService = new BlockchainRPCService(blockchainConfig);
+const domainResolver = new DomainResolverService(blockchainService);
 
 // Create MCP server
 const server = new Server(
@@ -287,6 +289,24 @@ const tools: Tool[] = [
         },
       },
       required: ['blockchain'],
+    },
+  },
+  {
+    name: 'resolve_domain',
+    description: 'Resolve a blockchain domain name (ENS .eth or Unstoppable Domains) to an address using Grove endpoints',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain: {
+          type: 'string',
+          description: 'The domain name to resolve (e.g., "vitalik.eth", "alice.crypto")',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['domain'],
     },
   },
 ];
@@ -596,6 +616,23 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
               text: JSON.stringify(methods, null, 2),
             },
           ],
+        };
+      }
+
+      case 'resolve_domain': {
+        const domain = args?.domain as string;
+        const appId = args?.appId as string | undefined;
+
+        const result = await domainResolver.resolveDomain(domain, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
         };
       }
 

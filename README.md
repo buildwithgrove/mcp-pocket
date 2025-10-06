@@ -9,6 +9,7 @@ An extensible MCP (Model Context Protocol) server for surfacing Grove's **public
 - **Public RPC Access**: Query 69+ blockchain networks via Grove's free public endpoints
 - **Natural Language Queries**: Ask questions like "get the latest height for ethereum"
 - **Live JSON-RPC Calls**: Execute blockchain RPC methods directly from Claude Code
+- **Domain Name Resolution**: Resolve ENS (.eth) and Unstoppable Domains to addresses
 - **Custom Portal Support**: Optional appId parameter for higher rate limits via Grove Portal
 - **No Authentication Required**: Uses public endpoints by default - no API keys needed
 - **Documentation Integration**: Access docs.grove.city content seamlessly
@@ -47,6 +48,7 @@ For detailed setup instructions, see [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SE
 - `get_blockchain_service` - Get details about a specific blockchain including supported methods
 - `call_rpc_method` - Call a JSON-RPC method directly on any blockchain
 - `get_supported_methods` - Get all RPC methods for a blockchain
+- `resolve_domain` - **Resolve ENS (.eth) and Unstoppable Domains** to blockchain addresses
 
 ### Endpoint Management
 
@@ -153,6 +155,10 @@ List all available blockchain services
 Show me supported methods for solana
 
 Call eth_getBalance on ethereum for address 0x...
+
+Resolve vitalik.eth
+
+What address does alice.crypto resolve to?
 ```
 
 ### Using Custom AppId (For Higher Rate Limits)
