@@ -15,6 +15,7 @@ import { DocsManager } from './services/docs-manager.js';
 import { BlockchainRPCService } from './services/blockchain-service.js';
 import { DomainResolverService } from './services/domain-resolver.js';
 import { AdvancedBlockchainService } from './services/advanced-blockchain-service.js';
+import { SolanaService } from './services/solana-service.js';
 import { ServerConfig } from './types.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +37,7 @@ const docsManager = new DocsManager(config);
 const blockchainService = new BlockchainRPCService(blockchainConfig);
 const domainResolver = new DomainResolverService(blockchainService);
 const advancedBlockchain = new AdvancedBlockchainService(blockchainService);
+const solanaService = new SolanaService(blockchainService);
 
 // Create MCP server
 const server = new Server(
@@ -716,6 +718,202 @@ const tools: Tool[] = [
       required: ['blockchain', 'address', 'blockNumber'],
     },
   },
+  {
+    name: 'get_solana_token_balance',
+    description: 'Get SPL token balance(s) for a Solana wallet',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        walletAddress: {
+          type: 'string',
+          description: 'Solana wallet address',
+        },
+        mintAddress: {
+          type: 'string',
+          description: 'Optional: SPL token mint address (if not provided, returns all token balances)',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['walletAddress'],
+    },
+  },
+  {
+    name: 'get_solana_token_metadata',
+    description: 'Get SPL token metadata (decimals, supply, authorities)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        mintAddress: {
+          type: 'string',
+          description: 'SPL token mint address',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['mintAddress'],
+    },
+  },
+  {
+    name: 'get_solana_balance',
+    description: 'Get SOL balance for a Solana address',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        address: {
+          type: 'string',
+          description: 'Solana address',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['address'],
+    },
+  },
+  {
+    name: 'get_solana_account_info',
+    description: 'Get Solana account information',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        address: {
+          type: 'string',
+          description: 'Solana address',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['address'],
+    },
+  },
+  {
+    name: 'get_solana_block',
+    description: 'Get Solana block information with optional transactions',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        slot: {
+          type: 'number',
+          description: 'Block slot number',
+        },
+        includeTransactions: {
+          type: 'boolean',
+          description: 'Include full transaction details (default: false)',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['slot'],
+    },
+  },
+  {
+    name: 'get_solana_transaction',
+    description: 'Get Solana transaction details by signature',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        signature: {
+          type: 'string',
+          description: 'Transaction signature',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['signature'],
+    },
+  },
+  {
+    name: 'get_solana_prioritization_fees',
+    description: 'Get recent prioritization fees for Solana transactions',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        addresses: {
+          type: 'array',
+          items: { type: 'string' },
+          description: 'Optional: Account addresses to get fees for',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+    },
+  },
+  {
+    name: 'get_solana_signatures',
+    description: 'Get transaction signatures for a Solana address (transaction history)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        address: {
+          type: 'string',
+          description: 'Solana address',
+        },
+        limit: {
+          type: 'number',
+          description: 'Maximum number of signatures to return (default: 10)',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['address'],
+    },
+  },
 ];
 
 // Handle tool listing
@@ -1353,6 +1551,153 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           network,
           appId
         );
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_token_balance': {
+        const walletAddress = args?.walletAddress as string;
+        const mintAddress = args?.mintAddress as string | undefined;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getTokenBalance(walletAddress, mintAddress, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_token_metadata': {
+        const mintAddress = args?.mintAddress as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getTokenMetadata(mintAddress, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_balance': {
+        const address = args?.address as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getBalance(address, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_account_info': {
+        const address = args?.address as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getAccountInfo(address, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_block': {
+        const slot = args?.slot as number;
+        const includeTransactions = (args?.includeTransactions as boolean) || false;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getBlock(slot, includeTransactions, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_transaction': {
+        const signature = args?.signature as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getTransaction(signature, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_prioritization_fees': {
+        const addresses = args?.addresses as string[] | undefined;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getRecentPrioritizationFees(addresses, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_signatures': {
+        const address = args?.address as string;
+        const limit = (args?.limit as number) || 10;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getSignaturesForAddress(address, limit, network, appId);
 
         return {
           content: [
