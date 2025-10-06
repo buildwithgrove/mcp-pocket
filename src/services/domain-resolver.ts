@@ -148,6 +148,163 @@ export class DomainResolverService {
   }
 
   /**
+   * Reverse resolve: get domain from address (ENS only for now)
+   */
+  async reverseResolve(address: string, appId?: string): Promise<EndpointResponse> {
+    try {
+      // ENS reverse registrar
+      const reverseNode = this.getReverseNode(address);
+
+      // Get the name from the reverse resolver
+      const nameData = this.encodeNameCall(reverseNode);
+      const nameResult = await this.blockchainService.callRPCMethod(
+        'ethereum-mainnet',
+        'eth_call',
+        [
+          {
+            to: DomainResolverService.ENS_PUBLIC_RESOLVER,
+            data: nameData,
+          },
+          'latest',
+        ],
+        appId
+      );
+
+      if (!nameResult.success || !nameResult.data) {
+        return {
+          success: false,
+          error: `No reverse record found for ${address}`,
+        };
+      }
+
+      const domain = this.decodeString(nameResult.data);
+
+      if (!domain) {
+        return {
+          success: false,
+          error: `No reverse record found for ${address}`,
+        };
+      }
+
+      // Verify forward resolution matches
+      const forwardResult = await this.resolveENS(domain, appId);
+      if (forwardResult.success && forwardResult.data?.address.toLowerCase() === address.toLowerCase()) {
+        return {
+          success: true,
+          data: {
+            address,
+            domain,
+            type: 'ENS',
+            verified: true,
+          },
+          metadata: {
+            timestamp: new Date().toISOString(),
+            endpoint: 'ethereum-mainnet',
+          },
+        };
+      }
+
+      return {
+        success: false,
+        error: `Reverse record found but forward resolution mismatch`,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error in reverse resolution',
+      };
+    }
+  }
+
+  /**
+   * Get domain records (text records for ENS)
+   */
+  async getDomainRecords(domain: string, keys: string[], appId?: string): Promise<EndpointResponse> {
+    if (!domain.endsWith('.eth')) {
+      return {
+        success: false,
+        error: 'Domain records currently only supported for ENS (.eth) domains',
+      };
+    }
+
+    try {
+      const namehash = this.namehash(domain);
+
+      // Get resolver address first
+      const resolverData = this.encodeResolverCall(namehash);
+      const resolverResult = await this.blockchainService.callRPCMethod(
+        'ethereum-mainnet',
+        'eth_call',
+        [
+          {
+            to: DomainResolverService.ENS_REGISTRY,
+            data: resolverData,
+          },
+          'latest',
+        ],
+        appId
+      );
+
+      if (!resolverResult.success || !resolverResult.data) {
+        return {
+          success: false,
+          error: `Failed to get resolver for ${domain}`,
+        };
+      }
+
+      const resolverAddress = '0x' + resolverResult.data.slice(-40);
+
+      if (resolverAddress === '0x0000000000000000000000000000000000000000') {
+        return {
+          success: false,
+          error: `No resolver set for ${domain}`,
+        };
+      }
+
+      // Fetch all text records in parallel
+      const records = await Promise.all(
+        keys.map(async (key) => {
+          const textData = this.encodeTextCall(namehash, key);
+          const result = await this.blockchainService.callRPCMethod(
+            'ethereum-mainnet',
+            'eth_call',
+            [
+              {
+                to: resolverAddress,
+                data: textData,
+              },
+              'latest',
+            ],
+            appId
+          );
+
+          return {
+            key,
+            value: result.success ? this.decodeString(result.data) : null,
+          };
+        })
+      );
+
+      return {
+        success: true,
+        data: {
+          domain,
+          records,
+        },
+        metadata: {
+          timestamp: new Date().toISOString(),
+          endpoint: 'ethereum-mainnet',
+        },
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch domain records',
+      };
+    }
+  }
+
+  /**
    * Resolve Unstoppable Domain using Grove's Polygon endpoint
    */
   private async resolveUnstoppableDomain(domain: string, appId?: string): Promise<EndpointResponse> {
@@ -293,6 +450,63 @@ export class DomainResolverService {
     }
 
     return functionSig + arrayOffset + paddedTokenId + arrayLength + encodedKeys;
+  }
+
+  /**
+   * Get reverse node for ENS
+   */
+  private getReverseNode(address: string): string {
+    const cleanAddress = address.toLowerCase().replace('0x', '');
+    const reverseLabel = cleanAddress + '.addr.reverse';
+    return this.namehash(reverseLabel);
+  }
+
+  /**
+   * Encode the name(bytes32) call for ENS reverse resolution
+   */
+  private encodeNameCall(node: string): string {
+    // Function signature: name(bytes32) = 0x691f3431
+    const functionSig = '0x691f3431';
+    const paddedNode = node.slice(2).padStart(64, '0');
+    return functionSig + paddedNode;
+  }
+
+  /**
+   * Encode the text(bytes32,string) call for ENS text records
+   */
+  private encodeTextCall(node: string, key: string): string {
+    // Function signature: text(bytes32,string) = 0x59d1d43c
+    const functionSig = '0x59d1d43c';
+    const paddedNode = node.slice(2).padStart(64, '0');
+
+    // Encode the string parameter
+    const stringOffset = '0000000000000000000000000000000000000000000000000000000000000040';
+    const stringLength = key.length.toString(16).padStart(64, '0');
+    const stringData = Buffer.from(key, 'utf8').toString('hex').padEnd(Math.ceil(key.length / 32) * 64, '0');
+
+    return functionSig + paddedNode + stringOffset + stringLength + stringData;
+  }
+
+  /**
+   * Decode string from contract return data
+   */
+  private decodeString(hex: string): string {
+    try {
+      if (!hex || hex === '0x') return '';
+
+      const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex;
+
+      // Skip the first 64 bytes (offset) and next 64 bytes (length)
+      const lengthHex = cleanHex.slice(64, 128);
+      const length = parseInt(lengthHex, 16);
+
+      if (length === 0) return '';
+
+      const dataHex = cleanHex.slice(128, 128 + length * 2);
+      return Buffer.from(dataHex, 'hex').toString('utf8');
+    } catch {
+      return '';
+    }
   }
 
   /**

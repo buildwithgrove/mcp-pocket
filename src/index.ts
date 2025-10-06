@@ -14,6 +14,7 @@ import { EndpointManager } from './services/endpoint-manager.js';
 import { DocsManager } from './services/docs-manager.js';
 import { BlockchainRPCService } from './services/blockchain-service.js';
 import { DomainResolverService } from './services/domain-resolver.js';
+import { AdvancedBlockchainService } from './services/advanced-blockchain-service.js';
 import { ServerConfig } from './types.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,6 +35,7 @@ const endpointManager = new EndpointManager(config);
 const docsManager = new DocsManager(config);
 const blockchainService = new BlockchainRPCService(blockchainConfig);
 const domainResolver = new DomainResolverService(blockchainService);
+const advancedBlockchain = new AdvancedBlockchainService(blockchainService);
 
 // Create MCP server
 const server = new Server(
@@ -307,6 +309,411 @@ const tools: Tool[] = [
         },
       },
       required: ['domain'],
+    },
+  },
+  {
+    name: 'reverse_resolve_domain',
+    description: 'Reverse resolve an Ethereum address to its ENS domain name',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        address: {
+          type: 'string',
+          description: 'Ethereum address to reverse resolve',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['address'],
+    },
+  },
+  {
+    name: 'get_domain_records',
+    description: 'Get ENS text records for a domain (e.g., avatar, email, url, twitter, github)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain: {
+          type: 'string',
+          description: 'ENS domain name',
+        },
+        keys: {
+          type: 'array',
+          items: { type: 'string' },
+          description: 'Text record keys to fetch (e.g., ["avatar", "email", "url", "com.twitter", "com.github"])',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['domain', 'keys'],
+    },
+  },
+  {
+    name: 'get_transaction',
+    description: 'Get transaction details by transaction hash',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        txHash: {
+          type: 'string',
+          description: 'Transaction hash',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'txHash'],
+    },
+  },
+  {
+    name: 'get_transaction_receipt',
+    description: 'Get transaction receipt with status, gas used, and logs',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        txHash: {
+          type: 'string',
+          description: 'Transaction hash',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'txHash'],
+    },
+  },
+  {
+    name: 'estimate_gas',
+    description: 'Estimate gas required for a transaction',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        transaction: {
+          type: 'object',
+          description: 'Transaction object with from, to, data, value, etc.',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'transaction'],
+    },
+  },
+  {
+    name: 'get_token_balance',
+    description: 'Get ERC-20 token balance for an address',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        tokenAddress: {
+          type: 'string',
+          description: 'Token contract address',
+        },
+        walletAddress: {
+          type: 'string',
+          description: 'Wallet address to check balance',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'tokenAddress', 'walletAddress'],
+    },
+  },
+  {
+    name: 'get_token_metadata',
+    description: 'Get token metadata (name, symbol, decimals, total supply)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        tokenAddress: {
+          type: 'string',
+          description: 'Token contract address',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'tokenAddress'],
+    },
+  },
+  {
+    name: 'get_block_details',
+    description: 'Get detailed block information with optional transaction list',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        blockNumber: {
+          description: 'Block number (number or "latest", "earliest", "pending")',
+        },
+        includeTransactions: {
+          type: 'boolean',
+          description: 'Include full transaction objects (default: false)',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'blockNumber'],
+    },
+  },
+  {
+    name: 'search_logs',
+    description: 'Search event logs by address and topics',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        filter: {
+          type: 'object',
+          description: 'Log filter with fromBlock, toBlock, address, topics',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'filter'],
+    },
+  },
+  {
+    name: 'compare_balances',
+    description: 'Compare native token balance for an address across multiple EVM chains',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        address: {
+          type: 'string',
+          description: 'Address to check',
+        },
+        blockchains: {
+          type: 'array',
+          items: { type: 'string' },
+          description: 'List of blockchain names (optional, defaults to all EVM chains)',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['address'],
+    },
+  },
+  {
+    name: 'get_gas_price',
+    description: 'Get current gas price for a blockchain',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain'],
+    },
+  },
+  {
+    name: 'convert_units',
+    description: 'Convert between wei, gwei, and eth units',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        value: {
+          type: 'string',
+          description: 'Value to convert',
+        },
+        fromUnit: {
+          type: 'string',
+          enum: ['wei', 'gwei', 'eth'],
+          description: 'Source unit',
+        },
+        toUnit: {
+          type: 'string',
+          enum: ['wei', 'gwei', 'eth'],
+          description: 'Target unit',
+        },
+      },
+      required: ['value', 'fromUnit', 'toUnit'],
+    },
+  },
+  {
+    name: 'validate_address',
+    description: 'Validate address format for a specific blockchain',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        address: {
+          type: 'string',
+          description: 'Address to validate',
+        },
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+      },
+      required: ['address', 'blockchain'],
+    },
+  },
+  {
+    name: 'decode_hex',
+    description: 'Decode hex string to UTF-8, ASCII, and bytes',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        hex: {
+          type: 'string',
+          description: 'Hex string to decode',
+        },
+      },
+      required: ['hex'],
+    },
+  },
+  {
+    name: 'call_contract_view',
+    description: 'Call a read-only contract function',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        contractAddress: {
+          type: 'string',
+          description: 'Contract address',
+        },
+        data: {
+          type: 'string',
+          description: 'Encoded function call data',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'contractAddress', 'data'],
+    },
+  },
+  {
+    name: 'get_historical_balance',
+    description: 'Get balance at a specific block height',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        blockchain: {
+          type: 'string',
+          description: 'Blockchain name',
+        },
+        address: {
+          type: 'string',
+          description: 'Address to check',
+        },
+        blockNumber: {
+          description: 'Block number',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['blockchain', 'address', 'blockNumber'],
     },
   },
 ];
@@ -624,6 +1031,328 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const appId = args?.appId as string | undefined;
 
         const result = await domainResolver.resolveDomain(domain, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'reverse_resolve_domain': {
+        const address = args?.address as string;
+        const appId = args?.appId as string | undefined;
+
+        const result = await domainResolver.reverseResolve(address, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_domain_records': {
+        const domain = args?.domain as string;
+        const keys = args?.keys as string[];
+        const appId = args?.appId as string | undefined;
+
+        const result = await domainResolver.getDomainRecords(domain, keys, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_transaction': {
+        const blockchain = args?.blockchain as string;
+        const txHash = args?.txHash as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getTransaction(blockchain, txHash, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_transaction_receipt': {
+        const blockchain = args?.blockchain as string;
+        const txHash = args?.txHash as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getTransactionReceipt(blockchain, txHash, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'estimate_gas': {
+        const blockchain = args?.blockchain as string;
+        const transaction = args?.transaction as any;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.estimateGas(blockchain, transaction, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_token_balance': {
+        const blockchain = args?.blockchain as string;
+        const tokenAddress = args?.tokenAddress as string;
+        const walletAddress = args?.walletAddress as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getTokenBalance(
+          blockchain,
+          tokenAddress,
+          walletAddress,
+          network,
+          appId
+        );
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_token_metadata': {
+        const blockchain = args?.blockchain as string;
+        const tokenAddress = args?.tokenAddress as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getTokenMetadata(blockchain, tokenAddress, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_block_details': {
+        const blockchain = args?.blockchain as string;
+        const blockNumber = args?.blockNumber as string | number;
+        const includeTransactions = (args?.includeTransactions as boolean) || false;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getBlockDetails(
+          blockchain,
+          blockNumber,
+          includeTransactions,
+          network,
+          appId
+        );
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'search_logs': {
+        const blockchain = args?.blockchain as string;
+        const filter = args?.filter as any;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.searchLogs(blockchain, filter, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'compare_balances': {
+        const address = args?.address as string;
+        const blockchains = args?.blockchains as string[] | undefined;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.compareBalances(address, blockchains, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_gas_price': {
+        const blockchain = args?.blockchain as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getGasPrice(blockchain, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'convert_units': {
+        const value = args?.value as string;
+        const fromUnit = args?.fromUnit as 'wei' | 'gwei' | 'eth';
+        const toUnit = args?.toUnit as 'wei' | 'gwei' | 'eth';
+
+        const result = advancedBlockchain.convertUnits(value, fromUnit, toUnit);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'validate_address': {
+        const address = args?.address as string;
+        const blockchain = args?.blockchain as string;
+
+        const result = advancedBlockchain.validateAddress(address, blockchain);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'decode_hex': {
+        const hex = args?.hex as string;
+
+        const result = advancedBlockchain.decodeHex(hex);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'call_contract_view': {
+        const blockchain = args?.blockchain as string;
+        const contractAddress = args?.contractAddress as string;
+        const data = args?.data as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.callContractView(
+          blockchain,
+          contractAddress,
+          data,
+          network,
+          appId
+        );
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_historical_balance': {
+        const blockchain = args?.blockchain as string;
+        const address = args?.address as string;
+        const blockNumber = args?.blockNumber as string | number;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await advancedBlockchain.getHistoricalBalance(
+          blockchain,
+          address,
+          blockNumber,
+          network,
+          appId
+        );
 
         return {
           content: [
