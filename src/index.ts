@@ -892,6 +892,76 @@ const tools: Tool[] = [
     },
   },
   {
+    name: 'get_solana_block_height',
+    description: 'Get the latest Solana block height',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+    },
+  },
+  {
+    name: 'get_solana_fee_for_message',
+    description: 'Estimate fee for a serialized Solana message (base64)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        message: {
+          type: 'string',
+          description: 'Serialized message in base64',
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['message'],
+    },
+  },
+  {
+    name: 'get_solana_program_accounts',
+    description: 'Get accounts owned by a Solana program with optional filters',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        programId: {
+          type: 'string',
+          description: 'Program ID (public key)',
+        },
+        filters: {
+          type: 'array',
+          description: 'Optional RPC filters (memcmp, dataSize, etc.)',
+          items: { type: 'object' },
+        },
+        network: {
+          type: 'string',
+          enum: ['mainnet', 'testnet'],
+          description: 'Network type (defaults to mainnet)',
+        },
+        appId: {
+          type: 'string',
+          description: 'Optional Grove Portal appId for higher rate limits',
+        },
+      },
+      required: ['programId'],
+    },
+  },
+  // Cosmos SDK Tools (16 tools)
+  {
     name: 'get_solana_signatures',
     description: 'Get transaction signatures for a Solana address (transaction history)',
     inputSchema: {
@@ -2432,6 +2502,60 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const appId = args?.appId as string | undefined;
 
         const result = await solanaService.getSignaturesForAddress(address, limit, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_block_height': {
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getBlockHeight(network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_fee_for_message': {
+        const message = args?.message as string;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getFeeForMessage(message, network, appId);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+          isError: !result.success,
+        };
+      }
+
+      case 'get_solana_program_accounts': {
+        const programId = args?.programId as string;
+        const filters = args?.filters as any[] | undefined;
+        const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
+        const appId = args?.appId as string | undefined;
+
+        const result = await solanaService.getProgramAccounts(programId, filters, network, appId);
 
         return {
           content: [
