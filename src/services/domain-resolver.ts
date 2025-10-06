@@ -1,5 +1,6 @@
 import { EndpointResponse } from '../types.js';
 import { BlockchainRPCService } from './blockchain-service.js';
+import { keccak256 as keccakHash } from 'js-sha3';
 
 /**
  * Service for resolving blockchain domain names (ENS, Unstoppable Domains)
@@ -232,9 +233,11 @@ export class DomainResolverService {
    * Keccak256 hash function (used for ENS namehash)
    */
   private keccak256(data: string | Buffer): string {
-    const { keccak256: keccakHash } = require('js-sha3');
-    const input = typeof data === 'string' ? data : data.toString('hex');
-    return '0x' + keccakHash(typeof data === 'string' ? data : Buffer.from(data));
+    if (typeof data === 'string') {
+      return '0x' + keccakHash(data);
+    } else {
+      return '0x' + keccakHash(data);
+    }
   }
 
   /**
