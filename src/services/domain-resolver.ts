@@ -1,6 +1,7 @@
 import { EndpointResponse } from '../types.js';
 import { BlockchainRPCService } from './blockchain-service.js';
-import { keccak256 as keccakHash } from 'js-sha3';
+import pkg from 'js-sha3';
+const { keccak256: keccakHash } = pkg;
 
 /**
  * Service for resolving blockchain domain names (ENS, Unstoppable Domains)
