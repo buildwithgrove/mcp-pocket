@@ -43,6 +43,8 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 - **Live JSON-RPC**: Execute any blockchain RPC method directly
 
 ### Advanced Features
+
+**EVM Chains (47 chains):**
 - **🔍 Domain Resolution**: ENS (.eth) ↔ addresses, Unstoppable Domains (.crypto, .nft, etc.)
 - **📊 Transaction Analysis**: Full transaction details, receipts, gas estimates
 - **💰 Token Operations**: ERC-20 balances, metadata (name, symbol, decimals, supply)
@@ -51,6 +53,18 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 - **📜 Smart Contracts**: Read-only contract calls
 - **⏰ Historical Queries**: Time-travel balance checks at any block height
 - **🛠️ Utilities**: Unit conversion (wei/gwei/eth), address validation, hex decoding
+
+**Solana:**
+- **🪙 SPL Tokens**: Token balances and metadata for any SPL token
+- **💸 Transactions**: Full transaction details with compute units and fees
+- **📊 Priority Fees**: Real-time fee estimation for optimal transaction pricing
+- **📜 Account Data**: Program accounts, executable status, data owner
+
+**Cosmos SDK (16 chains):**
+- **🏦 Multi-Denom Balances**: Native tokens and IBC assets
+- **🔒 Staking**: Delegations, validators, rewards across all chains
+- **🗳️ Governance**: Proposals, votes, and on-chain governance
+- **🔗 IBC Support**: Cross-chain balance queries via REST API
 
 ## Detailed Installation
 
@@ -80,7 +94,7 @@ npm run build
 
 ## Available Tools
 
-**24 specialized tools** for comprehensive blockchain analysis:
+**40+ specialized tools** for comprehensive blockchain analysis across EVM, Solana, and Cosmos chains:
 
 ### Core Blockchain Tools (5 tools)
 
@@ -133,6 +147,53 @@ npm run build
 - `list_categories` - List all available endpoint categories
 - `add_endpoint` - Dynamically add new endpoints at runtime
 
+### Solana Tools (8 tools)
+
+**SPL Tokens:**
+- `get_solana_token_balance` - Get SPL token balance(s) for a Solana wallet
+- `get_solana_token_metadata` - Get token decimals, supply, mint/freeze authorities
+
+**Accounts & Balances:**
+- `get_solana_balance` - Get SOL balance with lamports and SOL conversion
+- `get_solana_account_info` - Get account data, owner, and executable status
+
+**Blocks & Transactions:**
+- `get_solana_block` - Get block information with optional full transaction list
+- `get_solana_transaction` - Get transaction details by signature with full metadata
+- `get_solana_signatures` - Get transaction history for an address
+
+**Fees:**
+- `get_solana_prioritization_fees` - Get recent priority fees for transaction optimization
+
+### Cosmos SDK Tools (16 tools - Works on all 16 Cosmos chains!)
+
+**Accounts & Balances:**
+- `get_cosmos_balance` - Get balance for specific denom or all balances
+- `get_cosmos_all_balances` - Get all token balances for an address
+- `get_cosmos_account` - Get account information (sequence, account number)
+
+**Staking:**
+- `get_cosmos_delegations` - Get all delegations (staked tokens) for an address
+- `get_cosmos_validators` - List validators (bonded, unbonded, unbonding, or all)
+- `get_cosmos_validator` - Get specific validator details
+- `get_cosmos_rewards` - Get staking rewards for a delegator
+
+**Transactions:**
+- `get_cosmos_transaction` - Get transaction by hash
+- `search_cosmos_transactions` - Search transactions by events
+
+**Governance:**
+- `get_cosmos_proposals` - Get governance proposals (filter by status)
+- `get_cosmos_proposal` - Get specific proposal details
+- `get_cosmos_proposal_votes` - Get all votes for a proposal
+
+**Blocks:**
+- `get_cosmos_latest_block` - Get latest block information
+- `get_cosmos_block` - Get block at specific height
+
+**Chain Info:**
+- `get_cosmos_params` - Get chain parameters (staking, slashing, distribution, gov, mint)
+
 ### Documentation (3 tools)
 
 - `get_doc_page` - Retrieve specific documentation pages from docs.grove.city
@@ -175,14 +236,16 @@ For more details, see [EXTENDING.md](EXTENDING.md).
 
 ```
 src/
-├── index.ts                            # MCP server entry point
+├── index.ts                            # MCP server entry point (40+ tools)
 ├── types.ts                            # TypeScript type definitions
 ├── config/
-│   ├── blockchain-services.json        # 69+ blockchain network configurations
+│   ├── blockchain-services.json        # 69 blockchain network configurations
 │   └── endpoints.json                  # HTTP endpoint configurations
 └── services/
     ├── blockchain-service.ts           # Core RPC calls & natural language queries
-    ├── advanced-blockchain-service.ts  # Transactions, tokens, blocks, utilities
+    ├── advanced-blockchain-service.ts  # EVM: Transactions, tokens, blocks, utilities
+    ├── solana-service.ts               # Solana: SPL tokens, accounts, transactions
+    ├── cosmos-service.ts               # Cosmos SDK: Staking, governance, IBC (16 chains)
     ├── domain-resolver.ts              # ENS & Unstoppable Domains resolution
     ├── endpoint-manager.ts             # Generic HTTP endpoint manager
     └── docs-manager.ts                 # Documentation retrieval
@@ -206,11 +269,11 @@ Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moon
 **Layer 2 Solutions:**
 Arbitrum, Optimism, Base, zkSync Era, zkLink Nova, Scroll, Linea, Mantle, Blast, Boba, Metis, Taiko, Unichain, opBNB, Fraxtal, Polygon zkEVM
 
-**Cosmos Ecosystem:**
+**Cosmos Ecosystem:** ✅ (full support for all 16 chains)
 Osmosis, Juno, Akash, Kava, Persistence, Stargaze, AtomOne, Cheqd, Chihuahua, Fetch.ai, Hyperliquid, Jackal, Pocket Network, Seda, Sei, Shentu
 
 **Non-EVM:**
-Solana, NEAR, Sui, Tron, Radix
+Solana ✅ (full support), NEAR, Sui, Tron, Radix
 
 **Plus testnets** for Ethereum, Polygon, Arbitrum, Optimism, Base, Taiko, XRPL EVM, Giwa
 
@@ -282,6 +345,42 @@ Convert 1000000000 wei to eth
 Validate address 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb for ethereum
 
 Decode hex 0x48656c6c6f
+```
+
+### Solana Operations
+
+```
+Get SOL balance for address ABC123...
+
+Get all SPL token balances for wallet DEF456...
+
+Get USDC balance for Solana wallet (mint: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v)
+
+Get transaction details for signature 5a1b2c3d...
+
+Get recent prioritization fees for Solana
+
+Get transaction history for address ABC123...
+```
+
+### Cosmos Ecosystem (Osmosis, Juno, Kava, Akash, etc.)
+
+```
+Get OSMO balance for osmo1abc... on osmosis
+
+Get all delegations for osmo1abc... on osmosis
+
+Get list of validators on juno
+
+Get staking rewards for akash1xyz... on akash
+
+Get governance proposals on osmosis
+
+Get proposal #123 details on juno
+
+Search transactions by event on kava
+
+Get latest block on persistence
 ```
 
 ### Using Custom AppId (For Higher Rate Limits)
