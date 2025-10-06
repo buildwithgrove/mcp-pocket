@@ -1,115 +1,143 @@
-# Grove's Public Endpoints for Pocket Network
+# Grove MCP Server
 
-An extensible MCP (Model Context Protocol) server for surfacing Grove's **public endpoints** for Pocket Network and documentation.
+A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **69+ networks** via Grove's public endpoints for Pocket Network.
 
-> **💡 Public Endpoints + Optional Portal Support**: This MCP server uses Grove's free, public RPC endpoints by default. You can optionally provide your Grove Portal appId for higher rate limits. Get a free appId at [portal.grove.city](https://portal.grove.city).
+Transform Claude into a powerful blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons - all through Grove's free public RPC infrastructure.
+
+> **💡 Free Public Access + Optional Rate Limit Bypass**: Uses Grove's free public RPC endpoints by default - no API keys required! For higher rate limits, optionally provide your Grove Portal appId from [portal.grove.city](https://portal.grove.city).
+
+## Quick Start
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   npm run build
+   ```
+
+2. **Add to Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+   ```json
+   {
+     "mcpServers": {
+       "grove": {
+         "command": "node",
+         "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+       }
+     }
+   }
+   ```
+
+3. **Restart Claude Desktop** and start querying blockchains:
+   ```
+   "Get the balance of vitalik.eth"
+   "Compare balances for 0x... across all EVM chains"
+   "What's the current gas price on Ethereum?"
+   ```
 
 ## Features
 
 ### Core Blockchain Access
-- **Public RPC Access**: Query 69+ blockchain networks via Grove's free public endpoints
-- **Natural Language Queries**: Ask questions like "get the latest height for ethereum"
-- **Live JSON-RPC Calls**: Execute blockchain RPC methods directly from Claude Code
-- **Custom Portal Support**: Optional appId parameter for higher rate limits via Grove Portal
-- **No Authentication Required**: Uses public endpoints by default - no API keys needed
+- **69+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and 60+ more
+- **Natural Language Queries**: "get the latest height for ethereum" → direct results
+- **Free Public Access**: No API keys required - uses Grove's public RPC endpoints
+- **Optional Rate Limit Bypass**: Add Grove Portal appId for unlimited requests
+- **Live JSON-RPC**: Execute any blockchain RPC method directly
 
 ### Advanced Features
-- **Domain Resolution**: Resolve ENS (.eth) and Unstoppable Domains to addresses
-- **Reverse Resolution**: Find ENS names from addresses
-- **Transaction Analysis**: Get transaction details, receipts, and gas estimates
-- **Token Operations**: Query ERC-20 balances and metadata
-- **Multi-Chain Comparison**: Compare balances across all EVM chains simultaneously
-- **Block Exploration**: Get detailed block data and search event logs
-- **Smart Contract Calls**: Execute read-only contract functions
-- **Historical Queries**: Check balances at specific block heights
-- **Utility Tools**: Convert units, validate addresses, decode hex data
+- **🔍 Domain Resolution**: ENS (.eth) ↔ addresses, Unstoppable Domains (.crypto, .nft, etc.)
+- **📊 Transaction Analysis**: Full transaction details, receipts, gas estimates
+- **💰 Token Operations**: ERC-20 balances, metadata (name, symbol, decimals, supply)
+- **⛓️ Multi-Chain Analysis**: Compare balances across ALL EVM chains in one query
+- **📦 Block Exploration**: Detailed block data, event log searches
+- **📜 Smart Contracts**: Read-only contract calls
+- **⏰ Historical Queries**: Time-travel balance checks at any block height
+- **🛠️ Utilities**: Unit conversion (wei/gwei/eth), address validation, hex decoding
 
-### Additional
-- **Documentation Integration**: Access docs.grove.city content seamlessly
-- **Easy Extensibility**: Add new blockchains via configuration
+## Detailed Installation
 
-## Installation
+For detailed setup instructions, see [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md).
+
+### Manual Setup
 
 ```bash
+# Clone and build
+git clone https://github.com/buildwithgrove/mcp-grove.git
+cd mcp-grove
 npm install
 npm run build
-```
 
-## Adding to Claude Desktop
-
-Add to your Claude Desktop MCP configuration at `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
+# Add to Claude Desktop config: ~/Library/Application Support/Claude/claude_desktop_config.json
 {
   "mcpServers": {
     "grove": {
       "command": "node",
-      "args": ["/path/to/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
     }
   }
 }
-```
 
-For detailed setup instructions, see [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md).
+# Restart Claude Desktop
+```
 
 ## Available Tools
 
-### Core Blockchain Tools
+**24 specialized tools** for comprehensive blockchain analysis:
+
+### Core Blockchain Tools (5 tools)
 
 - `query_blockchain` - **Natural language queries** (e.g., "get the latest height for ethereum")
-- `list_blockchain_services` - List all available blockchain networks
+- `list_blockchain_services` - List all 69+ available blockchain networks
 - `get_blockchain_service` - Get details about a specific blockchain including supported methods
-- `call_rpc_method` - Call a JSON-RPC method directly on any blockchain
-- `get_supported_methods` - Get all RPC methods for a blockchain
+- `call_rpc_method` - Call any JSON-RPC method directly on any blockchain
+- `get_supported_methods` - Get all available RPC methods for a blockchain
 
-### Domain Resolution
+### Domain Resolution (3 tools)
 
-- `resolve_domain` - Resolve ENS (.eth) or Unstoppable Domains to addresses
-- `reverse_resolve_domain` - Reverse resolve Ethereum address to ENS name
-- `get_domain_records` - Get ENS text records (avatar, email, twitter, etc.)
+- `resolve_domain` - Resolve ENS (.eth) or Unstoppable Domains (.crypto, .nft, etc.) to addresses
+- `reverse_resolve_domain` - Reverse resolve Ethereum address to ENS domain name
+- `get_domain_records` - Get ENS text records (avatar, email, url, twitter, github, etc.)
 
-### Transaction & Block Tools
+### Transaction & Block Tools (5 tools)
 
-- `get_transaction` - Get transaction details by hash
-- `get_transaction_receipt` - Get transaction receipt with status, gas used, logs
-- `estimate_gas` - Estimate gas required for a transaction
-- `get_block_details` - Get detailed block information with optional full transactions
-- `search_logs` - Search event logs by address and topics
+- `get_transaction` - Get transaction details by hash across any chain
+- `get_transaction_receipt` - Get receipt with status, gas used, logs, and events
+- `estimate_gas` - Estimate gas required for a transaction before sending
+- `get_block_details` - Get detailed block information with optional full transaction list
+- `search_logs` - Search and filter event logs by address, topics, and block range
 
-### Token Tools
+### Token Tools (2 tools)
 
-- `get_token_balance` - Get ERC-20 token balance for an address
-- `get_token_metadata` - Get token name, symbol, decimals, total supply
+- `get_token_balance` - Get ERC-20 token balance for any address
+- `get_token_metadata` - Get token name, symbol, decimals, and total supply
 
-### Multi-Chain & Analysis
+### Multi-Chain & Historical Analysis (3 tools)
 
-- `compare_balances` - Compare native token balance across multiple EVM chains
-- `get_historical_balance` - Get balance at a specific block height
-- `get_gas_price` - Get current gas price for a blockchain
+- `compare_balances` - Compare native token balance across ALL EVM chains simultaneously
+- `get_historical_balance` - Get balance at a specific block height (time-travel queries)
+- `get_gas_price` - Get current gas price with automatic gwei/eth conversion
 
-### Smart Contract Tools
+### Smart Contract Tools (1 tool)
 
-- `call_contract_view` - Call a read-only contract function
+- `call_contract_view` - Execute read-only contract functions with encoded calldata
 
-### Utility Tools
+### Utility Tools (3 tools)
 
-- `convert_units` - Convert between wei, gwei, and eth
-- `validate_address` - Validate address format for a blockchain
-- `decode_hex` - Decode hex string to UTF-8, ASCII, and bytes
+- `convert_units` - Convert between wei, gwei, and eth with exact precision
+- `validate_address` - Validate address format for specific blockchain (EVM/Solana/Cosmos)
+- `decode_hex` - Decode hex strings to UTF-8, ASCII, and byte arrays
 
-### Endpoint Management
+### Endpoint Management (5 tools)
 
-- `list_endpoints` - List all endpoints (optionally filter by category)
+- `list_endpoints` - List all available endpoints (filter by category)
 - `get_endpoint_details` - Get detailed info about a specific endpoint
-- `call_endpoint` - Execute an endpoint with parameters
-- `list_categories` - List all available categories
-- `add_endpoint` - Dynamically add a new endpoint at runtime
+- `call_endpoint` - Execute an endpoint with custom parameters
+- `list_categories` - List all available endpoint categories
+- `add_endpoint` - Dynamically add new endpoints at runtime
 
-### Documentation
+### Documentation (3 tools)
 
-- `get_doc_page` - Retrieve a specific documentation page
-- `get_endpoint_docs` - Get docs for a specific endpoint
-- `search_docs` - Search documentation content
+- `get_doc_page` - Retrieve specific documentation pages from docs.grove.city
+- `get_endpoint_docs` - Get documentation for a specific endpoint
+- `search_docs` - Full-text search across Grove documentation
 
 ## Extending with New Blockchains
 
@@ -147,15 +175,17 @@ For more details, see [EXTENDING.md](EXTENDING.md).
 
 ```
 src/
-├── index.ts                       # MCP server entry point
-├── types.ts                       # TypeScript type definitions
+├── index.ts                            # MCP server entry point
+├── types.ts                            # TypeScript type definitions
 ├── config/
-│   ├── blockchain-services.json   # Blockchain network configurations
-│   └── endpoints.json             # HTTP endpoint configurations
+│   ├── blockchain-services.json        # 69+ blockchain network configurations
+│   └── endpoints.json                  # HTTP endpoint configurations
 └── services/
-    ├── blockchain-service.ts      # Blockchain RPC calls & natural language queries
-    ├── endpoint-manager.ts        # Generic HTTP endpoint manager
-    └── docs-manager.ts            # Documentation retrieval
+    ├── blockchain-service.ts           # Core RPC calls & natural language queries
+    ├── advanced-blockchain-service.ts  # Transactions, tokens, blocks, utilities
+    ├── domain-resolver.ts              # ENS & Unstoppable Domains resolution
+    ├── endpoint-manager.ts             # Generic HTTP endpoint manager
+    └── docs-manager.ts                 # Documentation retrieval
 ```
 
 ## Development
