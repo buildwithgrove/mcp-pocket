@@ -60,6 +60,12 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 - **📊 Priority Fees**: Real-time fee estimation for optimal transaction pricing
 - **📜 Account Data**: Program accounts, executable status, data owner
 
+**Sui:**
+- **🪙 Balances & Coins**: SUI balance, all coin balances, coin pagination
+- **📦 Objects**: Object details, owned objects, type/content display
+- **💸 Transactions**: Transaction blocks, queries, events
+- **⛽ Gas**: Reference gas price, latest checkpoint, checkpoint details
+
 **Cosmos SDK (16 chains):**
 - **🏦 Multi-Denom Balances**: Native tokens and IBC assets
 - **🔒 Staking**: Delegations, validators, rewards across all chains
@@ -147,7 +153,7 @@ npm run build
 - `list_categories` - List all available endpoint categories
 - `add_endpoint` - Dynamically add new endpoints at runtime
 
-### Solana Tools (8 tools)
+### Solana Tools (11 tools)
 
 **SPL Tokens:**
 - `get_solana_token_balance` - Get SPL token balance(s) for a Solana wallet
@@ -164,6 +170,31 @@ npm run build
 
 **Fees:**
 - `get_solana_prioritization_fees` - Get recent priority fees for transaction optimization
+- `get_solana_fee_for_message` - Estimate fee for a serialized message (base64)
+
+**Network & Programs:**
+- `get_solana_block_height` - Get current block height
+- `get_solana_program_accounts` - List accounts owned by a program (with filters)
+
+### Sui Tools (11 tools)
+
+**Balances & Coins:**
+- `get_sui_balance` - Get SUI balance with SUI conversion
+- `get_sui_all_balances` - Get all coin balances for an address
+- `get_sui_coins` - Paginate coins by `coinType` with cursor/limit
+
+**Objects:**
+- `get_sui_object` - Get object details with display/content options
+- `get_sui_owned_objects` - List objects owned by an address with filters
+
+**Transactions:**
+- `get_sui_transaction` - Get transaction block details by digest
+- `query_sui_transactions` - Query transactions with filters and pagination
+
+**Events & Chain:**
+- `query_sui_events` - Query events with filters and sort order
+- `get_sui_latest_checkpoint` - Get the latest checkpoint sequence number
+- `get_sui_checkpoint` - Get checkpoint details by ID
 
 ### Cosmos SDK Tools (16 tools - Works on all 16 Cosmos chains!)
 
@@ -244,7 +275,8 @@ src/
 └── services/
     ├── blockchain-service.ts           # Core RPC calls & natural language queries
     ├── advanced-blockchain-service.ts  # EVM: Transactions, tokens, blocks, utilities
-    ├── solana-service.ts               # Solana: SPL tokens, accounts, transactions
+    ├── solana-service.ts               # Solana: SPL tokens, accounts, transactions, fees
+    ├── sui-service.ts                  # Sui: balances, coins, objects, transactions, checkpoints
     ├── cosmos-service.ts               # Cosmos SDK: Staking, governance, IBC (16 chains)
     ├── domain-resolver.ts              # ENS & Unstoppable Domains resolution
     ├── endpoint-manager.ts             # Generic HTTP endpoint manager
