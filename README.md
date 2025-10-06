@@ -2,14 +2,15 @@
 
 An extensible MCP (Model Context Protocol) server for surfacing Grove's **public endpoints** for Pocket Network and documentation.
 
-> **⚠️ Public Endpoints Only**: This MCP server uses Grove's free, public RPC endpoints available at [grove.city/public-endpoints](https://grove.city/public-endpoints). It does **not** support Grove Portal authenticated endpoints or require an API key. For production use cases requiring higher rate limits, SLAs, or analytics, visit [portal.grove.city](https://portal.grove.city).
+> **💡 Public Endpoints + Optional Portal Support**: This MCP server uses Grove's free, public RPC endpoints by default. You can optionally provide your Grove Portal appId for higher rate limits. Get a free appId at [portal.grove.city](https://portal.grove.city).
 
 ## Features
 
-- **Public RPC Access**: Query 8+ blockchain networks via Grove's free public endpoints
+- **Public RPC Access**: Query 69+ blockchain networks via Grove's free public endpoints
 - **Natural Language Queries**: Ask questions like "get the latest height for ethereum"
 - **Live JSON-RPC Calls**: Execute blockchain RPC methods directly from Claude Code
-- **No Authentication Required**: Uses public endpoints - no API keys needed
+- **Custom Portal Support**: Optional appId parameter for higher rate limits via Grove Portal
+- **No Authentication Required**: Uses public endpoints by default - no API keys needed
 - **Documentation Integration**: Access docs.grove.city content seamlessly
 - **Easy Extensibility**: Add new blockchains via configuration
 
@@ -153,6 +154,18 @@ Show me supported methods for solana
 
 Call eth_getBalance on ethereum for address 0x...
 ```
+
+### Using Custom AppId (For Higher Rate Limits)
+
+If you encounter rate limits with public endpoints, you can provide your Grove Portal appId:
+
+```
+Call eth_blockNumber on ethereum with appId "YOUR_APP_ID"
+
+Get balance for address 0x... on polygon using appId "YOUR_APP_ID"
+```
+
+Get your free appId from [portal.grove.city](https://portal.grove.city)
 
 ### General Endpoint & Documentation
 

@@ -153,7 +153,8 @@ export class BlockchainRPCService {
   async callRPCMethod(
     serviceId: string,
     method: string,
-    params: any[] = []
+    params: any[] = [],
+    appId?: string
   ): Promise<EndpointResponse> {
     const service = this.getServiceById(serviceId);
     if (!service) {
@@ -163,8 +164,14 @@ export class BlockchainRPCService {
       };
     }
 
+    // Use custom appId if provided, otherwise use the default from service config
+    let rpcUrl = service.rpcUrl;
+    if (appId) {
+      rpcUrl = rpcUrl.replace(/\/v1\/[^/]+$/, `/v1/${appId}`);
+    }
+
     try {
-      const response = await fetch(service.rpcUrl, {
+      const response = await fetch(rpcUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +191,7 @@ export class BlockchainRPCService {
 
         // Common HTTP error interpretations
         if (response.status === 429) {
-          errorMessage = `Rate limit exceeded (HTTP 429). Public endpoints have usage limits. Please try again later or use Grove Portal for higher limits.`;
+          errorMessage = `Rate limit exceeded (HTTP 429). Public endpoints have usage limits. To bypass rate limits, get a free appId from portal.grove.city and provide it via the 'appId' parameter. Alternatively, try again later.`;
         } else if (response.status === 503) {
           errorMessage = `Service temporarily unavailable (HTTP 503). The endpoint may be overloaded.`;
         } else if (response.status >= 500) {
