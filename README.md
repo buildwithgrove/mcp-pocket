@@ -2,6 +2,8 @@
 
 A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **[69+ networks](https://grove.city/services)** via Grove's public endpoints for Pocket Network.
 
+**Requires an MCP client** such as Claude Desktop, Claude Code CLI, or the MCP Inspector. This server cannot be used directly from a regular terminal - it implements the MCP protocol and must be connected to an MCP-compatible client.
+
 Transform Claude into a powerful blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons - all through Grove's free public RPC infrastructure.
 
 > **💡 Free Public Access + Optional Rate Limit Bypass**: Uses Grove's free public RPC endpoints by default — no API keys required (may be rate limited). See the list at https://grove.city/public-endpoints. For higher rate limits, optionally provide your Grove Portal appId from [portal.grove.city](https://portal.grove.city).
@@ -21,7 +23,9 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
      export GROVE_APP_ID=your_app_id
      ```
 
-3. **Add to Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+3. **Configure your MCP client:**
+
+   **For Claude Desktop** (edit `~/Library/Application Support/Claude/claude_desktop_config.json`):
    ```json
    {
      "mcpServers": {
@@ -33,7 +37,17 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
    }
    ```
 
-4. **Restart Claude Desktop** and start querying blockchains:
+   **For Claude Code CLI:**
+   ```bash
+   claude mcp add grove node /absolute/path/to/mcp-grove/dist/index.js
+   ```
+
+   **For MCP Inspector** (testing/development):
+   ```bash
+   npx @modelcontextprotocol/inspector node dist/index.js
+   ```
+
+4. **Restart Claude Desktop** (if using Desktop) or reload your MCP client, then start querying blockchains:
    ```
    "Get the balance of vitalik.eth"
    "Compare balances for 0x... across all EVM chains"
@@ -94,17 +108,22 @@ cd mcp-grove
 npm install
 npm run build
 
-# Add to Claude Desktop config: ~/Library/Application Support/Claude/claude_desktop_config.json
-{
-  "mcpServers": {
-    "grove": {
-      "command": "node",
-      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
-    }
-  }
-}
+# Configure for Claude Desktop or Claude Code CLI
 
-# Restart Claude Desktop
+# For Claude Desktop: Edit ~/Library/Application Support/Claude/claude_desktop_config.json
+# {
+#   "mcpServers": {
+#     "grove": {
+#       "command": "node",
+#       "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+#     }
+#   }
+# }
+
+# For Claude Code CLI:
+# claude mcp add grove node /absolute/path/to/mcp-grove/dist/index.js
+
+# Restart Claude Desktop (if using Desktop)
 ```
 
 ## Available Tools
