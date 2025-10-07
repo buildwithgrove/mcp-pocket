@@ -8,7 +8,8 @@
     "build": "tsc && npm run copy-config",
     "copy-config": "mkdir -p dist/config && cp src/config/*.json dist/config/",
     "prepare": "npm run build",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "smoke": "node scripts/smoke.mjs"
   },
   "bin": {
     "mcp-grove": "./dist/index.js"

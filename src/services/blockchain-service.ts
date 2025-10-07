@@ -156,6 +156,7 @@ export class BlockchainRPCService {
     params: any[] = [],
     appId?: string
   ): Promise<EndpointResponse> {
+    const effectiveAppId = appId || process.env.GROVE_APP_ID;
     const service = this.getServiceById(serviceId);
     if (!service) {
       return {
@@ -166,8 +167,8 @@ export class BlockchainRPCService {
 
     // Use custom appId if provided, otherwise use the default from service config
     let rpcUrl = service.rpcUrl;
-    if (appId) {
-      rpcUrl = rpcUrl.replace(/\/v1\/[^/]+$/, `/v1/${appId}`);
+    if (effectiveAppId) {
+      rpcUrl = rpcUrl.replace(/\/v1\/[^/]+$/, `/v1/${effectiveAppId}`);
     }
 
     try {

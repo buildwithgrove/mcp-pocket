@@ -14,7 +14,12 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
    npm run build
    ```
 
-2. **Add to Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+2. (Optional) **Set your Grove Portal App ID** — same appId works across all chains:
+   ```bash
+   export GROVE_APP_ID=your_app_id
+   ```
+
+3. **Add to Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
    ```json
    {
      "mcpServers": {
@@ -26,7 +31,7 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
    }
    ```
 
-3. **Restart Claude Desktop** and start querying blockchains:
+4. **Restart Claude Desktop** and start querying blockchains:
    ```
    "Get the balance of vitalik.eth"
    "Compare balances for 0x... across all EVM chains"
@@ -41,6 +46,8 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 - **Free Public Access**: No API keys required - uses Grove's public RPC endpoints
 - **Optional Rate Limit Bypass**: Add Grove Portal appId for unlimited requests
 - **Live JSON-RPC**: Execute any blockchain RPC method directly
+
+Tip: Set `GROVE_APP_ID` once and it applies to all chains (EVM, Solana, Cosmos, Sui). You can also pass `appId` per-tool if you prefer.
 
 ### Advanced Features
 
@@ -289,6 +296,17 @@ Watch mode for development:
 
 ```bash
 npm run watch
+```
+
+### Smoke Test
+
+Run a quick end-to-end check (Ethereum, Solana, Sui). Cosmos will run if `GROVE_APP_ID` is set.
+
+```bash
+npm run build
+# Optional for Cosmos REST
+export GROVE_APP_ID=your_app_id
+npm run smoke
 ```
 
 ## Supported Blockchains

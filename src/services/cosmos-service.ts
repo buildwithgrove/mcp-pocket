@@ -36,10 +36,11 @@ export class CosmosService {
     appId?: string
   ): Promise<EndpointResponse> {
     try {
-      // Choose appId or public for REST
-      const finalUrl = appId
-        ? url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/${appId}`)
-        : url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/public`);
+      const effectiveAppId = appId || process.env.GROVE_APP_ID;
+      // If an appId is provided, ensure it is used in the REST URL; otherwise keep URL as-is
+      const finalUrl = effectiveAppId
+        ? url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/${effectiveAppId}`)
+        : url;
 
       const response = await fetch(finalUrl, {
         method: 'GET',
