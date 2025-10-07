@@ -1,6 +1,6 @@
 # Grove MCP Server
 
-A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **69+ networks** via Grove's public endpoints for Pocket Network.
+A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **[69+ networks](https://grove.city/services)** via Grove's public endpoints for Pocket Network.
 
 Transform Claude into a powerful blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons - all through Grove's free public RPC infrastructure.
 
@@ -14,10 +14,12 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
    npm run build
    ```
 
-2. (Optional) **Set your Grove Portal App ID** — same appId works across all chains:
-   ```bash
-   export GROVE_APP_ID=your_app_id
-   ```
+2. **Public endpoints by default (rate limited) + optional appId**
+   - By default this server uses Grove's public endpoints (may be rate limited). See the list at https://grove.city/public-endpoints.
+   - For higher rate limits across all chains, optionally set your Grove Portal appId (same appId works everywhere):
+     ```bash
+     export GROVE_APP_ID=your_app_id
+     ```
 
 3. **Add to Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
    ```json
@@ -112,7 +114,7 @@ npm run build
 ### Core Blockchain Tools (5 tools)
 
 - `query_blockchain` - **Natural language queries** (e.g., "get the latest height for ethereum")
-- `list_blockchain_services` - List all 69+ available blockchain networks
+- `list_blockchain_services` - List all [69+ available networks](https://grove.city/services)
 - `get_blockchain_service` - Get details about a specific blockchain including supported methods
 - `call_rpc_method` - Call any JSON-RPC method directly on any blockchain
 - `get_supported_methods` - Get all available RPC methods for a blockchain
@@ -311,7 +313,7 @@ npm run smoke
 
 ## Supported Blockchains
 
-**69 blockchain networks** available via Grove's public endpoints:
+**[69 blockchain networks](https://grove.city/services)** available via Grove's public endpoints:
 
 **EVM Chains:**
 Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM
