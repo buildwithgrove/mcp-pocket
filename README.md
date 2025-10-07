@@ -302,14 +302,14 @@ npm run watch
 
 ### Smoke Test
 
-Run a quick end-to-end check (Ethereum, Solana, Sui). Cosmos will run if `GROVE_APP_ID` is set.
+Run a quick end-to-end test across multiple chain types using public endpoints:
 
 ```bash
 npm run build
-# Optional for Cosmos REST
-export GROVE_APP_ID=your_app_id
 npm run smoke
 ```
+
+Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Akash), and Radix chains.
 
 ## Supported Blockchains
 
