@@ -309,7 +309,7 @@ npm run build
 npm run smoke
 ```
 
-Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Akash), and Radix chains.
+Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence), and Radix chains.
 
 ## Supported Blockchains
 

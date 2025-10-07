@@ -75,17 +75,17 @@ async function run() {
   }
 
   try {
-    // Akash - test with status method (Tendermint RPC)
-    const akashResult = await rpc.callRPCMethod('akash-mainnet', 'status', []);
+    // Persistence - test with status method (Tendermint RPC)
+    const persistenceResult = await rpc.callRPCMethod('persistence-mainnet', 'status', []);
     // Check if it's an infrastructure issue (no endpoints available)
-    const akashError = JSON.stringify(akashResult);
-    if (!akashResult.success && akashError.includes('no endpoint responses')) {
-      results.akash_status = { success: true, skipped: true, reason: 'Akash endpoints temporarily unavailable (infrastructure issue)' };
+    const persistenceError = JSON.stringify(persistenceResult);
+    if (!persistenceResult.success && persistenceError.includes('no endpoint responses')) {
+      results.persistence_status = { success: true, skipped: true, reason: 'Persistence endpoints temporarily unavailable (infrastructure issue)' };
     } else {
-      results.akash_status = akashResult;
+      results.persistence_status = persistenceResult;
     }
   } catch (e) {
-    results.akash_status = { success: false, error: e?.message || String(e) };
+    results.persistence_status = { success: false, error: e?.message || String(e) };
   }
 
   // Test Radix - uses Gateway API (JSON-RPC)
