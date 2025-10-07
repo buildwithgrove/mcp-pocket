@@ -4,7 +4,7 @@ A comprehensive **Model Context Protocol (MCP)** server providing blockchain dat
 
 Transform Claude into a powerful blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons - all through Grove's free public RPC infrastructure.
 
-> **💡 Free Public Access + Optional Rate Limit Bypass**: Uses Grove's free public RPC endpoints by default - no API keys required! For higher rate limits, optionally provide your Grove Portal appId from [portal.grove.city](https://portal.grove.city).
+> **💡 Free Public Access + Optional Rate Limit Bypass**: Uses Grove's free public RPC endpoints by default — no API keys required (may be rate limited). See the list at https://grove.city/public-endpoints. For higher rate limits, optionally provide your Grove Portal appId from [portal.grove.city](https://portal.grove.city).
 
 ## Quick Start
 
@@ -43,7 +43,7 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 ### Core Blockchain Access
 - **69+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and 60+ more
 - **Natural Language Queries**: "get the latest height for ethereum" → direct results
-- **Free Public Access**: No API keys required - uses Grove's public RPC endpoints
+- **Free Public Access**: No API keys required — uses Grove's public RPC endpoints (may be rate limited; see https://grove.city/public-endpoints)
 - **Optional Rate Limit Bypass**: Add Grove Portal appId for unlimited requests
 - **Live JSON-RPC**: Execute any blockchain RPC method directly
 
@@ -51,7 +51,7 @@ Tip: Set `GROVE_APP_ID` once and it applies to all chains (EVM, Solana, Cosmos, 
 
 ### Advanced Features
 
-**EVM Chains (47 chains):**
+**EVM Chains:**
 - **🔍 Domain Resolution**: ENS (.eth) ↔ addresses, Unstoppable Domains (.crypto, .nft, etc.)
 - **📊 Transaction Analysis**: Full transaction details, receipts, gas estimates
 - **💰 Token Operations**: ERC-20 balances, metadata (name, symbol, decimals, supply)
@@ -73,7 +73,7 @@ Tip: Set `GROVE_APP_ID` once and it applies to all chains (EVM, Solana, Cosmos, 
 - **💸 Transactions**: Transaction blocks, queries, events
 - **⛽ Gas**: Reference gas price, latest checkpoint, checkpoint details
 
-**Cosmos SDK (16 chains):**
+**Cosmos SDK:**
 - **🏦 Multi-Denom Balances**: Native tokens and IBC assets
 - **🔒 Staking**: Delegations, validators, rewards across all chains
 - **🗳️ Governance**: Proposals, votes, and on-chain governance
@@ -203,7 +203,7 @@ npm run build
 - `get_sui_latest_checkpoint` - Get the latest checkpoint sequence number
 - `get_sui_checkpoint` - Get checkpoint details by ID
 
-### Cosmos SDK Tools (16 tools - Works on all 16 Cosmos chains!)
+### Cosmos SDK Tools
 
 **Accounts & Balances:**
 - `get_cosmos_balance` - Get balance for specific denom or all balances
@@ -284,7 +284,7 @@ src/
     ├── advanced-blockchain-service.ts  # EVM: Transactions, tokens, blocks, utilities
     ├── solana-service.ts               # Solana: SPL tokens, accounts, transactions, fees
     ├── sui-service.ts                  # Sui: balances, coins, objects, transactions, checkpoints
-    ├── cosmos-service.ts               # Cosmos SDK: Staking, governance, IBC (16 chains)
+    ├── cosmos-service.ts               # Cosmos SDK: Staking, governance, IBC
     ├── domain-resolver.ts              # ENS & Unstoppable Domains resolution
     ├── endpoint-manager.ts             # Generic HTTP endpoint manager
     └── docs-manager.ts                 # Documentation retrieval
@@ -319,7 +319,7 @@ Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moon
 **Layer 2 Solutions:**
 Arbitrum, Optimism, Base, zkSync Era, zkLink Nova, Scroll, Linea, Mantle, Blast, Boba, Metis, Taiko, Unichain, opBNB, Fraxtal, Polygon zkEVM
 
-**Cosmos Ecosystem:** ✅ (full support for all 16 chains)
+**Cosmos Ecosystem:** ✅ (many chains supported)
 Osmosis, Juno, Akash, Kava, Persistence, Stargaze, AtomOne, Cheqd, Chihuahua, Fetch.ai, Hyperliquid, Jackal, Pocket Network, Seda, Sei, Shentu
 
 **Non-EVM:**
