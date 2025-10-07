@@ -22,9 +22,10 @@ export class CosmosService {
     }
 
     // Convert RPC URL to REST API URL
-    // Grove's Cosmos endpoints support both RPC and REST APIs
-    const rpcUrl = service.rpcUrl;
-    return rpcUrl.replace('/v1/', '/v1/rest/');
+    // Pattern: https://<chain>.rpc.grove.city/v1/rest/<appId>
+    const rpcUrl = service.rpcUrl.replace(/\/$/, '');
+    const restUrl = rpcUrl.replace(/\/v1\/([^/]+)$/, '/v1/rest/$1');
+    return restUrl;
   }
 
   /**
@@ -35,8 +36,10 @@ export class CosmosService {
     appId?: string
   ): Promise<EndpointResponse> {
     try {
-      // Add appId to URL if provided
-      const finalUrl = appId ? url.replace(/\/v1\/rest\//, `/v1/rest/${appId}/`) : url;
+      // Choose appId or public for REST
+      const finalUrl = appId
+        ? url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/${appId}`)
+        : url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/public`);
 
       const response = await fetch(finalUrl, {
         method: 'GET',
