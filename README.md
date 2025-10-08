@@ -12,7 +12,7 @@
 
 # Grove MCP Server
 
-A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **[69+ networks](https://grove.city/services)** via Grove's public endpoints for Pocket Network.
+A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **[70+ networks](https://grove.city/services)** via Grove's public endpoints for Pocket Network.
 
 **Requires an MCP client** such as Claude Desktop, Claude Code CLI, or the MCP Inspector. This server cannot be used directly from a regular terminal - it implements the MCP protocol and must be connected to an MCP-compatible client.
 
@@ -69,7 +69,7 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 ## Features
 
 ### Core Blockchain Access
-- **69+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and 60+ more
+- **70+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and 60+ more
 - **Natural Language Queries**: "get the latest height for ethereum" → direct results
 - **Free Public Access**: No API keys required — uses Grove's public RPC endpoints (may be rate limited; see https://grove.city/public-endpoints)
 - **Optional Rate Limit Bypass**: Add Grove Portal appId for unlimited requests
@@ -145,7 +145,7 @@ npm run build
 ### Core Blockchain Tools (5 tools)
 
 - `query_blockchain` - **Natural language queries** (e.g., "get the latest height for ethereum")
-- `list_blockchain_services` - List all [69+ available networks](https://grove.city/services)
+- `list_blockchain_services` - List all [70+ available networks](https://grove.city/services)
 - `get_blockchain_service` - Get details about a specific blockchain including supported methods
 - `call_rpc_method` - Call any JSON-RPC method directly on any blockchain
 - `get_supported_methods` - Get all available RPC methods for a blockchain
@@ -310,7 +310,7 @@ src/
 ├── index.ts                            # MCP server entry point (40+ tools)
 ├── types.ts                            # TypeScript type definitions
 ├── config/
-│   ├── blockchain-services.json        # 69 blockchain network configurations
+│   ├── blockchain-services.json        # 70 blockchain network configurations
 │   └── endpoints.json                  # HTTP endpoint configurations
 └── services/
     ├── blockchain-service.ts           # Core RPC calls & natural language queries
@@ -344,7 +344,7 @@ Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence),
 
 ## Supported Blockchains
 
-**[69 blockchain networks](https://grove.city/services)** available via Grove's public endpoints:
+**[70 blockchain networks](https://grove.city/services)** available via Grove's public endpoints:
 
 **EVM Chains:**
 Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM
