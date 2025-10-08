@@ -9,7 +9,11 @@
     "copy-config": "mkdir -p dist/config && cp src/config/*.json dist/config/",
     "prepare": "npm run build",
     "watch": "tsc --watch",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "bin": {
     "mcp-grove": "./dist/index.js"
@@ -26,6 +30,9 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "typescript": "^5.0.0"
+    "@vitest/ui": "^3.2.4",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4",
+    "zod": "^3.25.76"
   }
 }
