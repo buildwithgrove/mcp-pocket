@@ -12,32 +12,56 @@
 
 # Grove MCP Server
 
-A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **[70+ networks](https://grove.city/services)** via Grove's public endpoints for Pocket Network.
+**Model Context Protocol (MCP)** server for blockchain data access across **[70+ networks](https://grove.city/services)** via Grove's public endpoints.
 
-**Requires an MCP client** such as Claude Desktop, Claude Code CLI, or the MCP Inspector. This server cannot be used directly from a regular terminal - it implements the MCP protocol and must be connected to an MCP-compatible client.
+**Requires an MCP client** like Claude Desktop, Claude Code CLI, or MCP Inspector. Cannot be used directly from a terminal.
 
-Transform Claude into a powerful blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons - all through Grove's free public RPC infrastructure.
+Turn Claude into a blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons.
 
-> **💡 Free Public Access + Optional Rate Limit Bypass**: Uses Grove's free public RPC endpoints by default — no API keys required (may be rate limited). See the list at https://grove.city/public-endpoints. For higher rate limits, optionally provide your Grove Portal appId from [portal.grove.city](https://portal.grove.city).
+> **Free Public Access**: Uses Grove's free public RPC endpoints by default (may be rate limited). See https://grove.city/public-endpoints. For higher rate limits, add your Grove Portal appId from [portal.grove.city](https://portal.grove.city).
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Detailed Installation](#detailed-installation)
+- [Available Tools](#available-tools)
+  - [Core Blockchain Tools](#core-blockchain-tools-5-tools)
+  - [Domain Resolution](#domain-resolution-3-tools)
+  - [Transaction & Block Tools](#transaction--block-tools-5-tools)
+  - [Token Tools](#token-tools-2-tools)
+  - [Multi-Chain & Historical Analysis](#multi-chain--historical-analysis-3-tools)
+  - [Smart Contract Tools](#smart-contract-tools-1-tool)
+  - [Utility Tools](#utility-tools-3-tools)
+  - [Endpoint Management](#endpoint-management-5-tools)
+  - [Solana Tools](#solana-tools-11-tools)
+  - [Sui Tools](#sui-tools-11-tools)
+  - [Cosmos SDK Tools](#cosmos-sdk-tools)
+  - [Documentation](#documentation-3-tools)
+- [Extending with New Blockchains](#extending-with-new-blockchains)
+- [Architecture](#architecture)
+- [Development](#development)
+- [Supported Blockchains](#supported-blockchains)
+- [Example Usage](#example-usage)
+- [License](#license)
 
 ## Quick Start
 
-1. **Install dependencies:**
+1. **Install and build:**
    ```bash
    npm install
    npm run build
    ```
 
-2. **Public endpoints by default (rate limited) + optional appId**
-   - By default this server uses Grove's public endpoints (may be rate limited). See the list at https://grove.city/public-endpoints.
-   - For higher rate limits across all chains, optionally set your Grove Portal appId (same appId works everywhere):
-     ```bash
-     export GROVE_APP_ID=your_app_id
-     ```
+2. **Optional: Set Grove Portal appId** (for higher rate limits):
+   ```bash
+   export GROVE_APP_ID=your_app_id
+   ```
+   Default uses public endpoints (may be rate limited). Get appId at [portal.grove.city](https://portal.grove.city).
 
-3. **Configure your MCP client:**
+3. **Configure MCP client:**
 
-   **For Claude Desktop** (edit `~/Library/Application Support/Claude/claude_desktop_config.json`):
+   **Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
    ```json
    {
      "mcpServers": {
@@ -49,17 +73,17 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
    }
    ```
 
-   **For Claude Code CLI:**
+   **Claude Code CLI:**
    ```bash
    claude mcp add grove node /absolute/path/to/mcp-grove/dist/index.js
    ```
 
-   **For MCP Inspector** (testing/development):
+   **MCP Inspector** (testing):
    ```bash
    npx @modelcontextprotocol/inspector node dist/index.js
    ```
 
-4. **Restart Claude Desktop** (if using Desktop) or reload your MCP client, then start querying blockchains:
+4. **Restart client** and start querying:
    ```
    "Get the balance of vitalik.eth"
    "Compare balances for 0x... across all EVM chains"
@@ -69,47 +93,47 @@ Transform Claude into a powerful blockchain analysis tool with natural language 
 ## Features
 
 ### Core Blockchain Access
-- **70+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and 60+ more
+- **70+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
 - **Natural Language Queries**: "get the latest height for ethereum" → direct results
-- **Free Public Access**: No API keys required — uses Grove's public RPC endpoints (may be rate limited; see https://grove.city/public-endpoints)
-- **Optional Rate Limit Bypass**: Add Grove Portal appId for unlimited requests
+- **Free Public Access**: No API keys required (may be rate limited)
+- **Optional Rate Limit Bypass**: Add Grove Portal appId for higher limits
 - **Live JSON-RPC**: Execute any blockchain RPC method directly
 
-Tip: Set `GROVE_APP_ID` once and it applies to all chains (EVM, Solana, Cosmos, Sui). You can also pass `appId` per-tool if you prefer.
+**Tip**: Set `GROVE_APP_ID` once, applies to all chains (EVM, Solana, Cosmos, Sui). Or pass `appId` per-tool.
 
-### Advanced Features
+### Chain-Specific Features
 
 **EVM Chains:**
-- **🔍 Domain Resolution**: ENS (.eth) ↔ addresses, Unstoppable Domains (.crypto, .nft, etc.)
-- **📊 Transaction Analysis**: Full transaction details, receipts, gas estimates
-- **💰 Token Operations**: ERC-20 balances, metadata (name, symbol, decimals, supply)
-- **⛓️ Multi-Chain Analysis**: Compare balances across ALL EVM chains in one query
-- **📦 Block Exploration**: Detailed block data, event log searches
-- **📜 Smart Contracts**: Read-only contract calls
-- **⏰ Historical Queries**: Time-travel balance checks at any block height
-- **🛠️ Utilities**: Unit conversion (wei/gwei/eth), address validation, hex decoding
+- Domain Resolution: ENS (.eth) ↔ addresses, Unstoppable Domains (.crypto, .nft, etc.)
+- Transaction Analysis: Full details, receipts, gas estimates
+- Token Operations: ERC-20 balances, metadata (name, symbol, decimals, supply)
+- Multi-Chain Analysis: Compare balances across all EVM chains
+- Block Exploration: Detailed block data, event log searches
+- Smart Contracts: Read-only contract calls
+- Historical Queries: Balance checks at any block height
+- Utilities: Unit conversion (wei/gwei/eth), address validation, hex decoding
 
 **Solana:**
-- **🪙 SPL Tokens**: Token balances and metadata for any SPL token
-- **💸 Transactions**: Full transaction details with compute units and fees
-- **📊 Priority Fees**: Real-time fee estimation for optimal transaction pricing
-- **📜 Account Data**: Program accounts, executable status, data owner
+- SPL Tokens: Balances and metadata
+- Transactions: Full details with compute units and fees
+- Priority Fees: Real-time fee estimation
+- Account Data: Program accounts, executable status, data owner
 
 **Sui:**
-- **🪙 Balances & Coins**: SUI balance, all coin balances, coin pagination
-- **📦 Objects**: Object details, owned objects, type/content display
-- **💸 Transactions**: Transaction blocks, queries, events
-- **⛽ Gas**: Reference gas price, latest checkpoint, checkpoint details
+- Balances & Coins: SUI balance, all coin balances, pagination
+- Objects: Details, owned objects, type/content display
+- Transactions: Blocks, queries, events
+- Gas: Reference price, checkpoints
 
 **Cosmos SDK:**
-- **🏦 Multi-Denom Balances**: Native tokens and IBC assets
-- **🔒 Staking**: Delegations, validators, rewards across all chains
-- **🗳️ Governance**: Proposals, votes, and on-chain governance
-- **🔗 IBC Support**: Cross-chain balance queries via REST API
+- Multi-Denom Balances: Native tokens and IBC assets
+- Staking: Delegations, validators, rewards
+- Governance: Proposals, votes
+- IBC Support: Cross-chain queries via REST API
 
 ## Detailed Installation
 
-For detailed setup instructions, see [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md).
+See [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md) for complete setup instructions.
 
 ### Manual Setup
 
@@ -120,163 +144,146 @@ cd mcp-grove
 npm install
 npm run build
 
-# Configure for Claude Desktop or Claude Code CLI
-
-# For Claude Desktop: Edit ~/Library/Application Support/Claude/claude_desktop_config.json
-# {
-#   "mcpServers": {
-#     "grove": {
-#       "command": "node",
-#       "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
-#     }
-#   }
-# }
-
-# For Claude Code CLI:
-# claude mcp add grove node /absolute/path/to/mcp-grove/dist/index.js
-
-# Restart Claude Desktop (if using Desktop)
+# Configure MCP client (see Quick Start section above)
+# Restart client when done
 ```
 
 ## Available Tools
 
-**40+ specialized tools** for comprehensive blockchain analysis across EVM, Solana, and Cosmos chains:
+40+ specialized tools for blockchain analysis across EVM, Solana, and Cosmos chains:
 
 ### Core Blockchain Tools (5 tools)
 
-- `query_blockchain` - **Natural language queries** (e.g., "get the latest height for ethereum")
+- `query_blockchain` - Natural language queries (e.g., "get the latest height for ethereum")
 - `list_blockchain_services` - List all [70+ available networks](https://grove.city/services)
-- `get_blockchain_service` - Get details about a specific blockchain including supported methods
-- `call_rpc_method` - Call any JSON-RPC method directly on any blockchain
+- `get_blockchain_service` - Get blockchain details and supported methods
+- `call_rpc_method` - Call any JSON-RPC method directly
 - `get_supported_methods` - Get all available RPC methods for a blockchain
 
 ### Domain Resolution (3 tools)
 
-- `resolve_domain` - Resolve ENS (.eth) or Unstoppable Domains (.crypto, .nft, etc.) to addresses
-- `reverse_resolve_domain` - Reverse resolve Ethereum address to ENS domain name
+- `resolve_domain` - Resolve ENS (.eth) or Unstoppable Domains (.crypto, .nft, etc.)
+- `reverse_resolve_domain` - Reverse resolve Ethereum address to ENS name
 - `get_domain_records` - Get ENS text records (avatar, email, url, twitter, github, etc.)
 
 ### Transaction & Block Tools (5 tools)
 
-- `get_transaction` - Get transaction details by hash across any chain
-- `get_transaction_receipt` - Get receipt with status, gas used, logs, and events
-- `estimate_gas` - Estimate gas required for a transaction before sending
-- `get_block_details` - Get detailed block information with optional full transaction list
-- `search_logs` - Search and filter event logs by address, topics, and block range
+- `get_transaction` - Get transaction details by hash
+- `get_transaction_receipt` - Get receipt with status, gas used, logs, events
+- `estimate_gas` - Estimate gas required for a transaction
+- `get_block_details` - Get block information with optional full transaction list
+- `search_logs` - Search event logs by address, topics, block range
 
 ### Token Tools (2 tools)
 
-- `get_token_balance` - Get ERC-20 token balance for any address
-- `get_token_metadata` - Get token name, symbol, decimals, and total supply
+- `get_token_balance` - Get ERC-20 token balance
+- `get_token_metadata` - Get token name, symbol, decimals, total supply
 
 ### Multi-Chain & Historical Analysis (3 tools)
 
-- `compare_balances` - Compare native token balance across ALL EVM chains simultaneously
-- `get_historical_balance` - Get balance at a specific block height (time-travel queries)
-- `get_gas_price` - Get current gas price with automatic gwei/eth conversion
+- `compare_balances` - Compare native balance across all EVM chains
+- `get_historical_balance` - Get balance at specific block height
+- `get_gas_price` - Get current gas price with gwei/eth conversion
 
 ### Smart Contract Tools (1 tool)
 
-- `call_contract_view` - Execute read-only contract functions with encoded calldata
+- `call_contract_view` - Execute read-only contract functions
 
 ### Utility Tools (3 tools)
 
-- `convert_units` - Convert between wei, gwei, and eth with exact precision
-- `validate_address` - Validate address format for specific blockchain (EVM/Solana/Cosmos)
-- `decode_hex` - Decode hex strings to UTF-8, ASCII, and byte arrays
+- `convert_units` - Convert between wei, gwei, and eth
+- `validate_address` - Validate address format (EVM/Solana/Cosmos)
+- `decode_hex` - Decode hex strings to UTF-8, ASCII, byte arrays
 
 ### Endpoint Management (5 tools)
 
-- `list_endpoints` - List all available endpoints (filter by category)
-- `get_endpoint_details` - Get detailed info about a specific endpoint
-- `call_endpoint` - Execute an endpoint with custom parameters
-- `list_categories` - List all available endpoint categories
-- `add_endpoint` - Dynamically add new endpoints at runtime
+- `list_endpoints` - List all endpoints (filter by category)
+- `get_endpoint_details` - Get endpoint details
+- `call_endpoint` - Execute endpoint with custom parameters
+- `list_categories` - List endpoint categories
+- `add_endpoint` - Add new endpoints at runtime
 
 ### Solana Tools (11 tools)
 
 **SPL Tokens:**
-- `get_solana_token_balance` - Get SPL token balance(s) for a Solana wallet
-- `get_solana_token_metadata` - Get token decimals, supply, mint/freeze authorities
+- `get_solana_token_balance` - Get SPL token balance(s)
+- `get_solana_token_metadata` - Get token decimals, supply, authorities
 
 **Accounts & Balances:**
-- `get_solana_balance` - Get SOL balance with lamports and SOL conversion
-- `get_solana_account_info` - Get account data, owner, and executable status
+- `get_solana_balance` - Get SOL balance with lamports/SOL conversion
+- `get_solana_account_info` - Get account data, owner, executable status
 
 **Blocks & Transactions:**
-- `get_solana_block` - Get block information with optional full transaction list
-- `get_solana_transaction` - Get transaction details by signature with full metadata
-- `get_solana_signatures` - Get transaction history for an address
+- `get_solana_block` - Get block with optional full transaction list
+- `get_solana_transaction` - Get transaction details by signature
+- `get_solana_signatures` - Get transaction history
 
 **Fees:**
-- `get_solana_prioritization_fees` - Get recent priority fees for transaction optimization
-- `get_solana_fee_for_message` - Estimate fee for a serialized message (base64)
+- `get_solana_prioritization_fees` - Get recent priority fees
+- `get_solana_fee_for_message` - Estimate fee for serialized message
 
 **Network & Programs:**
 - `get_solana_block_height` - Get current block height
-- `get_solana_program_accounts` - List accounts owned by a program (with filters)
+- `get_solana_program_accounts` - List accounts owned by program
 
 ### Sui Tools (11 tools)
 
 **Balances & Coins:**
-- `get_sui_balance` - Get SUI balance with SUI conversion
-- `get_sui_all_balances` - Get all coin balances for an address
-- `get_sui_coins` - Paginate coins by `coinType` with cursor/limit
+- `get_sui_balance` - Get SUI balance
+- `get_sui_all_balances` - Get all coin balances
+- `get_sui_coins` - Paginate coins by type
 
 **Objects:**
-- `get_sui_object` - Get object details with display/content options
-- `get_sui_owned_objects` - List objects owned by an address with filters
+- `get_sui_object` - Get object details
+- `get_sui_owned_objects` - List owned objects
 
 **Transactions:**
-- `get_sui_transaction` - Get transaction block details by digest
-- `query_sui_transactions` - Query transactions with filters and pagination
+- `get_sui_transaction` - Get transaction block by digest
+- `query_sui_transactions` - Query transactions with filters
 
 **Events & Chain:**
-- `query_sui_events` - Query events with filters and sort order
-- `get_sui_latest_checkpoint` - Get the latest checkpoint sequence number
-- `get_sui_checkpoint` - Get checkpoint details by ID
+- `query_sui_events` - Query events with filters
+- `get_sui_latest_checkpoint` - Get latest checkpoint
+- `get_sui_checkpoint` - Get checkpoint by ID
 
 ### Cosmos SDK Tools
 
 **Accounts & Balances:**
-- `get_cosmos_balance` - Get balance for specific denom or all balances
-- `get_cosmos_all_balances` - Get all token balances for an address
-- `get_cosmos_account` - Get account information (sequence, account number)
+- `get_cosmos_balance` - Get balance for denom
+- `get_cosmos_all_balances` - Get all token balances
+- `get_cosmos_account` - Get account info (sequence, number)
 
 **Staking:**
-- `get_cosmos_delegations` - Get all delegations (staked tokens) for an address
-- `get_cosmos_validators` - List validators (bonded, unbonded, unbonding, or all)
-- `get_cosmos_validator` - Get specific validator details
-- `get_cosmos_rewards` - Get staking rewards for a delegator
+- `get_cosmos_delegations` - Get delegations
+- `get_cosmos_validators` - List validators
+- `get_cosmos_validator` - Get validator details
+- `get_cosmos_rewards` - Get staking rewards
 
 **Transactions:**
 - `get_cosmos_transaction` - Get transaction by hash
 - `search_cosmos_transactions` - Search transactions by events
 
 **Governance:**
-- `get_cosmos_proposals` - Get governance proposals (filter by status)
-- `get_cosmos_proposal` - Get specific proposal details
-- `get_cosmos_proposal_votes` - Get all votes for a proposal
+- `get_cosmos_proposals` - Get proposals (filter by status)
+- `get_cosmos_proposal` - Get proposal details
+- `get_cosmos_proposal_votes` - Get votes for proposal
 
 **Blocks:**
-- `get_cosmos_latest_block` - Get latest block information
-- `get_cosmos_block` - Get block at specific height
+- `get_cosmos_latest_block` - Get latest block
+- `get_cosmos_block` - Get block at height
 
 **Chain Info:**
-- `get_cosmos_params` - Get chain parameters (staking, slashing, distribution, gov, mint)
+- `get_cosmos_params` - Get chain parameters
 
 ### Documentation (3 tools)
 
-- `get_doc_page` - Retrieve specific documentation pages from docs.grove.city
-- `get_endpoint_docs` - Get documentation for a specific endpoint
-- `search_docs` - Full-text search across Grove documentation
+- `get_doc_page` - Get documentation pages from docs.grove.city
+- `get_endpoint_docs` - Get endpoint documentation
+- `search_docs` - Search Grove documentation
 
 ## Extending with New Blockchains
 
-To add support for a new blockchain network:
-
-1. Edit `src/config/blockchain-services.json`
-2. Add a new service entry:
+Add new blockchain networks by editing `src/config/blockchain-services.json`:
 
 ```json
 {
@@ -298,10 +305,9 @@ To add support for a new blockchain network:
 }
 ```
 
-3. Rebuild: `npm run build`
-4. Restart Claude Desktop
+Then rebuild (`npm run build`) and restart your MCP client.
 
-For more details, see [EXTENDING.md](EXTENDING.md).
+See [EXTENDING.md](EXTENDING.md) for details.
 
 ## Architecture
 
@@ -325,26 +331,22 @@ src/
 
 ## Development
 
-Watch mode for development:
-
+**Watch mode:**
 ```bash
 npm run watch
 ```
 
-### Smoke Test
-
-Run a quick end-to-end test across multiple chain types using public endpoints:
-
+**Smoke tests** (end-to-end test across chain types):
 ```bash
 npm run build
 npm run smoke
 ```
 
-Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence), and Radix chains.
+Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence), and Radix.
 
 ## Supported Blockchains
 
-**[70 blockchain networks](https://grove.city/services)** available via Grove's public endpoints:
+[70 blockchain networks](https://grove.city/services) available via Grove's public endpoints:
 
 **EVM Chains:**
 Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM
@@ -352,143 +354,96 @@ Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moon
 **Layer 2 Solutions:**
 Arbitrum, Optimism, Base, zkSync Era, zkLink Nova, Scroll, Linea, Mantle, Blast, Boba, Metis, Taiko, Unichain, opBNB, Fraxtal, Polygon zkEVM
 
-**Cosmos Ecosystem:** ✅ (many chains supported)
+**Cosmos Ecosystem:**
 Osmosis, Juno, Akash, Kava, Persistence, Stargaze, AtomOne, Cheqd, Chihuahua, Fetch.ai, Hyperliquid, Jackal, Pocket Network, Seda, Sei, Shentu
 
 **Non-EVM:**
-Solana ✅ (full support), NEAR, Sui, Tron, Radix
+Solana, NEAR, Sui, Tron, Radix
 
-**Plus testnets** for Ethereum, Polygon, Arbitrum, Optimism, Base, Taiko, XRPL EVM, Giwa
+**Testnets:**
+Ethereum, Polygon, Arbitrum, Optimism, Base, Taiko, XRPL EVM, Giwa
 
-Most chains use public endpoint ID `01fdb492`. Some chains have **foundation-sponsored endpoints** with better performance (Kaia, XRPL EVM, Radix) - these are automatically preferred.
+Most chains use public endpoint ID `01fdb492`. Foundation-sponsored endpoints (Kaia, XRPL EVM, Radix) offer better performance and are automatically preferred.
 
 ## Example Usage
 
-Once configured in Claude Desktop, you can:
-
 ### Blockchain Queries
-
 ```
 Get the latest height for ethereum
-
-What's the current block number on polygon?
-
 List all available blockchain services
-
 Show me supported methods for solana
-
 Call eth_getBalance on ethereum for address 0x...
 ```
 
 ### Domain Resolution
-
 ```
 Resolve vitalik.eth
-
-What address does alice.crypto resolve to?
-
 Reverse resolve address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
-
 Get domain records for vitalik.eth with keys ["avatar", "url", "com.twitter"]
 ```
 
 ### Transaction Analysis
-
 ```
 Get transaction 0xabc123... on ethereum
-
 Get transaction receipt for 0xabc123... on ethereum
-
 Estimate gas for transferring 1 ETH from 0x... to 0x... on ethereum
 ```
 
 ### Token Operations
-
 ```
 Get USDC balance for address 0x... on ethereum
-
 Get token metadata for USDC on ethereum (0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48)
 ```
 
 ### Multi-Chain Analysis
-
 ```
 Compare balances for address 0x... across all EVM chains
-
 Get gas price on ethereum
-
 Get historical balance of 0x... at block 18000000 on ethereum
 ```
 
 ### Utilities
-
 ```
 Convert 1000000000 wei to eth
-
 Validate address 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb for ethereum
-
 Decode hex 0x48656c6c6f
 ```
 
-### Solana Operations
-
+### Solana
 ```
 Get SOL balance for address ABC123...
-
 Get all SPL token balances for wallet DEF456...
-
 Get USDC balance for Solana wallet (mint: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v)
-
 Get transaction details for signature 5a1b2c3d...
-
 Get recent prioritization fees for Solana
-
-Get transaction history for address ABC123...
 ```
 
-### Cosmos Ecosystem (Osmosis, Juno, Kava, Akash, etc.)
-
+### Cosmos Ecosystem
 ```
 Get OSMO balance for osmo1abc... on osmosis
-
 Get all delegations for osmo1abc... on osmosis
-
 Get list of validators on juno
-
 Get staking rewards for akash1xyz... on akash
-
 Get governance proposals on osmosis
-
-Get proposal #123 details on juno
-
 Search transactions by event on kava
-
-Get latest block on persistence
 ```
 
-### Using Custom AppId (For Higher Rate Limits)
-
-If you encounter rate limits with public endpoints, you can provide your Grove Portal appId:
-
+### Using Custom AppId
+Bypass rate limits by providing your Grove Portal appId:
 ```
 Call eth_blockNumber on ethereum with appId "YOUR_APP_ID"
-
 Get balance for address 0x... on polygon using appId "YOUR_APP_ID"
 ```
+Get free appId at [portal.grove.city](https://portal.grove.city).
 
-Get your free appId from [portal.grove.city](https://portal.grove.city)
-
-### General Endpoint & Documentation
-
+### Documentation
 ```
 Show me all available Grove endpoints
-
 Search the Grove documentation for "authentication"
-
 Get the public endpoints page
 ```
 
-For detailed blockchain usage examples, see [BLOCKCHAIN_USAGE.md](BLOCKCHAIN_USAGE.md).
+See [BLOCKCHAIN_USAGE.md](BLOCKCHAIN_USAGE.md) for more examples.
 
 ## License
 
