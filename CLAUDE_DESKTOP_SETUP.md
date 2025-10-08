@@ -1,18 +1,26 @@
 # Claude Desktop Setup
 
-This guide shows how to add the Grove MCP server to Claude Desktop on macOS.
+This guide shows how to add the Grove MCP server to Claude Desktop.
 
 ## Quick Setup
 
 1. **Open Claude Desktop configuration file:**
 
+**macOS:**
 ```bash
 code ~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
 
-Or open it manually at:
+Or open it manually at: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+**Windows:**
 ```
-~/Library/Application Support/Claude/claude_desktop_config.json
+%APPDATA%\Claude\claude_desktop_config.json
+```
+
+**Linux:**
+```
+~/.config/Claude/claude_desktop_config.json
 ```
 
 2. **Add the MCP server configuration:**
@@ -22,13 +30,13 @@ Or open it manually at:
   "mcpServers": {
     "grove": {
       "command": "node",
-      "args": ["/Users/arthur/Developer/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
     }
   }
 }
 ```
 
-**Note:** Replace `/Users/arthur/Developer/mcp-grove` with the actual path to your installation.
+**Note:** Replace `/absolute/path/to/mcp-grove` with the actual absolute path to your installation.
 
 3. **Restart Claude Desktop**
 
@@ -69,7 +77,7 @@ Check the Claude Desktop developer console:
 If you get permission errors:
 
 ```bash
-cd /Users/arthur/Developer/mcp-grove
+cd /path/to/mcp-grove
 chmod +x dist/index.js
 ```
 
@@ -137,7 +145,7 @@ If you have multiple MCP servers:
   "mcpServers": {
     "grove": {
       "command": "node",
-      "args": ["/Users/arthur/Developer/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
     },
     "other-server": {
       "command": "npx",

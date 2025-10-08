@@ -16,8 +16,7 @@ export class SuiService {
    */
   async getBalance(
     address: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -31,8 +30,7 @@ export class SuiService {
     const result = await this.blockchainService.callRPCMethod(
       service.id,
       'suix_getBalance',
-      [address],
-      appId
+      [address]
     );
 
     if (result.success && result.data) {
@@ -60,8 +58,7 @@ export class SuiService {
    */
   async getAllBalances(
     address: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -75,8 +72,7 @@ export class SuiService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'suix_getAllBalances',
-      [address],
-      appId
+      [address]
     );
   }
 
@@ -88,8 +84,7 @@ export class SuiService {
     coinType?: string,
     cursor?: string,
     limit?: number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -105,7 +100,7 @@ export class SuiService {
     if (cursor) params.push(cursor);
     if (limit) params.push(limit);
 
-    return this.blockchainService.callRPCMethod(service.id, 'suix_getCoins', params, appId);
+    return this.blockchainService.callRPCMethod(service.id, 'suix_getCoins', params);
   }
 
   /**
@@ -122,8 +117,7 @@ export class SuiService {
       showBcs?: boolean;
       showStorageRebate?: boolean;
     },
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -147,7 +141,7 @@ export class SuiService {
       });
     }
 
-    return this.blockchainService.callRPCMethod(service.id, 'sui_getObject', params, appId);
+    return this.blockchainService.callRPCMethod(service.id, 'sui_getObject', params);
   }
 
   /**
@@ -161,8 +155,7 @@ export class SuiService {
     },
     cursor?: string,
     limit?: number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -178,7 +171,7 @@ export class SuiService {
     if (cursor) params.push(cursor);
     if (limit) params.push(limit);
 
-    return this.blockchainService.callRPCMethod(service.id, 'suix_getOwnedObjects', params, appId);
+    return this.blockchainService.callRPCMethod(service.id, 'suix_getOwnedObjects', params);
   }
 
   /**
@@ -193,8 +186,7 @@ export class SuiService {
       showObjectChanges?: boolean;
       showBalanceChanges?: boolean;
     },
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -219,8 +211,7 @@ export class SuiService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'sui_getTransactionBlock',
-      params,
-      appId
+      params
     );
   }
 
@@ -235,8 +226,7 @@ export class SuiService {
     cursor?: string,
     limit?: number,
     descendingOrder?: boolean,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -255,8 +245,7 @@ export class SuiService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'suix_queryTransactionBlocks',
-      params,
-      appId
+      params
     );
   }
 
@@ -264,8 +253,7 @@ export class SuiService {
    * Get latest checkpoint sequence number
    */
   async getLatestCheckpoint(
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -279,8 +267,7 @@ export class SuiService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'sui_getLatestCheckpointSequenceNumber',
-      [],
-      appId
+      []
     );
   }
 
@@ -289,8 +276,7 @@ export class SuiService {
    */
   async getCheckpoint(
     checkpointId: string | number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -301,7 +287,7 @@ export class SuiService {
       };
     }
 
-    return this.blockchainService.callRPCMethod(service.id, 'sui_getCheckpoint', [checkpointId], appId);
+    return this.blockchainService.callRPCMethod(service.id, 'sui_getCheckpoint', [checkpointId]);
   }
 
   /**
@@ -312,8 +298,7 @@ export class SuiService {
     cursor?: string,
     limit?: number,
     descendingOrder?: boolean,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -329,15 +314,14 @@ export class SuiService {
     if (limit !== undefined) params.push(limit);
     if (descendingOrder !== undefined) params.push(descendingOrder);
 
-    return this.blockchainService.callRPCMethod(service.id, 'suix_queryEvents', params, appId);
+    return this.blockchainService.callRPCMethod(service.id, 'suix_queryEvents', params);
   }
 
   /**
    * Get reference gas price
    */
   async getReferenceGasPrice(
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('sui', network);
 
@@ -348,6 +332,6 @@ export class SuiService {
       };
     }
 
-    return this.blockchainService.callRPCMethod(service.id, 'suix_getReferenceGasPrice', [], appId);
+    return this.blockchainService.callRPCMethod(service.id, 'suix_getReferenceGasPrice', []);
   }
 }
