@@ -3,10 +3,6 @@
 </div>
 
 <div align="center">
-  <img src="./mcp.png" alt="MCP" width="300"/>
-</div>
-
-<div align="center">
 
 ![Maintained by Grove](https://img.shields.io/badge/Maintained_by-Grove-green)
 ![GitHub Issues](https://img.shields.io/github/issues/buildwithgrove/mcp-grove)
@@ -15,6 +11,8 @@
 </div>
 
 # Grove MCP Server
+
+<img src="./mcp.png" alt="MCP" width="250" align="right"/>
 
 **Model Context Protocol (MCP)** server for blockchain data access across **[70+ networks](https://grove.city/services)** via Grove's public endpoints.
 
