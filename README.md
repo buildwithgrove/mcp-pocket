@@ -3,6 +3,10 @@
 </div>
 
 <div align="center">
+  <img src="./mcp.png" alt="MCP" width="300"/>
+</div>
+
+<div align="center">
 
 ![Maintained by Grove](https://img.shields.io/badge/Maintained_by-Grove-green)
 ![GitHub Issues](https://img.shields.io/github/issues/buildwithgrove/mcp-grove)
@@ -12,7 +16,7 @@
 
 # Grove MCP Server
 
-**Model Context Protocol (MCP)** server for blockchain data access across **[69+ networks](https://grove.city/services)** via Grove's public endpoints.
+**Model Context Protocol (MCP)** server for blockchain data access across **[70+ networks](https://grove.city/services)** via Grove's public endpoints.
 
 Not a standalone CLI — **requires an MCP client** such as Claude Desktop, Claude Code CLI, or MCP Inspector.
 
@@ -95,7 +99,7 @@ Prerequisites: Node.js 18+ and npm
 ## Features
 
 ### Core Blockchain Access
-- **69+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
+- **70+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
 - **Natural Language Queries**: "get the latest height for ethereum" → direct results
 - **Free Public Access**: No API keys required (may be rate limited)
 - **Optional Rate Limit Bypass**: Set `GROVE_APP_ID` for higher limits
@@ -157,7 +161,7 @@ npm run build
 ### Core Blockchain Tools (5 tools)
 
 - `query_blockchain` - Natural language queries (e.g., "get the latest height for ethereum")
-- `list_blockchain_services` - List all [69+ available networks](https://grove.city/services)
+- `list_blockchain_services` - List all [70+ available networks](https://grove.city/services)
 - `get_blockchain_service` - Get blockchain details and supported methods
 - `call_rpc_method` - Call any JSON-RPC method directly
 - `get_supported_methods` - Get all available RPC methods for a blockchain
@@ -318,7 +322,7 @@ src/
 ├── index.ts                            # MCP server entry point (40+ tools)
 ├── types.ts                            # TypeScript type definitions
 ├── config/
-│   ├── blockchain-services.json        # 69 blockchain network configurations
+│   ├── blockchain-services.json        # 70 blockchain network configurations
 │   └── endpoints.json                  # HTTP endpoint configurations
 ├── handlers/                            # Tool handlers organized by feature
 │   ├── blockchain-handlers.ts          # Core blockchain tools
@@ -381,7 +385,7 @@ Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence),
 
 ## Supported Blockchains
 
-[69 blockchain networks](https://grove.city/services) available via Grove's public endpoints:
+[70 blockchain networks](https://grove.city/services) available via Grove's public endpoints:
 
 **EVM Chains:**
 Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM
