@@ -550,24 +550,6 @@ describe('CosmosService', () => {
       );
     });
 
-    it('should use custom appId when provided', async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({}),
-      });
-
-      await cosmosService.getBalance(
-        'osmosis',
-        'osmo1address',
-        'uosmo',
-        'mainnet',
-        'custom-app-id'
-      );
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/v1/rest/custom-app-id'),
-        expect.any(Object)
-      );
-    });
+    // appId parameter support removed; GROVE_APP_ID env var is the single source now
   });
 });

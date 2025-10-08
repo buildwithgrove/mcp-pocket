@@ -27,10 +27,6 @@ export function registerSuiHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['address'],
       },
@@ -49,10 +45,6 @@ export function registerSuiHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['address'],
@@ -84,10 +76,6 @@ export function registerSuiHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['address'],
@@ -121,10 +109,6 @@ export function registerSuiHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['objectId'],
       },
@@ -156,10 +140,6 @@ export function registerSuiHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['address'],
       },
@@ -189,10 +169,6 @@ export function registerSuiHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['txDigest'],
@@ -225,10 +201,6 @@ export function registerSuiHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['query'],
       },
@@ -243,10 +215,6 @@ export function registerSuiHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
       },
@@ -265,10 +233,6 @@ export function registerSuiHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['checkpointId'],
@@ -301,10 +265,6 @@ export function registerSuiHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['query'],
       },
@@ -319,10 +279,6 @@ export function registerSuiHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
       },
@@ -347,9 +303,8 @@ export async function handleSuiTool(
     case 'get_sui_balance': {
       const address = args?.address as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getBalance(address, network, appId);
+      const result = await suiService.getBalance(address, network);
 
       return {
         content: [
@@ -365,9 +320,8 @@ export async function handleSuiTool(
     case 'get_sui_all_balances': {
       const address = args?.address as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getAllBalances(address, network, appId);
+      const result = await suiService.getAllBalances(address, network);
 
       return {
         content: [
@@ -386,9 +340,8 @@ export async function handleSuiTool(
       const cursor = args?.cursor as string | undefined;
       const limit = args?.limit as number | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getCoins(address, coinType, cursor, limit, network, appId);
+      const result = await suiService.getCoins(address, coinType, cursor, limit, network);
 
       return {
         content: [
@@ -405,9 +358,8 @@ export async function handleSuiTool(
       const objectId = args?.objectId as string;
       const options = args?.options as any;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getObject(objectId, options, network, appId);
+      const result = await suiService.getObject(objectId, options, network);
 
       return {
         content: [
@@ -426,9 +378,8 @@ export async function handleSuiTool(
       const cursor = args?.cursor as string | undefined;
       const limit = args?.limit as number | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getOwnedObjects(address, query, cursor, limit, network, appId);
+      const result = await suiService.getOwnedObjects(address, query, cursor, limit, network);
 
       return {
         content: [
@@ -445,9 +396,8 @@ export async function handleSuiTool(
       const txDigest = args?.txDigest as string;
       const options = args?.options as any;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getTransaction(txDigest, options, network, appId);
+      const result = await suiService.getTransaction(txDigest, options, network);
 
       return {
         content: [
@@ -466,15 +416,13 @@ export async function handleSuiTool(
       const limit = args?.limit as number | undefined;
       const descendingOrder = args?.descendingOrder as boolean | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const result = await suiService.queryTransactions(
         query,
         cursor,
         limit,
         descendingOrder,
-        network,
-        appId
+        network
       );
 
       return {
@@ -490,9 +438,8 @@ export async function handleSuiTool(
 
     case 'get_sui_latest_checkpoint': {
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getLatestCheckpoint(network, appId);
+      const result = await suiService.getLatestCheckpoint(network);
 
       return {
         content: [
@@ -508,9 +455,8 @@ export async function handleSuiTool(
     case 'get_sui_checkpoint': {
       const checkpointId = args?.checkpointId as string | number;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getCheckpoint(checkpointId, network, appId);
+      const result = await suiService.getCheckpoint(checkpointId, network);
 
       return {
         content: [
@@ -529,9 +475,8 @@ export async function handleSuiTool(
       const limit = args?.limit as number | undefined;
       const descendingOrder = args?.descendingOrder as boolean | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.queryEvents(query, cursor, limit, descendingOrder, network, appId);
+      const result = await suiService.queryEvents(query, cursor, limit, descendingOrder, network);
 
       return {
         content: [
@@ -546,9 +491,8 @@ export async function handleSuiTool(
 
     case 'get_sui_reference_gas_price': {
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await suiService.getReferenceGasPrice(network, appId);
+      const result = await suiService.getReferenceGasPrice(network);
 
       return {
         content: [

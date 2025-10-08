@@ -133,8 +133,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'suix_getCoins',
-        ['0xaddress', '0x2::sui::SUI', 'cursor123', 10],
-        undefined
+        ['0xaddress', '0x2::sui::SUI', 'cursor123', 10]
       );
     });
   });
@@ -176,8 +175,7 @@ describe('SuiService', () => {
             showOwner: true,
             showContent: true,
           }),
-        ]),
-        undefined
+        ])
       );
     });
 
@@ -192,8 +190,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'sui_getObject',
-        ['0xobject123'],
-        undefined
+        ['0xobject123']
       );
     });
   });
@@ -263,8 +260,7 @@ describe('SuiService', () => {
             showEffects: true,
             showEvents: true,
           }),
-        ]),
-        undefined
+        ])
       );
     });
 
@@ -279,8 +275,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'sui_getTransactionBlock',
-        ['TxDigest123'],
-        undefined
+        ['TxDigest123']
       );
     });
   });
@@ -316,8 +311,7 @@ describe('SuiService', () => {
           expect.objectContaining({ filter: { FromAddress: '0xaddress' } }),
           10,
           true,
-        ],
-        undefined
+        ]
       );
     });
 
@@ -332,8 +326,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'suix_queryTransactionBlocks',
-        [{ filter: {} }],
-        undefined
+        [{ filter: {} }]
       );
     });
   });
@@ -352,8 +345,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'sui_getLatestCheckpointSequenceNumber',
-        [],
-        undefined
+        []
       );
     });
   });
@@ -387,8 +379,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'sui_getCheckpoint',
-        [123],
-        undefined
+        [123]
       );
     });
   });
@@ -434,8 +425,7 @@ describe('SuiService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'sui-mainnet',
         'suix_getReferenceGasPrice',
-        [],
-        undefined
+        []
       );
     });
   });

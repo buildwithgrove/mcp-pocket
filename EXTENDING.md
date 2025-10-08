@@ -1,6 +1,6 @@
-# Extending Grove's Public Endpoints for Pocket Network
+# Extending Grove MCP Server
 
-This guide explains how to extend the MCP server with new endpoints and functionality.
+This guide explains how to extend the MCP server with new blockchains, endpoints, and functionality.
 
 ## Quick Start: Adding an Endpoint
 
@@ -175,44 +175,118 @@ Categories help organize endpoints. To add a new category:
 }
 ```
 
+## Advanced: Adding New Blockchains
+
+To add a new blockchain network:
+
+1. **Edit `src/config/blockchain-services.json`:**
+
+```json
+{
+  "id": "newchain-mainnet",
+  "name": "New Chain Mainnet",
+  "blockchain": "newchain",
+  "network": "mainnet",
+  "rpcUrl": "https://newchain.rpc.grove.city/v1/01fdb492",
+  "protocol": "json-rpc",
+  "category": "evm",
+  "supportedMethods": [
+    {
+      "name": "eth_blockNumber",
+      "description": "Returns the latest block number",
+      "params": [],
+      "category": "block"
+    }
+  ]
+}
+```
+
+2. **Add method aliases** (optional) in the same file for natural language support:
+
+```json
+{
+  "methodAliases": {
+    "latest height": ["eth_blockNumber", "getBlockHeight"],
+    "newchain": ["newchain-mainnet"]
+  }
+}
+```
+
+3. **Rebuild and test:**
+
+```bash
+npm run build
+```
+
 ## Advanced: Custom Tools
 
-Add new MCP tools by editing `src/index.ts`:
+Add new MCP tools by creating a handler file in `src/handlers/`:
+
+1. **Create handler file** (e.g., `src/handlers/custom-handlers.ts`):
 
 ```typescript
-const tools: Tool[] = [
-  // ... existing tools
-  {
-    name: 'batch_call_endpoints',
-    description: 'Call multiple endpoints in sequence',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        endpointIds: {
-          type: 'array',
-          items: { type: 'string' },
-          description: 'Array of endpoint IDs to call',
+import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+
+export function registerCustomHandlers(server: Server): Tool[] {
+  return [
+    {
+      name: 'batch_call_endpoints',
+      description: 'Call multiple endpoints in sequence',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          endpointIds: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Array of endpoint IDs to call',
+          },
         },
+        required: ['endpointIds'],
       },
-      required: ['endpointIds'],
     },
-  },
+  ];
+}
+
+export async function handleCustomTool(
+  name: string,
+  args: any,
+  endpointManager: any
+): Promise<any> {
+  switch (name) {
+    case 'batch_call_endpoints': {
+      const endpointIds = args?.endpointIds as string[];
+      const results = [];
+
+      for (const id of endpointIds) {
+        const result = await endpointManager.fetchEndpoint(id);
+        results.push({ endpointId: id, result });
+      }
+
+      return {
+        content: [{ type: 'text', text: JSON.stringify(results, null, 2) }],
+      };
+    }
+  }
+  return null;
+}
+```
+
+2. **Register in `src/index.ts`:**
+
+```typescript
+import { registerCustomHandlers, handleCustomTool } from './handlers/custom-handlers.js';
+
+// Add to tools array
+const tools: Tool[] = [
+  ...registerCustomHandlers(server),
+  // ... other handlers
 ];
 
-// Add handler in CallToolRequestSchema
-case 'batch_call_endpoints': {
-  const endpointIds = args?.endpointIds as string[];
-  const results = [];
-
-  for (const id of endpointIds) {
-    const result = await endpointManager.fetchEndpoint(id);
-    results.push({ endpointId: id, result });
-  }
-
-  return {
-    content: [{ type: 'text', text: JSON.stringify(results, null, 2) }],
-  };
-}
+// Add to handler chain
+let result =
+  (await handleCustomTool(name, args, endpointManager)) ||
+  // ... other handlers
 ```
 
 ## Advanced: Custom Managers

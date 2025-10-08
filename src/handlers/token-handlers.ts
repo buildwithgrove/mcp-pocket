@@ -35,10 +35,6 @@ export function registerTokenHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'tokenAddress', 'walletAddress'],
       },
@@ -61,10 +57,6 @@ export function registerTokenHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'tokenAddress'],
@@ -92,14 +84,12 @@ export async function handleTokenTool(
       const tokenAddress = args?.tokenAddress as string;
       const walletAddress = args?.walletAddress as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const result = await advancedBlockchain.getTokenBalance(
         blockchain,
         tokenAddress,
         walletAddress,
-        network,
-        appId
+        network
       );
 
       return {
@@ -117,9 +107,8 @@ export async function handleTokenTool(
       const blockchain = args?.blockchain as string;
       const tokenAddress = args?.tokenAddress as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.getTokenMetadata(blockchain, tokenAddress, network, appId);
+      const result = await advancedBlockchain.getTokenMetadata(blockchain, tokenAddress, network);
 
       return {
         content: [

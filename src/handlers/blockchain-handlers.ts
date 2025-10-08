@@ -81,10 +81,6 @@ export function registerBlockchainHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId. If not provided, uses public endpoints. Get your appId from portal.grove.city for higher rate limits',
-          },
         },
         required: ['blockchain', 'method'],
       },
@@ -189,7 +185,6 @@ export async function handleBlockchainTool(
       const method = args?.method as string;
       const params = (args?.params as any[]) || [];
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const service = blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -205,7 +200,7 @@ export async function handleBlockchainTool(
         };
       }
 
-      const result = await blockchainService.callRPCMethod(service.id, method, params, appId);
+      const result = await blockchainService.callRPCMethod(service.id, method, params);
 
       return {
         content: [

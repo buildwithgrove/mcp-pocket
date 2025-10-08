@@ -20,8 +20,7 @@ export class SolanaService {
   async getTokenBalance(
     walletAddress: string,
     mintAddress?: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -57,8 +56,7 @@ export class SolanaService {
       const result = await this.blockchainService.callRPCMethod(
         service.id,
         'getTokenAccountsByOwner',
-        params,
-        appId
+        params
       );
 
       if (!result.success) {
@@ -133,8 +131,7 @@ export class SolanaService {
    */
   async getTokenMetadata(
     mintAddress: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -155,8 +152,7 @@ export class SolanaService {
           {
             encoding: 'jsonParsed',
           },
-        ],
-        appId
+        ]
       );
 
       if (!result.success || !result.data?.value) {
@@ -200,8 +196,7 @@ export class SolanaService {
    */
   async getBalance(
     address: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -215,8 +210,7 @@ export class SolanaService {
     const result = await this.blockchainService.callRPCMethod(
       service.id,
       'getBalance',
-      [address],
-      appId
+      [address]
     );
 
     if (result.success && result.data?.value !== undefined) {
@@ -242,8 +236,7 @@ export class SolanaService {
    */
   async getAccountInfo(
     address: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -262,8 +255,7 @@ export class SolanaService {
         {
           encoding: 'jsonParsed',
         },
-      ],
-      appId
+      ]
     );
   }
 
@@ -273,8 +265,7 @@ export class SolanaService {
   async getBlock(
     slot: number,
     includeTransactions: boolean = false,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -294,7 +285,7 @@ export class SolanaService {
       },
     ];
 
-    return this.blockchainService.callRPCMethod(service.id, 'getBlock', params, appId);
+    return this.blockchainService.callRPCMethod(service.id, 'getBlock', params);
   }
 
   /**
@@ -302,8 +293,7 @@ export class SolanaService {
    */
   async getTransaction(
     signature: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -323,8 +313,7 @@ export class SolanaService {
           encoding: 'jsonParsed',
           maxSupportedTransactionVersion: 0,
         },
-      ],
-      appId
+      ]
     );
   }
 
@@ -333,8 +322,7 @@ export class SolanaService {
    */
   async getRecentPrioritizationFees(
     addresses?: string[],
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -350,8 +338,7 @@ export class SolanaService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'getRecentPrioritizationFees',
-      params,
-      appId
+      params
     );
   }
 
@@ -360,8 +347,7 @@ export class SolanaService {
    */
   async getFeeForMessage(
     message: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -375,8 +361,7 @@ export class SolanaService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'getFeeForMessage',
-      [message],
-      appId
+      [message]
     );
   }
 
@@ -386,8 +371,7 @@ export class SolanaService {
   async getSignaturesForAddress(
     address: string,
     limit: number = 10,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -406,8 +390,7 @@ export class SolanaService {
         {
           limit,
         },
-      ],
-      appId
+      ]
     );
   }
 
@@ -415,8 +398,7 @@ export class SolanaService {
    * Get latest block height
    */
   async getBlockHeight(
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -427,7 +409,7 @@ export class SolanaService {
       };
     }
 
-    return this.blockchainService.callRPCMethod(service.id, 'getBlockHeight', [], appId);
+    return this.blockchainService.callRPCMethod(service.id, 'getBlockHeight', []);
   }
 
   /**
@@ -436,8 +418,7 @@ export class SolanaService {
   async getProgramAccounts(
     programId: string,
     filters?: any[],
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain('solana', network);
 
@@ -459,6 +440,6 @@ export class SolanaService {
       params[1].filters = filters;
     }
 
-    return this.blockchainService.callRPCMethod(service.id, 'getProgramAccounts', params, appId);
+    return this.blockchainService.callRPCMethod(service.id, 'getProgramAccounts', params);
   }
 }

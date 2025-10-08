@@ -1,7 +1,7 @@
 {
   "name": "mcp-grove",
   "version": "1.0.0",
-  "description": "MCP server for Grove's public endpoints for Pocket Network and documentation",
+  "description": "Model Context Protocol (MCP) server for blockchain data access across 69+ networks via Grove's public endpoints",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -20,10 +20,35 @@
   },
   "keywords": [
     "mcp",
+    "model-context-protocol",
     "grove",
     "pocket-network",
+    "blockchain",
+    "ethereum",
+    "solana",
+    "cosmos",
+    "sui",
+    "rpc",
+    "web3",
+    "crypto",
+    "evm",
+    "claude",
+    "ai",
     "endpoints"
   ],
+  "author": "Grove (https://grove.city)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buildwithgrove/mcp-grove.git"
+  },
+  "bugs": {
+    "url": "https://github.com/buildwithgrove/mcp-grove/issues"
+  },
+  "homepage": "https://github.com/buildwithgrove/mcp-grove#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
     "js-sha3": "^0.9.3"

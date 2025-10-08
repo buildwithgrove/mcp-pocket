@@ -31,10 +31,6 @@ export function registerSolanaHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['walletAddress'],
       },
@@ -53,10 +49,6 @@ export function registerSolanaHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['mintAddress'],
@@ -77,10 +69,6 @@ export function registerSolanaHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['address'],
       },
@@ -99,10 +87,6 @@ export function registerSolanaHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['address'],
@@ -127,10 +111,6 @@ export function registerSolanaHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['slot'],
       },
@@ -149,10 +129,6 @@ export function registerSolanaHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['signature'],
@@ -174,10 +150,6 @@ export function registerSolanaHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
       },
     },
@@ -191,10 +163,6 @@ export function registerSolanaHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
       },
@@ -213,10 +181,6 @@ export function registerSolanaHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['message'],
@@ -242,10 +206,6 @@ export function registerSolanaHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['programId'],
       },
@@ -268,10 +228,6 @@ export function registerSolanaHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['address'],
@@ -298,9 +254,8 @@ export async function handleSolanaTool(
       const walletAddress = args?.walletAddress as string;
       const mintAddress = args?.mintAddress as string | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getTokenBalance(walletAddress, mintAddress, network, appId);
+      const result = await solanaService.getTokenBalance(walletAddress, mintAddress, network);
 
       return {
         content: [
@@ -316,9 +271,8 @@ export async function handleSolanaTool(
     case 'get_solana_token_metadata': {
       const mintAddress = args?.mintAddress as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getTokenMetadata(mintAddress, network, appId);
+      const result = await solanaService.getTokenMetadata(mintAddress, network);
 
       return {
         content: [
@@ -334,9 +288,8 @@ export async function handleSolanaTool(
     case 'get_solana_balance': {
       const address = args?.address as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getBalance(address, network, appId);
+      const result = await solanaService.getBalance(address, network);
 
       return {
         content: [
@@ -352,9 +305,8 @@ export async function handleSolanaTool(
     case 'get_solana_account_info': {
       const address = args?.address as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getAccountInfo(address, network, appId);
+      const result = await solanaService.getAccountInfo(address, network);
 
       return {
         content: [
@@ -371,9 +323,8 @@ export async function handleSolanaTool(
       const slot = args?.slot as number;
       const includeTransactions = (args?.includeTransactions as boolean) || false;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getBlock(slot, includeTransactions, network, appId);
+      const result = await solanaService.getBlock(slot, includeTransactions, network);
 
       return {
         content: [
@@ -389,9 +340,8 @@ export async function handleSolanaTool(
     case 'get_solana_transaction': {
       const signature = args?.signature as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getTransaction(signature, network, appId);
+      const result = await solanaService.getTransaction(signature, network);
 
       return {
         content: [
@@ -407,9 +357,8 @@ export async function handleSolanaTool(
     case 'get_solana_prioritization_fees': {
       const addresses = args?.addresses as string[] | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getRecentPrioritizationFees(addresses, network, appId);
+      const result = await solanaService.getRecentPrioritizationFees(addresses, network);
 
       return {
         content: [
@@ -426,9 +375,8 @@ export async function handleSolanaTool(
       const address = args?.address as string;
       const limit = (args?.limit as number) || 10;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getSignaturesForAddress(address, limit, network, appId);
+      const result = await solanaService.getSignaturesForAddress(address, limit, network);
 
       return {
         content: [
@@ -443,9 +391,8 @@ export async function handleSolanaTool(
 
     case 'get_solana_block_height': {
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getBlockHeight(network, appId);
+      const result = await solanaService.getBlockHeight(network);
 
       return {
         content: [
@@ -461,9 +408,8 @@ export async function handleSolanaTool(
     case 'get_solana_fee_for_message': {
       const message = args?.message as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getFeeForMessage(message, network, appId);
+      const result = await solanaService.getFeeForMessage(message, network);
 
       return {
         content: [
@@ -480,9 +426,8 @@ export async function handleSolanaTool(
       const programId = args?.programId as string;
       const filters = args?.filters as any[] | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await solanaService.getProgramAccounts(programId, filters, network, appId);
+      const result = await solanaService.getProgramAccounts(programId, filters, network);
 
       return {
         content: [

@@ -22,7 +22,7 @@ export class CosmosService {
     }
 
     // Convert RPC URL to REST API URL
-    // Pattern: https://<chain>.rpc.grove.city/v1/rest/<appId>
+    // Pattern: https://<chain>.rpc.grove.city/v1/rest/<GROVE_APP_ID>
     const rpcUrl = service.rpcUrl.replace(/\/$/, '');
     const restUrl = rpcUrl.replace(/\/v1\/([^/]+)$/, '/v1/rest/$1');
     return restUrl;
@@ -32,12 +32,11 @@ export class CosmosService {
    * Make a REST API call to Cosmos endpoint
    */
   private async fetchRest(
-    url: string,
-    appId?: string
+    url: string
   ): Promise<EndpointResponse> {
     try {
-      const effectiveAppId = appId || process.env.GROVE_APP_ID;
-      // If an appId is provided, ensure it is used in the REST URL; otherwise keep URL as-is
+      const effectiveAppId = process.env.GROVE_APP_ID;
+      // If an override is provided, ensure it is used in the REST URL; otherwise keep URL as-is
       const finalUrl = effectiveAppId
         ? url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/${effectiveAppId}`)
         : url;
@@ -86,8 +85,7 @@ export class CosmosService {
     blockchain: string,
     address: string,
     denom?: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
@@ -95,7 +93,7 @@ export class CosmosService {
         ? `${baseUrl}/cosmos/bank/v1beta1/balances/${address}/by_denom?denom=${denom}`
         : `${baseUrl}/cosmos/bank/v1beta1/balances/${address}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -110,14 +108,13 @@ export class CosmosService {
   async getAllBalances(
     blockchain: string,
     address: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/bank/v1beta1/balances/${address}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -132,14 +129,13 @@ export class CosmosService {
   async getAccount(
     blockchain: string,
     address: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/auth/v1beta1/accounts/${address}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -154,14 +150,13 @@ export class CosmosService {
   async getDelegations(
     blockchain: string,
     delegatorAddress: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/staking/v1beta1/delegations/${delegatorAddress}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -176,15 +171,14 @@ export class CosmosService {
   async getValidators(
     blockchain: string,
     status: 'bonded' | 'unbonded' | 'unbonding' | 'all' = 'bonded',
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const statusFilter = status === 'all' ? '' : `?status=${status.toUpperCase()}`;
       const url = `${baseUrl}/cosmos/staking/v1beta1/validators${statusFilter}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -199,14 +193,13 @@ export class CosmosService {
   async getValidator(
     blockchain: string,
     validatorAddress: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/staking/v1beta1/validators/${validatorAddress}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -222,8 +215,7 @@ export class CosmosService {
     blockchain: string,
     delegatorAddress: string,
     validatorAddress?: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
@@ -231,7 +223,7 @@ export class CosmosService {
         ? `${baseUrl}/cosmos/distribution/v1beta1/delegators/${delegatorAddress}/rewards/${validatorAddress}`
         : `${baseUrl}/cosmos/distribution/v1beta1/delegators/${delegatorAddress}/rewards`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -246,14 +238,13 @@ export class CosmosService {
   async getTransaction(
     blockchain: string,
     txHash: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/tx/v1beta1/txs/${txHash}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -268,15 +259,14 @@ export class CosmosService {
   async searchTransactions(
     blockchain: string,
     events: string[],
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const eventsQuery = events.map(e => `events=${encodeURIComponent(e)}`).join('&');
       const url = `${baseUrl}/cosmos/tx/v1beta1/txs?${eventsQuery}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -291,15 +281,14 @@ export class CosmosService {
   async getProposals(
     blockchain: string,
     status?: 'deposit_period' | 'voting_period' | 'passed' | 'rejected' | 'failed',
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const statusFilter = status ? `?proposal_status=${status}` : '';
       const url = `${baseUrl}/cosmos/gov/v1beta1/proposals${statusFilter}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -314,14 +303,13 @@ export class CosmosService {
   async getProposal(
     blockchain: string,
     proposalId: number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/gov/v1beta1/proposals/${proposalId}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -336,14 +324,13 @@ export class CosmosService {
   async getProposalVotes(
     blockchain: string,
     proposalId: number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/gov/v1beta1/proposals/${proposalId}/votes`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -357,14 +344,13 @@ export class CosmosService {
    */
   async getLatestBlock(
     blockchain: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/base/tendermint/v1beta1/blocks/latest`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -379,14 +365,13 @@ export class CosmosService {
   async getBlockByHeight(
     blockchain: string,
     height: number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/base/tendermint/v1beta1/blocks/${height}`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,
@@ -401,14 +386,13 @@ export class CosmosService {
   async getParams(
     blockchain: string,
     module: 'staking' | 'slashing' | 'distribution' | 'gov' | 'mint',
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       const baseUrl = this.getRestUrl(blockchain, network);
       const url = `${baseUrl}/cosmos/${module}/v1beta1/params`;
 
-      return this.fetchRest(url, appId);
+      return this.fetchRest(url);
     } catch (error) {
       return {
         success: false,

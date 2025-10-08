@@ -31,10 +31,6 @@ export function registerTransactionHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'txHash'],
       },
@@ -58,10 +54,6 @@ export function registerTransactionHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'txHash'],
       },
@@ -84,10 +76,6 @@ export function registerTransactionHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'transaction'],
@@ -115,10 +103,6 @@ export function registerTransactionHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'blockNumber'],
       },
@@ -141,10 +125,6 @@ export function registerTransactionHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'filter'],
@@ -171,9 +151,8 @@ export async function handleTransactionTool(
       const blockchain = args?.blockchain as string;
       const txHash = args?.txHash as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.getTransaction(blockchain, txHash, network, appId);
+      const result = await advancedBlockchain.getTransaction(blockchain, txHash, network);
 
       return {
         content: [
@@ -190,9 +169,8 @@ export async function handleTransactionTool(
       const blockchain = args?.blockchain as string;
       const txHash = args?.txHash as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.getTransactionReceipt(blockchain, txHash, network, appId);
+      const result = await advancedBlockchain.getTransactionReceipt(blockchain, txHash, network);
 
       return {
         content: [
@@ -209,9 +187,8 @@ export async function handleTransactionTool(
       const blockchain = args?.blockchain as string;
       const transaction = args?.transaction as any;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.estimateGas(blockchain, transaction, network, appId);
+      const result = await advancedBlockchain.estimateGas(blockchain, transaction, network);
 
       return {
         content: [
@@ -229,14 +206,12 @@ export async function handleTransactionTool(
       const blockNumber = args?.blockNumber as string | number;
       const includeTransactions = (args?.includeTransactions as boolean) || false;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const result = await advancedBlockchain.getBlockDetails(
         blockchain,
         blockNumber,
         includeTransactions,
-        network,
-        appId
+        network
       );
 
       return {
@@ -254,9 +229,8 @@ export async function handleTransactionTool(
       const blockchain = args?.blockchain as string;
       const filter = args?.filter as any;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.searchLogs(blockchain, filter, network, appId);
+      const result = await advancedBlockchain.searchLogs(blockchain, filter, network);
 
       return {
         content: [

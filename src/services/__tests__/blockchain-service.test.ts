@@ -201,19 +201,6 @@ describe('BlockchainRPCService', () => {
       expect(result.metadata?.endpoint).toContain('ethereum-foundation.rpc.grove.city');
     });
 
-    it('should use custom appId when provided', async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x123' }),
-      });
-
-      await service.callRPCMethod('ethereum-mainnet', 'eth_blockNumber', [], 'custom-app-id');
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/v1/custom-app-id'),
-        expect.any(Object)
-      );
-    });
 
     it('should use environment appId when not provided', async () => {
       process.env.GROVE_APP_ID = 'env-app-id';

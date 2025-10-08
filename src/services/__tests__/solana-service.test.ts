@@ -215,8 +215,7 @@ describe('SolanaService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'solana-mainnet',
         'getTransaction',
-        expect.any(Array),
-        undefined
+        expect.any(Array)
       );
     });
   });
@@ -235,8 +234,7 @@ describe('SolanaService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'solana-mainnet',
         'getBlockHeight',
-        [],
-        undefined
+        []
       );
     });
   });
@@ -312,8 +310,7 @@ describe('SolanaService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'solana-mainnet',
         'getAccountInfo',
-        expect.any(Array),
-        undefined
+        expect.any(Array)
       );
     });
   });
@@ -342,8 +339,7 @@ describe('SolanaService', () => {
           expect.objectContaining({
             transactionDetails: 'full',
           }),
-        ]),
-        undefined
+        ])
       );
     });
 
@@ -363,8 +359,7 @@ describe('SolanaService', () => {
           expect.objectContaining({
             transactionDetails: 'signatures',
           }),
-        ]),
-        undefined
+        ])
       );
     });
   });
@@ -404,8 +399,7 @@ describe('SolanaService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'solana-mainnet',
         'getRecentPrioritizationFees',
-        [['Address1', 'Address2']],
-        undefined
+        [['Address1', 'Address2']]
       );
     });
   });
@@ -426,8 +420,7 @@ describe('SolanaService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         'solana-mainnet',
         'getFeeForMessage',
-        ['base64EncodedMessage'],
-        undefined
+        ['base64EncodedMessage']
       );
     });
   });
@@ -458,8 +451,7 @@ describe('SolanaService', () => {
         expect.arrayContaining([
           'So11111111111111111111111111111111111111112',
           expect.objectContaining({ limit: 10 }),
-        ]),
-        undefined
+        ])
       );
     });
   });
@@ -504,8 +496,7 @@ describe('SolanaService', () => {
           expect.objectContaining({
             filters,
           }),
-        ]),
-        undefined
+        ])
       );
     });
   });

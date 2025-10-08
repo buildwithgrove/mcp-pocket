@@ -26,14 +26,14 @@ export class DomainResolverService {
    * Resolve a domain name to an address
    * Supports ENS (.eth) and Unstoppable Domains (.crypto, .nft, .blockchain, .bitcoin, .coin, .wallet, .888, .dao, .x, .zil)
    */
-  async resolveDomain(domain: string, appId?: string): Promise<EndpointResponse> {
+  async resolveDomain(domain: string): Promise<EndpointResponse> {
     const domainLower = domain.toLowerCase().trim();
 
     // Determine domain type
     if (domainLower.endsWith('.eth')) {
-      return this.resolveENS(domainLower, appId);
+      return this.resolveENS(domainLower);
     } else if (this.isUnstoppableDomain(domainLower)) {
-      return this.resolveUnstoppableDomain(domainLower, appId);
+      return this.resolveUnstoppableDomain(domainLower);
     } else {
       return {
         success: false,
@@ -56,7 +56,7 @@ export class DomainResolverService {
   /**
    * Resolve ENS domain using Grove's Ethereum endpoint
    */
-  private async resolveENS(domain: string, appId?: string): Promise<EndpointResponse> {
+  private async resolveENS(domain: string): Promise<EndpointResponse> {
     try {
       // Step 1: Get the namehash of the domain
       const namehash = this.namehash(domain);
@@ -72,8 +72,7 @@ export class DomainResolverService {
             data: resolverData,
           },
           'latest',
-        ],
-        appId
+        ]
       );
 
       if (!resolverResult.success || !resolverResult.data) {
@@ -105,8 +104,7 @@ export class DomainResolverService {
             data: addressData,
           },
           'latest',
-        ],
-        appId
+        ]
       );
 
       if (!addressResult.success || !addressResult.data) {
@@ -150,7 +148,7 @@ export class DomainResolverService {
   /**
    * Reverse resolve: get domain from address (ENS only for now)
    */
-  async reverseResolve(address: string, appId?: string): Promise<EndpointResponse> {
+  async reverseResolve(address: string): Promise<EndpointResponse> {
     try {
       // ENS reverse registrar
       const reverseNode = this.getReverseNode(address);
@@ -166,8 +164,7 @@ export class DomainResolverService {
             data: nameData,
           },
           'latest',
-        ],
-        appId
+        ]
       );
 
       if (!nameResult.success || !nameResult.data) {
@@ -187,7 +184,7 @@ export class DomainResolverService {
       }
 
       // Verify forward resolution matches
-      const forwardResult = await this.resolveENS(domain, appId);
+      const forwardResult = await this.resolveENS(domain);
       if (forwardResult.success && forwardResult.data?.address.toLowerCase() === address.toLowerCase()) {
         return {
           success: true,
@@ -219,7 +216,7 @@ export class DomainResolverService {
   /**
    * Get domain records (text records for ENS)
    */
-  async getDomainRecords(domain: string, keys: string[], appId?: string): Promise<EndpointResponse> {
+  async getDomainRecords(domain: string, keys: string[]): Promise<EndpointResponse> {
     if (!domain.endsWith('.eth')) {
       return {
         success: false,
@@ -241,8 +238,7 @@ export class DomainResolverService {
             data: resolverData,
           },
           'latest',
-        ],
-        appId
+        ]
       );
 
       if (!resolverResult.success || !resolverResult.data) {
@@ -274,8 +270,7 @@ export class DomainResolverService {
                 data: textData,
               },
               'latest',
-            ],
-            appId
+            ]
           );
 
           return {
@@ -307,7 +302,7 @@ export class DomainResolverService {
   /**
    * Resolve Unstoppable Domain using Grove's Polygon endpoint
    */
-  private async resolveUnstoppableDomain(domain: string, appId?: string): Promise<EndpointResponse> {
+  private async resolveUnstoppableDomain(domain: string): Promise<EndpointResponse> {
     try {
       // Get the tokenId (namehash) of the domain
       const tokenId = this.namehash(domain);
@@ -326,8 +321,7 @@ export class DomainResolverService {
             data: callData,
           },
           'latest',
-        ],
-        appId
+        ]
       );
 
       if (!result.success || !result.data) {

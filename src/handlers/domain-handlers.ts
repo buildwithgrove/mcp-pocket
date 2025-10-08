@@ -22,10 +22,6 @@ export function registerDomainHandlers(
             type: 'string',
             description: 'The domain name to resolve (e.g., "vitalik.eth", "alice.crypto")',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['domain'],
       },
@@ -39,10 +35,6 @@ export function registerDomainHandlers(
           address: {
             type: 'string',
             description: 'Ethereum address to reverse resolve',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['address'],
@@ -62,10 +54,6 @@ export function registerDomainHandlers(
             type: 'array',
             items: { type: 'string' },
             description: 'Text record keys to fetch (e.g., ["avatar", "email", "url", "com.twitter", "com.github"])',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['domain', 'keys'],
@@ -90,9 +78,8 @@ export async function handleDomainTool(
   switch (name) {
     case 'resolve_domain': {
       const domain = args?.domain as string;
-      const appId = args?.appId as string | undefined;
 
-      const result = await domainResolver.resolveDomain(domain, appId);
+      const result = await domainResolver.resolveDomain(domain);
 
       return {
         content: [
@@ -107,9 +94,8 @@ export async function handleDomainTool(
 
     case 'reverse_resolve_domain': {
       const address = args?.address as string;
-      const appId = args?.appId as string | undefined;
 
-      const result = await domainResolver.reverseResolve(address, appId);
+      const result = await domainResolver.reverseResolve(address);
 
       return {
         content: [
@@ -125,9 +111,8 @@ export async function handleDomainTool(
     case 'get_domain_records': {
       const domain = args?.domain as string;
       const keys = args?.keys as string[];
-      const appId = args?.appId as string | undefined;
 
-      const result = await domainResolver.getDomainRecords(domain, keys, appId);
+      const result = await domainResolver.getDomainRecords(domain, keys);
 
       return {
         content: [

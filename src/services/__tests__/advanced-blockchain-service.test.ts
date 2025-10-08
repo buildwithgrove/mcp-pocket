@@ -286,8 +286,7 @@ describe('AdvancedBlockchainService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         expect.any(String),
         'eth_getTransactionByHash',
-        ['0x123abc'],
-        undefined
+        ['0x123abc']
       );
     });
 
@@ -361,8 +360,7 @@ describe('AdvancedBlockchainService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         expect.any(String),
         'eth_getBlockByNumber',
-        ['latest', false],
-        undefined
+        ['latest', false]
       );
     });
 
@@ -377,8 +375,7 @@ describe('AdvancedBlockchainService', () => {
       expect(mockBlockchainService.callRPCMethod).toHaveBeenCalledWith(
         expect.any(String),
         'eth_getBlockByNumber',
-        ['0x10', true],
-        undefined
+        ['0x10', true]
       );
     });
   });
@@ -459,8 +456,7 @@ describe('AdvancedBlockchainService', () => {
         'eth_call',
         expect.arrayContaining([
           expect.objectContaining({ to: '0x123', data: '0xabcdef' }),
-        ]),
-        undefined
+        ])
       );
     });
   });

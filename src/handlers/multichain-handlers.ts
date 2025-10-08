@@ -32,10 +32,6 @@ export function registerMultichainHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['address'],
       },
@@ -62,10 +58,6 @@ export function registerMultichainHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'address', 'blockNumber'],
       },
@@ -84,10 +76,6 @@ export function registerMultichainHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain'],
@@ -114,9 +102,8 @@ export async function handleMultichainTool(
       const address = args?.address as string;
       const blockchains = args?.blockchains as string[] | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.compareBalances(address, blockchains, network, appId);
+      const result = await advancedBlockchain.compareBalances(address, blockchains, network);
 
       return {
         content: [
@@ -134,14 +121,12 @@ export async function handleMultichainTool(
       const address = args?.address as string;
       const blockNumber = args?.blockNumber as string | number;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const result = await advancedBlockchain.getHistoricalBalance(
         blockchain,
         address,
         blockNumber,
-        network,
-        appId
+        network
       );
 
       return {
@@ -158,9 +143,8 @@ export async function handleMultichainTool(
     case 'get_gas_price': {
       const blockchain = args?.blockchain as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await advancedBlockchain.getGasPrice(blockchain, network, appId);
+      const result = await advancedBlockchain.getGasPrice(blockchain, network);
 
       return {
         content: [

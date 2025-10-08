@@ -35,10 +35,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'address'],
       },
@@ -61,10 +57,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'address'],
@@ -89,10 +81,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'address'],
       },
@@ -115,10 +103,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'delegatorAddress'],
@@ -144,10 +128,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain'],
       },
@@ -170,10 +150,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'validatorAddress'],
@@ -202,10 +178,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'delegatorAddress'],
       },
@@ -228,10 +200,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'txHash'],
@@ -257,10 +225,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'events'],
       },
@@ -285,10 +249,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain'],
       },
@@ -311,10 +271,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'proposalId'],
@@ -339,10 +295,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'proposalId'],
       },
@@ -361,10 +313,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain'],
@@ -389,10 +337,6 @@ export function registerCosmosHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'height'],
       },
@@ -416,10 +360,6 @@ export function registerCosmosHandlers(
             type: 'string',
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
-          },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
           },
         },
         required: ['blockchain', 'module'],
@@ -447,9 +387,8 @@ export async function handleCosmosTool(
       const address = args?.address as string;
       const denom = args?.denom as string | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getBalance(blockchain, address, denom, network, appId);
+      const result = await cosmosService.getBalance(blockchain, address, denom, network);
 
       return {
         content: [
@@ -466,9 +405,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const address = args?.address as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getAllBalances(blockchain, address, network, appId);
+      const result = await cosmosService.getAllBalances(blockchain, address, network);
 
       return {
         content: [
@@ -485,9 +423,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const address = args?.address as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getAccount(blockchain, address, network, appId);
+      const result = await cosmosService.getAccount(blockchain, address, network);
 
       return {
         content: [
@@ -504,9 +441,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const delegatorAddress = args?.delegatorAddress as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getDelegations(blockchain, delegatorAddress, network, appId);
+      const result = await cosmosService.getDelegations(blockchain, delegatorAddress, network);
 
       return {
         content: [
@@ -523,9 +459,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const status = (args?.status as 'bonded' | 'unbonded' | 'unbonding' | 'all') || 'bonded';
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getValidators(blockchain, status, network, appId);
+      const result = await cosmosService.getValidators(blockchain, status, network);
 
       return {
         content: [
@@ -542,9 +477,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const validatorAddress = args?.validatorAddress as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getValidator(blockchain, validatorAddress, network, appId);
+      const result = await cosmosService.getValidator(blockchain, validatorAddress, network);
 
       return {
         content: [
@@ -562,14 +496,12 @@ export async function handleCosmosTool(
       const delegatorAddress = args?.delegatorAddress as string;
       const validatorAddress = args?.validatorAddress as string | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const result = await cosmosService.getRewards(
         blockchain,
         delegatorAddress,
         validatorAddress,
-        network,
-        appId
+        network
       );
 
       return {
@@ -587,9 +519,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const txHash = args?.txHash as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getTransaction(blockchain, txHash, network, appId);
+      const result = await cosmosService.getTransaction(blockchain, txHash, network);
 
       return {
         content: [
@@ -606,9 +537,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const events = args?.events as string[];
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.searchTransactions(blockchain, events, network, appId);
+      const result = await cosmosService.searchTransactions(blockchain, events, network);
 
       return {
         content: [
@@ -631,9 +561,8 @@ export async function handleCosmosTool(
         | 'failed'
         | undefined;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getProposals(blockchain, status, network, appId);
+      const result = await cosmosService.getProposals(blockchain, status, network);
 
       return {
         content: [
@@ -650,9 +579,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const proposalId = args?.proposalId as number;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getProposal(blockchain, proposalId, network, appId);
+      const result = await cosmosService.getProposal(blockchain, proposalId, network);
 
       return {
         content: [
@@ -669,9 +597,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const proposalId = args?.proposalId as number;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getProposalVotes(blockchain, proposalId, network, appId);
+      const result = await cosmosService.getProposalVotes(blockchain, proposalId, network);
 
       return {
         content: [
@@ -687,9 +614,8 @@ export async function handleCosmosTool(
     case 'get_cosmos_latest_block': {
       const blockchain = args?.blockchain as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getLatestBlock(blockchain, network, appId);
+      const result = await cosmosService.getLatestBlock(blockchain, network);
 
       return {
         content: [
@@ -706,9 +632,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const height = args?.height as number;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getBlockByHeight(blockchain, height, network, appId);
+      const result = await cosmosService.getBlockByHeight(blockchain, height, network);
 
       return {
         content: [
@@ -725,9 +650,8 @@ export async function handleCosmosTool(
       const blockchain = args?.blockchain as string;
       const module = args?.module as 'staking' | 'slashing' | 'distribution' | 'gov' | 'mint';
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
-      const result = await cosmosService.getParams(blockchain, module, network, appId);
+      const result = await cosmosService.getParams(blockchain, module, network);
 
       return {
         content: [

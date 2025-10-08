@@ -35,10 +35,6 @@ export function registerContractHandlers(
             enum: ['mainnet', 'testnet'],
             description: 'Network type (defaults to mainnet)',
           },
-          appId: {
-            type: 'string',
-            description: 'Optional Grove Portal appId for higher rate limits',
-          },
         },
         required: ['blockchain', 'contractAddress', 'data'],
       },
@@ -65,14 +61,12 @@ export async function handleContractTool(
       const contractAddress = args?.contractAddress as string;
       const data = args?.data as string;
       const network = (args?.network as 'mainnet' | 'testnet') || 'mainnet';
-      const appId = args?.appId as string | undefined;
 
       const result = await advancedBlockchain.callContractView(
         blockchain,
         contractAddress,
         data,
-        network,
-        appId
+        network
       );
 
       return {

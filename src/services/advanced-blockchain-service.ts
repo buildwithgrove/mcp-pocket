@@ -24,8 +24,7 @@ export class AdvancedBlockchainService {
   async getTransaction(
     blockchain: string,
     txHash: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -43,7 +42,7 @@ export class AdvancedBlockchainService {
       ? 'getTransaction'
       : 'eth_getTransactionByHash';
 
-    return this.blockchainService.callRPCMethod(service.id, method, [txHash], appId);
+    return this.blockchainService.callRPCMethod(service.id, method, [txHash]);
   }
 
   /**
@@ -52,8 +51,7 @@ export class AdvancedBlockchainService {
   async getTransactionReceipt(
     blockchain: string,
     txHash: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -67,8 +65,7 @@ export class AdvancedBlockchainService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'eth_getTransactionReceipt',
-      [txHash],
-      appId
+      [txHash]
     );
   }
 
@@ -78,8 +75,7 @@ export class AdvancedBlockchainService {
   async estimateGas(
     blockchain: string,
     transaction: any,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -93,8 +89,7 @@ export class AdvancedBlockchainService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'eth_estimateGas',
-      [transaction],
-      appId
+      [transaction]
     );
   }
 
@@ -105,8 +100,7 @@ export class AdvancedBlockchainService {
     blockchain: string,
     tokenAddress: string,
     walletAddress: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -130,8 +124,7 @@ export class AdvancedBlockchainService {
           data: data,
         },
         'latest',
-      ],
-      appId
+      ]
     );
 
     if (result.success && result.data) {
@@ -156,8 +149,7 @@ export class AdvancedBlockchainService {
   async getTokenMetadata(
     blockchain: string,
     tokenAddress: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -174,26 +166,22 @@ export class AdvancedBlockchainService {
         this.blockchainService.callRPCMethod(
           service.id,
           'eth_call',
-          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_DECIMALS }, 'latest'],
-          appId
+          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_DECIMALS }, 'latest']
         ),
         this.blockchainService.callRPCMethod(
           service.id,
           'eth_call',
-          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_SYMBOL }, 'latest'],
-          appId
+          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_SYMBOL }, 'latest']
         ),
         this.blockchainService.callRPCMethod(
           service.id,
           'eth_call',
-          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_NAME }, 'latest'],
-          appId
+          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_NAME }, 'latest']
         ),
         this.blockchainService.callRPCMethod(
           service.id,
           'eth_call',
-          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_TOTAL_SUPPLY }, 'latest'],
-          appId
+          [{ to: tokenAddress, data: AdvancedBlockchainService.ERC20_TOTAL_SUPPLY }, 'latest']
         ),
       ]);
 
@@ -226,8 +214,7 @@ export class AdvancedBlockchainService {
     blockchain: string,
     blockNumber: string | number,
     includeTransactions: boolean = false,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -245,8 +232,7 @@ export class AdvancedBlockchainService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'eth_getBlockByNumber',
-      [blockParam, includeTransactions],
-      appId
+      [blockParam, includeTransactions]
     );
   }
 
@@ -261,8 +247,7 @@ export class AdvancedBlockchainService {
       address?: string | string[];
       topics?: (string | string[] | null)[];
     },
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -276,8 +261,7 @@ export class AdvancedBlockchainService {
     return this.blockchainService.callRPCMethod(
       service.id,
       'eth_getLogs',
-      [filter],
-      appId
+      [filter]
     );
   }
 
@@ -287,8 +271,7 @@ export class AdvancedBlockchainService {
   async compareBalances(
     address: string,
     blockchains?: string[],
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     try {
       // Get all EVM chains if not specified
@@ -304,8 +287,7 @@ export class AdvancedBlockchainService {
           const result = await this.blockchainService.callRPCMethod(
             service.id,
             'eth_getBalance',
-            [address, 'latest'],
-            appId
+            [address, 'latest']
           );
 
           if (result.success && result.data) {
@@ -353,8 +335,7 @@ export class AdvancedBlockchainService {
    */
   async getGasPrice(
     blockchain: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -368,8 +349,7 @@ export class AdvancedBlockchainService {
     const result = await this.blockchainService.callRPCMethod(
       service.id,
       'eth_gasPrice',
-      [],
-      appId
+      []
     );
 
     if (result.success && result.data) {
@@ -507,8 +487,7 @@ export class AdvancedBlockchainService {
     blockchain: string,
     contractAddress: string,
     data: string,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -528,8 +507,7 @@ export class AdvancedBlockchainService {
           data: data,
         },
         'latest',
-      ],
-      appId
+      ]
     );
   }
 
@@ -540,8 +518,7 @@ export class AdvancedBlockchainService {
     blockchain: string,
     address: string,
     blockNumber: string | number,
-    network: 'mainnet' | 'testnet' = 'mainnet',
-    appId?: string
+    network: 'mainnet' | 'testnet' = 'mainnet'
   ): Promise<EndpointResponse> {
     const service = this.blockchainService.getServiceByBlockchain(blockchain, network);
 
@@ -559,8 +536,7 @@ export class AdvancedBlockchainService {
     const result = await this.blockchainService.callRPCMethod(
       service.id,
       'eth_getBalance',
-      [address, blockParam],
-      appId
+      [address, blockParam]
     );
 
     if (result.success && result.data) {
