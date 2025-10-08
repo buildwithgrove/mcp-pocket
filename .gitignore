@@ -6,3 +6,4 @@ dist/
 *.swo
 .env
 .env.local
+coverage/
