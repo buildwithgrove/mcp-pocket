@@ -140,30 +140,4 @@ export class EndpointManager {
 
     this.config.endpoints.push(endpoint);
   }
-
-  /**
-   * Remove an endpoint configuration
-   */
-  removeEndpoint(endpointId: string): boolean {
-    const index = this.config.endpoints.findIndex(ep => ep.id === endpointId);
-    if (index === -1) {
-      return false;
-    }
-
-    this.config.endpoints.splice(index, 1);
-    return true;
-  }
-
-  /**
-   * Update an existing endpoint configuration
-   */
-  updateEndpoint(endpointId: string, updates: Partial<EndpointConfig>): boolean {
-    const endpoint = this.getEndpointById(endpointId);
-    if (!endpoint) {
-      return false;
-    }
-
-    Object.assign(endpoint, updates);
-    return true;
-  }
 }

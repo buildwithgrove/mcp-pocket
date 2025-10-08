@@ -62,13 +62,6 @@ export class DocsManager {
   }
 
   /**
-   * Get the main documentation index/home page
-   */
-  async getDocsHome(): Promise<DocPage | null> {
-    return this.getDocPage('/');
-  }
-
-  /**
    * Extract title from HTML or markdown content
    */
   private extractTitle(content: string): string {
