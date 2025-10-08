@@ -1,3 +1,15 @@
+<div align="center">
+  <img src="https://storage.googleapis.com/grove-brand-assets/Presskit/Logo%20Joined-2.png" alt="Grove Logo" width="400"/>
+</div>
+
+<div align="center">
+
+![Maintained by Grove](https://img.shields.io/badge/Maintained_by-Grove-green)
+![GitHub Issues](https://img.shields.io/github/issues/buildwithgrove/mcp-grove)
+![GitHub Pull Requests](https://img.shields.io/github/issues-pr/buildwithgrove/mcp-grove)
+
+</div>
+
 # Grove MCP Server
 
 A comprehensive **Model Context Protocol (MCP)** server providing blockchain data access across **[69+ networks](https://grove.city/services)** via Grove's public endpoints for Pocket Network.
