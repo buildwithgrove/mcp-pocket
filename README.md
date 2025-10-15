@@ -58,14 +58,31 @@ Prerequisites: Node.js 18+ and npm
    ```
 
 2. **Optional: Set `GROVE_APP_ID`** (for higher rate limits):
+
+   **macOS/Linux:**
    ```bash
    export GROVE_APP_ID=your_app_id
    ```
+
+   **Windows (Command Prompt):**
+   ```cmd
+   set GROVE_APP_ID=your_app_id
+   ```
+
+   **Windows (PowerShell):**
+   ```powershell
+   $env:GROVE_APP_ID="your_app_id"
+   ```
+
    Default uses public endpoints (may be rate limited). Get it at [portal.grove.city](https://portal.grove.city).
 
 3. **Configure MCP client:**
 
-   **Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+   **Claude Desktop:**
+
+   macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+   Windows: `%APPDATA%\Claude\claude_desktop_config.json`
    ```json
    {
      "mcpServers": {
@@ -467,9 +484,22 @@ Search transactions by event on kava
 
 ### Using `GROVE_APP_ID`
 Bypass rate limits by setting an environment variable:
-```
+
+**macOS/Linux:**
+```bash
 export GROVE_APP_ID=your_id_from_portal
 ```
+
+**Windows (Command Prompt):**
+```cmd
+set GROVE_APP_ID=your_id_from_portal
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:GROVE_APP_ID="your_id_from_portal"
+```
+
 The MCP server will automatically use `GROVE_APP_ID` for all requests. Get it at [portal.grove.city](https://portal.grove.city).
 
 ### Documentation
