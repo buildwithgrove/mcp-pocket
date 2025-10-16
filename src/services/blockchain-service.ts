@@ -208,7 +208,7 @@ export class BlockchainRPCService {
           },
           metadata: {
             timestamp: new Date().toISOString(),
-            endpoint: service.rpcUrl,
+            endpoint: rpcUrl,
           },
         };
       }
@@ -223,7 +223,7 @@ export class BlockchainRPCService {
           data: data.error,
           metadata: {
             timestamp: new Date().toISOString(),
-            endpoint: service.rpcUrl,
+            endpoint: rpcUrl,
           },
         };
       }
@@ -233,7 +233,7 @@ export class BlockchainRPCService {
         data: data.result,
         metadata: {
           timestamp: new Date().toISOString(),
-          endpoint: service.rpcUrl,
+          endpoint: rpcUrl,
         },
       };
     } catch (error) {
@@ -246,7 +246,7 @@ export class BlockchainRPCService {
         },
         metadata: {
           timestamp: new Date().toISOString(),
-          endpoint: service.rpcUrl,
+          endpoint: rpcUrl,
         },
       };
     }

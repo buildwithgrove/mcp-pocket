@@ -67,7 +67,7 @@ export class CosmosService {
         data,
         metadata: {
           timestamp: new Date().toISOString(),
-          endpoint: url,
+          endpoint: finalUrl,
         },
       };
     } catch (error) {
