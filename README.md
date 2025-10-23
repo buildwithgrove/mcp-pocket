@@ -10,7 +10,7 @@
 
 </div>
 
-# Grove MCP Server
+# Grove's MCP Server for Pocket Network
 
 <img src="./mcp.png" alt="MCP" width="250" align="right"/>
 
