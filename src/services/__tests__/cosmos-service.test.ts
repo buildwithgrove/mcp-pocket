@@ -545,7 +545,7 @@ describe('CosmosService', () => {
       await cosmosService.getBalance('osmosis', 'osmo1address', 'uosmo', 'mainnet');
 
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/v1/rest/'),
+        expect.stringContaining('osmosis.api.pocket.network'),
         expect.any(Object)
       );
     });
