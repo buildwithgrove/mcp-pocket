@@ -1,7 +1,7 @@
 {
   "name": "mcp-pocket",
   "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) server for blockchain data access across 69 networks via Pocket Network's public endpoints",
+  "description": "Model Context Protocol (MCP) server for blockchain data access across 63 networks via Pocket Network's public endpoints",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {

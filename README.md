@@ -1,6 +1,6 @@
 # MCP Server for Pocket Network
 
-**Model Context Protocol (MCP)** server for blockchain data access across **60+ networks** via Pocket Network's public RPC endpoints.
+**Model Context Protocol (MCP)** server for blockchain data access across **63 networks** via Pocket Network's public RPC endpoints.
 
 Not a standalone CLI — **requires an MCP client** such as Claude Desktop, Claude Code CLI, or MCP Inspector.
 
@@ -79,7 +79,7 @@ Prerequisites: Node.js 18+ and npm
 ## Features
 
 ### Core Blockchain Access
-- **60+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
+- **63 Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
 - **Natural Language Queries**: "get the latest height for ethereum" → direct results
 - **Live JSON-RPC**: Execute any blockchain RPC method directly
 
@@ -137,7 +137,7 @@ npm run build
 ### Core Blockchain Tools (5 tools)
 
 - `query_blockchain` - Natural language queries (e.g., "get the latest height for ethereum")
-- `list_blockchain_services` - List all 60+ available networks
+- `list_blockchain_services` - List all 63 available networks
 - `get_blockchain_service` - Get blockchain details and supported methods
 - `call_rpc_method` - Call any JSON-RPC method directly
 - `get_supported_methods` - Get all available RPC methods for a blockchain
@@ -298,7 +298,7 @@ src/
 ├── index.ts                            # MCP server entry point (40+ tools)
 ├── types.ts                            # TypeScript type definitions
 ├── config/
-│   ├── blockchain-services.json        # Blockchain network configurations (69 networks)
+│   ├── blockchain-services.json        # Blockchain network configurations (63 networks)
 │   └── endpoints.json                  # HTTP endpoint configurations
 ├── handlers/                            # Tool handlers organized by feature
 │   ├── blockchain-handlers.ts          # Core blockchain tools
@@ -357,11 +357,11 @@ npm run build
 npm run smoke
 ```
 
-Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence), and Radix.
+Tests EVM (Ethereum, Polygon, Base), Solana, Sui, and Cosmos (Osmosis, Persistence).
 
 ## Supported Blockchains
 
-60+ blockchain networks available via Pocket Network's public endpoints:
+63 blockchain networks available via Pocket Network's public endpoints:
 
 **EVM Chains:**
 Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM

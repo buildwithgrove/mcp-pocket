@@ -9,28 +9,225 @@
       "protocol": "json-rpc",
       "category": "evm",
       "supportedMethods": [
-        {"name": "eth_blockNumber", "description": "Returns the latest block number", "params": [], "category": "block"},
-        {"name": "eth_getBlockByNumber", "description": "Get block by number", "params": [{"name": "blockNumber", "type": "string", "required": true}, {"name": "fullTx", "type": "boolean", "required": true}], "category": "block"},
-        {"name": "eth_getBalance", "description": "Get account balance", "params": [{"name": "address", "type": "string", "required": true}, {"name": "block", "type": "string", "required": false, "default": "latest"}], "category": "account"},
-        {"name": "eth_call", "description": "Execute a call without creating a transaction", "params": [{"name": "transaction", "type": "object", "required": true}], "category": "transaction"},
-        {"name": "eth_sendRawTransaction", "description": "Send signed transaction", "params": [{"name": "data", "type": "string", "required": true}], "category": "transaction"},
-        {"name": "eth_getLogs", "description": "Get event logs", "params": [{"name": "filter", "type": "object", "required": true}], "category": "logs"}
+        {
+          "name": "eth_blockNumber",
+          "description": "Returns the latest block number",
+          "params": [],
+          "category": "block"
+        },
+        {
+          "name": "eth_getBlockByNumber",
+          "description": "Get block by number",
+          "params": [
+            {
+              "name": "blockNumber",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "fullTx",
+              "type": "boolean",
+              "required": true
+            }
+          ],
+          "category": "block"
+        },
+        {
+          "name": "eth_getBalance",
+          "description": "Get account balance",
+          "params": [
+            {
+              "name": "address",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "block",
+              "type": "string",
+              "required": false,
+              "default": "latest"
+            }
+          ],
+          "category": "account"
+        },
+        {
+          "name": "eth_call",
+          "description": "Execute a call without creating a transaction",
+          "params": [
+            {
+              "name": "transaction",
+              "type": "object",
+              "required": true
+            }
+          ],
+          "category": "transaction"
+        },
+        {
+          "name": "eth_sendRawTransaction",
+          "description": "Send signed transaction",
+          "params": [
+            {
+              "name": "data",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "category": "transaction"
+        },
+        {
+          "name": "eth_getLogs",
+          "description": "Get event logs",
+          "params": [
+            {
+              "name": "filter",
+              "type": "object",
+              "required": true
+            }
+          ],
+          "category": "logs"
+        }
       ]
     },
-    {"id": "ethereum-sepolia", "name": "Ethereum Sepolia Testnet", "blockchain": "ethereum", "network": "testnet", "rpcUrl": "https://eth-sepolia-testnet.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "ethereum-holesky", "name": "Ethereum Holesky Testnet", "blockchain": "ethereum-holesky", "network": "testnet", "rpcUrl": "https://eth-holesky-testnet.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "polygon-mainnet", "name": "Polygon Mainnet", "blockchain": "polygon", "network": "mainnet", "rpcUrl": "https://poly.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "polygon-amoy", "name": "Polygon Amoy Testnet", "blockchain": "polygon", "network": "testnet", "rpcUrl": "https://poly-amoy-testnet.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "polygon-zkevm", "name": "Polygon zkEVM", "blockchain": "polygon-zkevm", "network": "mainnet", "rpcUrl": "https://polygon-zkevm.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "arbitrum-one", "name": "Arbitrum One", "blockchain": "arbitrum", "network": "mainnet", "rpcUrl": "https://arb-one.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "arbitrum-sepolia", "name": "Arbitrum Sepolia Testnet", "blockchain": "arbitrum", "network": "testnet", "rpcUrl": "https://arbitrum-sepolia-testnet.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "optimism-mainnet", "name": "Optimism Mainnet", "blockchain": "optimism", "network": "mainnet", "rpcUrl": "https://op.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "optimism-sepolia", "name": "Optimism Sepolia Testnet", "blockchain": "optimism", "network": "testnet", "rpcUrl": "https://op-sepolia-testnet.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "base-mainnet", "name": "Base Mainnet", "blockchain": "base", "network": "mainnet", "rpcUrl": "https://base.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "base-sepolia", "name": "Base Sepolia Testnet", "blockchain": "base", "network": "testnet", "rpcUrl": "https://base-testnet.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "bsc-mainnet", "name": "Binance Smart Chain", "blockchain": "bsc", "network": "mainnet", "rpcUrl": "https://bsc.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "avalanche-mainnet", "name": "Avalanche C-Chain", "blockchain": "avalanche", "network": "mainnet", "rpcUrl": "https://avax.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "avalanche-dfk", "name": "Avalanche DFK Subnet", "blockchain": "avalanche-dfk", "network": "mainnet", "rpcUrl": "https://avax-dfk.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
+    {
+      "id": "ethereum-sepolia",
+      "name": "Ethereum Sepolia Testnet",
+      "blockchain": "ethereum",
+      "network": "testnet",
+      "rpcUrl": "https://eth-sepolia-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "ethereum-holesky",
+      "name": "Ethereum Holesky Testnet",
+      "blockchain": "ethereum-holesky",
+      "network": "testnet",
+      "rpcUrl": "https://eth-holesky-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "polygon-mainnet",
+      "name": "Polygon Mainnet",
+      "blockchain": "polygon",
+      "network": "mainnet",
+      "rpcUrl": "https://poly.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "polygon-amoy",
+      "name": "Polygon Amoy Testnet",
+      "blockchain": "polygon",
+      "network": "testnet",
+      "rpcUrl": "https://poly-amoy-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "polygon-zkevm",
+      "name": "Polygon zkEVM",
+      "blockchain": "polygon-zkevm",
+      "network": "mainnet",
+      "rpcUrl": "https://poly-zkevm.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "arbitrum-one",
+      "name": "Arbitrum One",
+      "blockchain": "arbitrum",
+      "network": "mainnet",
+      "rpcUrl": "https://arb-one.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "arbitrum-sepolia",
+      "name": "Arbitrum Sepolia Testnet",
+      "blockchain": "arbitrum",
+      "network": "testnet",
+      "rpcUrl": "https://arb-sepolia-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "optimism-mainnet",
+      "name": "Optimism Mainnet",
+      "blockchain": "optimism",
+      "network": "mainnet",
+      "rpcUrl": "https://op.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "optimism-sepolia",
+      "name": "Optimism Sepolia Testnet",
+      "blockchain": "optimism",
+      "network": "testnet",
+      "rpcUrl": "https://op-sepolia-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "base-mainnet",
+      "name": "Base Mainnet",
+      "blockchain": "base",
+      "network": "mainnet",
+      "rpcUrl": "https://base.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "base-sepolia",
+      "name": "Base Sepolia Testnet",
+      "blockchain": "base",
+      "network": "testnet",
+      "rpcUrl": "https://base-sepolia-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "bsc-mainnet",
+      "name": "Binance Smart Chain",
+      "blockchain": "bsc",
+      "network": "mainnet",
+      "rpcUrl": "https://bsc.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "avalanche-mainnet",
+      "name": "Avalanche C-Chain",
+      "blockchain": "avalanche",
+      "network": "mainnet",
+      "rpcUrl": "https://avax.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "avalanche-dfk",
+      "name": "Avalanche DFK Subnet",
+      "blockchain": "avalanche-dfk",
+      "network": "mainnet",
+      "rpcUrl": "https://avax-dfk.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
     {
       "id": "solana-mainnet",
       "name": "Solana Mainnet",
@@ -40,77 +237,554 @@
       "protocol": "json-rpc",
       "category": "non-evm",
       "supportedMethods": [
-        {"name": "getBlockHeight", "description": "Returns the current block height", "params": [], "category": "block"},
-        {"name": "getBalance", "description": "Get account balance", "params": [{"name": "pubkey", "type": "string", "required": true}], "category": "account"},
-        {"name": "getBlock", "description": "Get block information", "params": [{"name": "slot", "type": "number", "required": true}], "category": "block"}
+        {
+          "name": "getBlockHeight",
+          "description": "Returns the current block height",
+          "params": [],
+          "category": "block"
+        },
+        {
+          "name": "getBalance",
+          "description": "Get account balance",
+          "params": [
+            {
+              "name": "pubkey",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "category": "account"
+        },
+        {
+          "name": "getBlock",
+          "description": "Get block information",
+          "params": [
+            {
+              "name": "slot",
+              "type": "number",
+              "required": true
+            }
+          ],
+          "category": "block"
+        }
       ]
     },
-    {"id": "near-mainnet", "name": "NEAR Protocol", "blockchain": "near", "network": "mainnet", "rpcUrl": "https://near.api.pocket.network", "protocol": "json-rpc", "category": "non-evm", "supportedMethods": []},
-    {"id": "sui-mainnet", "name": "Sui", "blockchain": "sui", "network": "mainnet", "rpcUrl": "https://sui.api.pocket.network", "protocol": "json-rpc", "category": "non-evm", "supportedMethods": []},
-    {"id": "tron-mainnet", "name": "Tron", "blockchain": "tron", "network": "mainnet", "rpcUrl": "https://tron.api.pocket.network", "protocol": "json-rpc", "category": "non-evm", "supportedMethods": []},
-    {"id": "zksync-era", "name": "zkSync Era", "blockchain": "zksync", "network": "mainnet", "rpcUrl": "https://zksync-era.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "zklink-nova", "name": "zkLink Nova", "blockchain": "zklink", "network": "mainnet", "rpcUrl": "https://zklink-nova.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "scroll-mainnet", "name": "Scroll", "blockchain": "scroll", "network": "mainnet", "rpcUrl": "https://scroll.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "linea-mainnet", "name": "Linea", "blockchain": "linea", "network": "mainnet", "rpcUrl": "https://linea.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "mantle-mainnet", "name": "Mantle", "blockchain": "mantle", "network": "mainnet", "rpcUrl": "https://mantle.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "blast-mainnet", "name": "Blast", "blockchain": "blast", "network": "mainnet", "rpcUrl": "https://blast.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "boba-mainnet", "name": "Boba Network", "blockchain": "boba", "network": "mainnet", "rpcUrl": "https://boba.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "metis-mainnet", "name": "Metis", "blockchain": "metis", "network": "mainnet", "rpcUrl": "https://metis.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "taiko-mainnet", "name": "Taiko", "blockchain": "taiko", "network": "mainnet", "rpcUrl": "https://taiko.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "taiko-hekla", "name": "Taiko Hekla Testnet", "blockchain": "taiko", "network": "testnet", "rpcUrl": "https://taiko-hekla-testnet.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "unichain-mainnet", "name": "Unichain", "blockchain": "unichain", "network": "mainnet", "rpcUrl": "https://unichain.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "berachain-mainnet", "name": "Berachain", "blockchain": "berachain", "network": "mainnet", "rpcUrl": "https://berachain.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "sonic-mainnet", "name": "Sonic", "blockchain": "sonic", "network": "mainnet", "rpcUrl": "https://sonic.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "ink-mainnet", "name": "Ink", "blockchain": "ink", "network": "mainnet", "rpcUrl": "https://ink.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "moonbeam-mainnet", "name": "Moonbeam", "blockchain": "moonbeam", "network": "mainnet", "rpcUrl": "https://moonbeam.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "moonriver-mainnet", "name": "Moonriver", "blockchain": "moonriver", "network": "mainnet", "rpcUrl": "https://moonriver.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "gnosis-mainnet", "name": "Gnosis Chain", "blockchain": "gnosis", "network": "mainnet", "rpcUrl": "https://gnosis.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "celo-mainnet", "name": "Celo", "blockchain": "celo", "network": "mainnet", "rpcUrl": "https://celo.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "fantom-mainnet", "name": "Fantom", "blockchain": "fantom", "network": "mainnet", "rpcUrl": "https://fantom.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "harmony-mainnet", "name": "Harmony", "blockchain": "harmony", "network": "mainnet", "rpcUrl": "https://harmony.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "fuse-mainnet", "name": "Fuse", "blockchain": "fuse", "network": "mainnet", "rpcUrl": "https://fuse.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "iotex-mainnet", "name": "IoTeX", "blockchain": "iotex", "network": "mainnet", "rpcUrl": "https://iotex.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "oasys-mainnet", "name": "Oasys", "blockchain": "oasys", "network": "mainnet", "rpcUrl": "https://oasys.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "opbnb-mainnet", "name": "opBNB", "blockchain": "opbnb", "network": "mainnet", "rpcUrl": "https://opbnb.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "fraxtal-mainnet", "name": "Fraxtal", "blockchain": "fraxtal", "network": "mainnet", "rpcUrl": "https://fraxtal.api.pocket.network", "protocol": "json-rpc", "category": "layer2", "supportedMethods": []},
-    {"id": "kaia-mainnet", "name": "Kaia (Public)", "blockchain": "kaia", "network": "mainnet", "rpcUrl": "https://kaia.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "kaia-foundation", "name": "Kaia (Foundation Sponsored)", "blockchain": "kaia-foundation", "network": "mainnet", "rpcUrl": "https://kaia.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "xrplevm-mainnet", "name": "XRPL EVM (Public)", "blockchain": "xrplevm", "network": "mainnet", "rpcUrl": "https://xrplevm.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "xrplevm-foundation", "name": "XRPL EVM (Foundation Sponsored)", "blockchain": "xrplevm-foundation", "network": "mainnet", "rpcUrl": "https://xrplevm.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "xrplevm-testnet", "name": "XRPL EVM Testnet (Public)", "blockchain": "xrplevm", "network": "testnet", "rpcUrl": "https://xrplevm-testnet.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "xrplevm-testnet-foundation", "name": "XRPL EVM Testnet (Foundation Sponsored)", "blockchain": "xrplevm-testnet-foundation", "network": "testnet", "rpcUrl": "https://xrplevm-testnet.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "giwa-sepolia", "name": "Giwa Sepolia Testnet", "blockchain": "giwa", "network": "testnet", "rpcUrl": "https://giwa-sepolia-testnet.api.pocket.network", "protocol": "json-rpc", "category": "evm", "supportedMethods": []},
-    {"id": "akash-mainnet", "name": "Akash Network", "blockchain": "akash", "network": "mainnet", "rpcUrl": "https://akash.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "atomone-mainnet", "name": "AtomOne", "blockchain": "atomone", "network": "mainnet", "rpcUrl": "https://atomone.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "cheqd-mainnet", "name": "Cheqd", "blockchain": "cheqd", "network": "mainnet", "rpcUrl": "https://cheqd.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "chihuahua-mainnet", "name": "Chihuahua", "blockchain": "chihuahua", "network": "mainnet", "rpcUrl": "https://chihuahua.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "fetch-mainnet", "name": "Fetch.ai", "blockchain": "fetch", "network": "mainnet", "rpcUrl": "https://fetch.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "hyperliquid-mainnet", "name": "Hyperliquid", "blockchain": "hyperliquid", "network": "mainnet", "rpcUrl": "https://hyperliquid.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "jackal-mainnet", "name": "Jackal", "blockchain": "jackal", "network": "mainnet", "rpcUrl": "https://jackal.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "juno-mainnet", "name": "Juno", "blockchain": "juno", "network": "mainnet", "rpcUrl": "https://juno.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "kava-mainnet", "name": "Kava", "blockchain": "kava", "network": "mainnet", "rpcUrl": "https://kava.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "osmosis-mainnet", "name": "Osmosis", "blockchain": "osmosis", "network": "mainnet", "rpcUrl": "https://osmosis.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "persistence-mainnet", "name": "Persistence", "blockchain": "persistence", "network": "mainnet", "rpcUrl": "https://persistence.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "pocket-mainnet", "name": "Pocket Network", "blockchain": "pocket", "network": "mainnet", "rpcUrl": "https://pocket.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "radix-mainnet", "name": "Radix (Public)", "blockchain": "radix", "network": "mainnet", "rpcUrl": "https://radix.api.pocket.network", "protocol": "json-rpc", "category": "non-evm", "supportedMethods": []},
-    {"id": "radix-foundation", "name": "Radix (Foundation Sponsored)", "blockchain": "radix-foundation", "network": "mainnet", "rpcUrl": "https://radix.api.pocket.network", "protocol": "json-rpc", "category": "non-evm", "supportedMethods": []},
-    {"id": "seda-mainnet", "name": "Seda", "blockchain": "seda", "network": "mainnet", "rpcUrl": "https://seda.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "sei-mainnet", "name": "Sei", "blockchain": "sei", "network": "mainnet", "rpcUrl": "https://sei.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "shentu-mainnet", "name": "Shentu", "blockchain": "shentu", "network": "mainnet", "rpcUrl": "https://shentu.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []},
-    {"id": "stargaze-mainnet", "name": "Stargaze", "blockchain": "stargaze", "network": "mainnet", "rpcUrl": "https://stargaze.api.pocket.network", "protocol": "json-rpc", "category": "cosmos", "supportedMethods": []}
+    {
+      "id": "near-mainnet",
+      "name": "NEAR Protocol",
+      "blockchain": "near",
+      "network": "mainnet",
+      "rpcUrl": "https://near.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "non-evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "sui-mainnet",
+      "name": "Sui",
+      "blockchain": "sui",
+      "network": "mainnet",
+      "rpcUrl": "https://sui.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "non-evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "tron-mainnet",
+      "name": "Tron",
+      "blockchain": "tron",
+      "network": "mainnet",
+      "rpcUrl": "https://tron.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "non-evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "zksync-era",
+      "name": "zkSync Era",
+      "blockchain": "zksync",
+      "network": "mainnet",
+      "rpcUrl": "https://zksync-era.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "zklink-nova",
+      "name": "zkLink Nova",
+      "blockchain": "zklink",
+      "network": "mainnet",
+      "rpcUrl": "https://zklink-nova.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "scroll-mainnet",
+      "name": "Scroll",
+      "blockchain": "scroll",
+      "network": "mainnet",
+      "rpcUrl": "https://scroll.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "linea-mainnet",
+      "name": "Linea",
+      "blockchain": "linea",
+      "network": "mainnet",
+      "rpcUrl": "https://linea.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "mantle-mainnet",
+      "name": "Mantle",
+      "blockchain": "mantle",
+      "network": "mainnet",
+      "rpcUrl": "https://mantle.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "blast-mainnet",
+      "name": "Blast",
+      "blockchain": "blast",
+      "network": "mainnet",
+      "rpcUrl": "https://blast.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "boba-mainnet",
+      "name": "Boba Network",
+      "blockchain": "boba",
+      "network": "mainnet",
+      "rpcUrl": "https://boba.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "metis-mainnet",
+      "name": "Metis",
+      "blockchain": "metis",
+      "network": "mainnet",
+      "rpcUrl": "https://metis.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "taiko-mainnet",
+      "name": "Taiko",
+      "blockchain": "taiko",
+      "network": "mainnet",
+      "rpcUrl": "https://taiko.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "unichain-mainnet",
+      "name": "Unichain",
+      "blockchain": "unichain",
+      "network": "mainnet",
+      "rpcUrl": "https://unichain.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "berachain-mainnet",
+      "name": "Berachain",
+      "blockchain": "berachain",
+      "network": "mainnet",
+      "rpcUrl": "https://bera.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "sonic-mainnet",
+      "name": "Sonic",
+      "blockchain": "sonic",
+      "network": "mainnet",
+      "rpcUrl": "https://sonic.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "ink-mainnet",
+      "name": "Ink",
+      "blockchain": "ink",
+      "network": "mainnet",
+      "rpcUrl": "https://ink.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "moonbeam-mainnet",
+      "name": "Moonbeam",
+      "blockchain": "moonbeam",
+      "network": "mainnet",
+      "rpcUrl": "https://moonbeam.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "moonriver-mainnet",
+      "name": "Moonriver",
+      "blockchain": "moonriver",
+      "network": "mainnet",
+      "rpcUrl": "https://moonriver.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "gnosis-mainnet",
+      "name": "Gnosis Chain",
+      "blockchain": "gnosis",
+      "network": "mainnet",
+      "rpcUrl": "https://gnosis.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "celo-mainnet",
+      "name": "Celo",
+      "blockchain": "celo",
+      "network": "mainnet",
+      "rpcUrl": "https://celo.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "fantom-mainnet",
+      "name": "Fantom",
+      "blockchain": "fantom",
+      "network": "mainnet",
+      "rpcUrl": "https://fantom.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "harmony-mainnet",
+      "name": "Harmony",
+      "blockchain": "harmony",
+      "network": "mainnet",
+      "rpcUrl": "https://harmony.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "fuse-mainnet",
+      "name": "Fuse",
+      "blockchain": "fuse",
+      "network": "mainnet",
+      "rpcUrl": "https://fuse.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "iotex-mainnet",
+      "name": "IoTeX",
+      "blockchain": "iotex",
+      "network": "mainnet",
+      "rpcUrl": "https://iotex.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "oasys-mainnet",
+      "name": "Oasys",
+      "blockchain": "oasys",
+      "network": "mainnet",
+      "rpcUrl": "https://oasys.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "opbnb-mainnet",
+      "name": "opBNB",
+      "blockchain": "opbnb",
+      "network": "mainnet",
+      "rpcUrl": "https://opbnb.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "fraxtal-mainnet",
+      "name": "Fraxtal",
+      "blockchain": "fraxtal",
+      "network": "mainnet",
+      "rpcUrl": "https://fraxtal.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "layer2",
+      "supportedMethods": []
+    },
+    {
+      "id": "kaia-mainnet",
+      "name": "Kaia (Public)",
+      "blockchain": "kaia",
+      "network": "mainnet",
+      "rpcUrl": "https://kaia.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "xrplevm-mainnet",
+      "name": "XRPL EVM (Public)",
+      "blockchain": "xrplevm",
+      "network": "mainnet",
+      "rpcUrl": "https://xrplevm.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "xrplevm-testnet",
+      "name": "XRPL EVM Testnet (Public)",
+      "blockchain": "xrplevm",
+      "network": "testnet",
+      "rpcUrl": "https://xrplevm-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "giwa-sepolia",
+      "name": "Giwa Sepolia Testnet",
+      "blockchain": "giwa",
+      "network": "testnet",
+      "rpcUrl": "https://giwa-sepolia-testnet.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "evm",
+      "supportedMethods": []
+    },
+    {
+      "id": "akash-mainnet",
+      "name": "Akash Network",
+      "blockchain": "akash",
+      "network": "mainnet",
+      "rpcUrl": "https://akash.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "atomone-mainnet",
+      "name": "AtomOne",
+      "blockchain": "atomone",
+      "network": "mainnet",
+      "rpcUrl": "https://atomone.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "cheqd-mainnet",
+      "name": "Cheqd",
+      "blockchain": "cheqd",
+      "network": "mainnet",
+      "rpcUrl": "https://cheqd.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "chihuahua-mainnet",
+      "name": "Chihuahua",
+      "blockchain": "chihuahua",
+      "network": "mainnet",
+      "rpcUrl": "https://chihuahua.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "fetch-mainnet",
+      "name": "Fetch.ai",
+      "blockchain": "fetch",
+      "network": "mainnet",
+      "rpcUrl": "https://fetch.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "hyperliquid-mainnet",
+      "name": "Hyperliquid",
+      "blockchain": "hyperliquid",
+      "network": "mainnet",
+      "rpcUrl": "https://hyperliquid.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "jackal-mainnet",
+      "name": "Jackal",
+      "blockchain": "jackal",
+      "network": "mainnet",
+      "rpcUrl": "https://jackal.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "juno-mainnet",
+      "name": "Juno",
+      "blockchain": "juno",
+      "network": "mainnet",
+      "rpcUrl": "https://juno.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "kava-mainnet",
+      "name": "Kava",
+      "blockchain": "kava",
+      "network": "mainnet",
+      "rpcUrl": "https://kava.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "osmosis-mainnet",
+      "name": "Osmosis",
+      "blockchain": "osmosis",
+      "network": "mainnet",
+      "rpcUrl": "https://osmosis.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "persistence-mainnet",
+      "name": "Persistence",
+      "blockchain": "persistence",
+      "network": "mainnet",
+      "rpcUrl": "https://persistence.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "pocket-mainnet",
+      "name": "Pocket Network",
+      "blockchain": "pocket",
+      "network": "mainnet",
+      "rpcUrl": "https://pocket.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "seda-mainnet",
+      "name": "Seda",
+      "blockchain": "seda",
+      "network": "mainnet",
+      "rpcUrl": "https://seda.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "sei-mainnet",
+      "name": "Sei",
+      "blockchain": "sei",
+      "network": "mainnet",
+      "rpcUrl": "https://sei.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "shentu-mainnet",
+      "name": "Shentu",
+      "blockchain": "shentu",
+      "network": "mainnet",
+      "rpcUrl": "https://shentu.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    },
+    {
+      "id": "stargaze-mainnet",
+      "name": "Stargaze",
+      "blockchain": "stargaze",
+      "network": "mainnet",
+      "rpcUrl": "https://stargaze.api.pocket.network",
+      "protocol": "json-rpc",
+      "category": "cosmos",
+      "supportedMethods": []
+    }
   ],
   "methodAliases": {
-    "latest height": ["eth_blockNumber", "getBlockHeight"],
-    "current height": ["eth_blockNumber", "getBlockHeight"],
-    "block number": ["eth_blockNumber", "getBlockHeight"],
-    "block height": ["eth_blockNumber", "getBlockHeight"],
-    "get balance": ["eth_getBalance", "getBalance"],
-    "check balance": ["eth_getBalance", "getBalance"],
-    "account balance": ["eth_getBalance", "getBalance"],
-    "get block": ["eth_getBlockByNumber", "getBlock"],
-    "fetch block": ["eth_getBlockByNumber", "getBlock"],
-    "send transaction": ["eth_sendRawTransaction"],
-    "get logs": ["eth_getLogs"],
-    "query logs": ["eth_getLogs"]
+    "latest height": [
+      "eth_blockNumber",
+      "getBlockHeight"
+    ],
+    "current height": [
+      "eth_blockNumber",
+      "getBlockHeight"
+    ],
+    "block number": [
+      "eth_blockNumber",
+      "getBlockHeight"
+    ],
+    "block height": [
+      "eth_blockNumber",
+      "getBlockHeight"
+    ],
+    "get balance": [
+      "eth_getBalance",
+      "getBalance"
+    ],
+    "check balance": [
+      "eth_getBalance",
+      "getBalance"
+    ],
+    "account balance": [
+      "eth_getBalance",
+      "getBalance"
+    ],
+    "get block": [
+      "eth_getBlockByNumber",
+      "getBlock"
+    ],
+    "fetch block": [
+      "eth_getBlockByNumber",
+      "getBlock"
+    ],
+    "send transaction": [
+      "eth_sendRawTransaction"
+    ],
+    "get logs": [
+      "eth_getLogs"
+    ],
+    "query logs": [
+      "eth_getLogs"
+    ]
   }
 }
