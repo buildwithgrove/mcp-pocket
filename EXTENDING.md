@@ -1,4 +1,4 @@
-# Extending Grove MCP Server
+# Extending MCP Pocket Network Server
 
 This guide explains how to extend the MCP server with new blockchains, endpoints, and functionality.
 
@@ -187,7 +187,7 @@ To add a new blockchain network:
   "name": "New Chain Mainnet",
   "blockchain": "newchain",
   "network": "mainnet",
-  "rpcUrl": "https://newchain.rpc.grove.city/v1/01fdb492",
+  "rpcUrl": "https://newchain.api.pocket.network",
   "protocol": "json-rpc",
   "category": "evm",
   "supportedMethods": [

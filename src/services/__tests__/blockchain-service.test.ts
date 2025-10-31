@@ -19,7 +19,7 @@ describe('BlockchainRPCService', () => {
           name: 'Ethereum Mainnet',
           blockchain: 'ethereum',
           network: 'mainnet',
-          rpcUrl: 'https://ethereum.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://eth.api.pocket.network',
           protocol: 'json-rpc',
           category: 'evm',
           supportedMethods: [
@@ -43,7 +43,7 @@ describe('BlockchainRPCService', () => {
           name: 'Ethereum Foundation Mainnet',
           blockchain: 'ethereum-foundation',
           network: 'mainnet',
-          rpcUrl: 'https://ethereum-foundation.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://eth.api.pocket.network',
           protocol: 'json-rpc',
           category: 'evm',
           supportedMethods: [
@@ -59,7 +59,7 @@ describe('BlockchainRPCService', () => {
           name: 'Polygon Mainnet',
           blockchain: 'polygon',
           network: 'mainnet',
-          rpcUrl: 'https://polygon.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://poly.api.pocket.network',
           protocol: 'json-rpc',
           category: 'layer2',
           supportedMethods: [
@@ -198,27 +198,10 @@ describe('BlockchainRPCService', () => {
       expect(result.success).toBe(true);
       expect(result.data).toBe('0x1234567890abcdef');
       expect(result.metadata).toBeDefined();
-      expect(result.metadata?.endpoint).toContain('ethereum-foundation.rpc.grove.city');
+      expect(result.metadata?.endpoint).toContain('eth.api.pocket.network');
     });
 
 
-    it('should use environment appId when not provided', async () => {
-      process.env.GROVE_APP_ID = 'env-app-id';
-
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x123' }),
-      });
-
-      await service.callRPCMethod('ethereum-mainnet', 'eth_blockNumber', []);
-
-      expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/v1/env-app-id'),
-        expect.any(Object)
-      );
-
-      delete process.env.GROVE_APP_ID;
-    });
   });
 
   describe('callRPCMethod - Error Cases', () => {
@@ -243,7 +226,6 @@ describe('BlockchainRPCService', () => {
 
       expect(result.success).toBe(false);
       expect(result.error).toContain('Rate limit exceeded');
-      expect(result.error).toContain('portal.grove.city');
       expect(result.data?.httpStatus).toBe(429);
     });
 
@@ -337,7 +319,7 @@ describe('BlockchainRPCService', () => {
 
       expect(result.success).toBe(true);
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('polygon.rpc.grove.city'),
+        expect.stringContaining('poly.api.pocket.network'),
         expect.any(Object)
       );
     });

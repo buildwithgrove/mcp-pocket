@@ -1,6 +1,6 @@
 # Claude Desktop Setup
 
-This guide shows how to add the Grove MCP server to Claude Desktop.
+This guide shows how to add the Pocket Network MCP server to Claude Desktop.
 
 ## Quick Setup
 
@@ -28,15 +28,15 @@ Or open it manually at: `~/Library/Application Support/Claude/claude_desktop_con
 ```json
 {
   "mcpServers": {
-    "grove": {
+    "pocket-network": {
       "command": "node",
-      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-pocket/dist/index.js"]
     }
   }
 }
 ```
 
-**Note:** Replace `/absolute/path/to/mcp-grove` with the actual absolute path to your installation.
+**Note:** Replace `/absolute/path/to/mcp-pocket` with the actual absolute path to your installation.
 
 3. **Restart Claude Desktop**
 
@@ -46,7 +46,7 @@ Close and reopen the Claude Desktop app for changes to take effect.
 
 In Claude Desktop, try asking:
 ```
-List all available blockchain services from Grove
+List all available blockchain services
 ```
 
 or
@@ -77,7 +77,7 @@ Check the Claude Desktop developer console:
 If you get permission errors:
 
 ```bash
-cd /path/to/mcp-grove
+cd /path/to/mcp-pocket
 chmod +x dist/index.js
 ```
 
@@ -100,15 +100,15 @@ brew install node
 Once published to npm, you'll be able to install globally:
 
 ```bash
-npm install -g mcp-grove
+npm install -g mcp-pocket
 ```
 
 And configure with just:
 ```json
 {
   "mcpServers": {
-    "grove": {
-      "command": "mcp-grove"
+    "pocket-network": {
+      "command": "mcp-pocket"
     }
   }
 }
@@ -143,9 +143,9 @@ If you have multiple MCP servers:
 ```json
 {
   "mcpServers": {
-    "grove": {
+    "pocket-network": {
       "command": "node",
-      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-pocket/dist/index.js"]
     },
     "other-server": {
       "command": "npx",
@@ -157,14 +157,14 @@ If you have multiple MCP servers:
 
 ## Uninstalling
 
-To remove the Grove MCP server from Claude Desktop:
+To remove the Pocket Network MCP server from Claude Desktop:
 
 1. Open the config file
-2. Remove the `"grove"` entry from `mcpServers`
+2. Remove the `"pocket-network"` entry from `mcpServers`
 3. Restart Claude Desktop
 
 ## Getting Help
 
-- **GitHub Issues:** https://github.com/buildwithgrove/mcp-grove/issues
-- **Grove Documentation:** https://docs.grove.city
+- **GitHub Issues:** https://github.com/pokt-network/mcp/issues
+- **Pocket Network Documentation:** https://api.pocket.network/docs
 - **MCP Documentation:** https://modelcontextprotocol.io

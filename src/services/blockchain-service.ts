@@ -155,7 +155,6 @@ export class BlockchainRPCService {
     method: string,
     params: any[] = []
   ): Promise<EndpointResponse> {
-    const effectiveAppId = process.env.GROVE_APP_ID;
     const service = this.getServiceById(serviceId);
     if (!service) {
       return {
@@ -164,11 +163,7 @@ export class BlockchainRPCService {
       };
     }
 
-    // Use GROVE_APP_ID if set; otherwise use the default from service config
-    let rpcUrl = service.rpcUrl;
-    if (effectiveAppId) {
-      rpcUrl = rpcUrl.replace(/\/v1\/[^/]+$/, `/v1/${effectiveAppId}`);
-    }
+    const rpcUrl = service.rpcUrl;
 
     try {
       const response = await fetch(rpcUrl, {
@@ -191,7 +186,7 @@ export class BlockchainRPCService {
 
         // Common HTTP error interpretations
         if (response.status === 429) {
-          errorMessage = `Rate limit exceeded (HTTP 429). Public endpoints have usage limits. To bypass limits, set GROVE_APP_ID from portal.grove.city and try again.`;
+          errorMessage = `Rate limit exceeded (HTTP 429). The endpoint may be experiencing high traffic.`;
         } else if (response.status === 503) {
           errorMessage = `Service temporarily unavailable (HTTP 503). The endpoint may be overloaded.`;
         } else if (response.status >= 500) {

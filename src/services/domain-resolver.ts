@@ -54,7 +54,7 @@ export class DomainResolverService {
   }
 
   /**
-   * Resolve ENS domain using Grove's Ethereum endpoint
+   * Resolve ENS domain using Pocket Network's Ethereum endpoint
    */
   private async resolveENS(domain: string): Promise<EndpointResponse> {
     try {
@@ -300,7 +300,7 @@ export class DomainResolverService {
   }
 
   /**
-   * Resolve Unstoppable Domain using Grove's Polygon endpoint
+   * Resolve Unstoppable Domain using Pocket Network's Polygon endpoint
    */
   private async resolveUnstoppableDomain(domain: string): Promise<EndpointResponse> {
     try {

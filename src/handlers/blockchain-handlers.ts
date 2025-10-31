@@ -28,7 +28,7 @@ export function registerBlockchainHandlers(
     },
     {
       name: 'list_blockchain_services',
-      description: 'List all available blockchain services/networks supported by Grove',
+      description: 'List all available blockchain services/networks supported by Pocket Network',
       inputSchema: {
         type: 'object',
         properties: {

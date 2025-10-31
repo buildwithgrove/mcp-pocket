@@ -14,7 +14,7 @@ export function registerDomainHandlers(
   const tools: Tool[] = [
     {
       name: 'resolve_domain',
-      description: 'Resolve a blockchain domain name (ENS .eth or Unstoppable Domains) to an address using Grove endpoints',
+      description: 'Resolve a blockchain domain name (ENS .eth or Unstoppable Domains) to an address using Pocket Network endpoints',
       inputSchema: {
         type: 'object',
         properties: {

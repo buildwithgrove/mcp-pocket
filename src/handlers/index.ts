@@ -1,5 +1,5 @@
 /**
- * Handler exports for MCP Grove
+ * Handler exports for MCP Pocket Network
  * This module exports all tool handlers for easy registration
  */
 

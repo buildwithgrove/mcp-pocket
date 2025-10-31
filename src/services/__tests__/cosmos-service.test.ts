@@ -16,7 +16,7 @@ describe('CosmosService', () => {
           name: 'Osmosis Mainnet',
           blockchain: 'osmosis',
           network: 'mainnet',
-          rpcUrl: 'https://osmosis.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://osmosis.api.pocket.network',
           protocol: 'rest',
           category: 'cosmos',
           supportedMethods: [] as RPCMethod[],
@@ -26,7 +26,7 @@ describe('CosmosService', () => {
           name: 'Persistence Mainnet',
           blockchain: 'persistence',
           network: 'mainnet',
-          rpcUrl: 'https://persistence.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://persistence.api.pocket.network',
           protocol: 'rest',
           category: 'cosmos',
           supportedMethods: [] as RPCMethod[],
@@ -545,11 +545,9 @@ describe('CosmosService', () => {
       await cosmosService.getBalance('osmosis', 'osmo1address', 'uosmo', 'mainnet');
 
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/v1/rest/'),
+        expect.stringContaining('osmosis.api.pocket.network'),
         expect.any(Object)
       );
     });
-
-    // appId parameter support removed; GROVE_APP_ID env var is the single source now
   });
 });

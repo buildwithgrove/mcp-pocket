@@ -16,7 +16,7 @@ describe('SuiService', () => {
           name: 'Sui Mainnet',
           blockchain: 'sui',
           network: 'mainnet',
-          rpcUrl: 'https://sui.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://sui.api.pocket.network',
           protocol: 'json-rpc',
           category: 'layer1',
           supportedMethods: [] as RPCMethod[],

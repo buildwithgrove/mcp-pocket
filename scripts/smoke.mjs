@@ -29,7 +29,7 @@ async function run() {
 
   const results = {};
 
-  // Test EVM chains - these use JSON-RPC and work without app IDs (public endpoints)
+  // Test EVM chains - these use JSON-RPC
   console.log('Testing EVM chains...');
   try {
     results.ethereum_gas = await adv.getGasPrice('ethereum', 'mainnet');
@@ -49,7 +49,7 @@ async function run() {
     results.base_block_number = { success: false, error: e?.message || String(e) };
   }
 
-  // Test Solana - uses JSON-RPC, works without app ID
+  // Test Solana - uses JSON-RPC
   console.log('Testing Solana...');
   try {
     results.solana_block_height = await solana.getBlockHeight('mainnet');
@@ -57,7 +57,7 @@ async function run() {
     results.solana_block_height = { success: false, error: e?.message || String(e) };
   }
 
-  // Test Sui - uses JSON-RPC, works without app ID
+  // Test Sui - uses JSON-RPC
   console.log('Testing Sui...');
   try {
     results.sui_reference_gas_price = await sui.getReferenceGasPrice('mainnet');
@@ -65,7 +65,7 @@ async function run() {
     results.sui_reference_gas_price = { success: false, error: e?.message || String(e) };
   }
 
-  // Test Cosmos chains - use JSON-RPC (Tendermint RPC), works without app ID
+  // Test Cosmos chains - use JSON-RPC (Tendermint RPC)
   console.log('Testing Cosmos chains...');
   try {
     // Osmosis - test with status method (Tendermint RPC)
@@ -89,7 +89,7 @@ async function run() {
   }
 
   // Test Radix - uses Gateway API (JSON-RPC)
-  // Note: Radix public endpoints may have limited availability
+  // Note: Radix endpoints may have limited availability
   console.log('Testing Radix...');
   try {
     // Radix uses Gateway API - test with network configuration

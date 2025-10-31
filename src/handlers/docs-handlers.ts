@@ -14,7 +14,7 @@ export function registerDocsHandlers(
   const tools: Tool[] = [
     {
       name: 'get_doc_page',
-      description: 'Retrieve a documentation page from docs.grove.city',
+      description: 'Retrieve a documentation page from api.pocket.network/docs',
       inputSchema: {
         type: 'object',
         properties: {
@@ -42,7 +42,7 @@ export function registerDocsHandlers(
     },
     {
       name: 'search_docs',
-      description: 'Search Grove documentation for a specific query',
+      description: 'Search Pocket Network documentation for a specific query',
       inputSchema: {
         type: 'object',
         properties: {
