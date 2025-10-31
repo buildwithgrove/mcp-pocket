@@ -16,7 +16,7 @@ describe('SolanaService', () => {
           name: 'Solana Mainnet',
           blockchain: 'solana',
           network: 'mainnet',
-          rpcUrl: 'https://solana.rpc.grove.city/v1/test-app-id',
+          rpcUrl: 'https://solana.api.pocket.network',
           protocol: 'json-rpc',
           category: 'layer1',
           supportedMethods: [] as RPCMethod[],

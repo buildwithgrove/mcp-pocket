@@ -1,11 +1,7 @@
 /**
- * Configuration types for the MCP Grove server
+ * Configuration types for the MCP Pocket Network server
  *
- * This server provides access to Grove's blockchain RPC endpoints:
- * - Default: Uses public endpoints (may be rate limited)
- * - Optional: Supports Grove Portal via GROVE_APP_ID for higher rate limits
- *
- * Get GROVE_APP_ID at portal.grove.city for production use.
+ * This server provides access to Pocket Network's blockchain RPC endpoints.
  */
 
 /**

@@ -1,8 +1,6 @@
 # Using Blockchain Features
 
-This guide shows how to use the blockchain-specific features of the MCP Grove server.
-
-> **⚠️ Public Endpoints Only**: All RPC calls use Grove's free public endpoints. These are subject to fair-use rate limits. For production applications requiring guaranteed uptime, higher rate limits, or SLA guarantees, use [Grove Portal](https://portal.grove.city) instead.
+This guide shows how to use the blockchain-specific features of the MCP Pocket Network server.
 
 ## Natural Language Queries
 
@@ -264,13 +262,10 @@ Specify `network: "testnet"` to use testnet endpoints:
 
 ## Rate Limits & Fair Use
 
-Grove's public endpoints are free but subject to fair-use rate limits:
-- **No authentication required** - works out of the box
+Pocket Network's RPC endpoints have fair-use rate limits:
 - **Shared infrastructure** - may experience throttling under heavy load
 - **Best for**: Development, testing, prototyping, education
 - **Not recommended for**: Production applications, high-frequency trading, critical infrastructure
-
-For production use cases, visit [portal.grove.city](https://portal.grove.city) to create an authenticated application with dedicated resources, analytics, and SLA guarantees.
 
 ## Response Format
 
@@ -282,7 +277,7 @@ All RPC calls return a standardized response:
   "data": "0x...",  // The actual RPC result
   "metadata": {
     "timestamp": "2025-10-03T...",
-    "endpoint": "https://eth.rpc.grove.city/v1/01fdb492"
+    "endpoint": "https://eth.api.pocket.network"
   }
 }
 ```
@@ -299,7 +294,7 @@ On error:
   },
   "metadata": {
     "timestamp": "2025-10-03T...",
-    "endpoint": "https://eth.rpc.grove.city/v1/01fdb492"
+    "endpoint": "https://eth.api.pocket.network"
   }
 }
 ```
@@ -317,7 +312,7 @@ To add support for a new blockchain:
   "name": "New Chain Mainnet",
   "blockchain": "newchain",
   "network": "mainnet",
-  "rpcUrl": "https://newchain.rpc.grove.city/v1/01fdb492",
+  "rpcUrl": "https://newchain.api.pocket.network",
   "protocol": "json-rpc",
   "category": "evm",
   "supportedMethods": [

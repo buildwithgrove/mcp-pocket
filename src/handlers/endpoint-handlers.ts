@@ -14,7 +14,7 @@ export function registerEndpointHandlers(
   const tools: Tool[] = [
     {
       name: 'list_endpoints',
-      description: "List all available Grove's public endpoints for Pocket Network, optionally filtered by category",
+      description: "List all available Pocket Network endpoints, optionally filtered by category",
       inputSchema: {
         type: 'object',
         properties: {
@@ -41,7 +41,7 @@ export function registerEndpointHandlers(
     },
     {
       name: 'call_endpoint',
-      description: "Call a Grove endpoint for Pocket Network with optional parameters",
+      description: "Call a Pocket Network endpoint with optional parameters",
       inputSchema: {
         type: 'object',
         properties: {

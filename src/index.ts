@@ -156,7 +156,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Grove's Public Endpoints for Pocket Network MCP server running on stdio");
+  console.error("Pocket Network MCP server running on stdio");
 }
 
 main().catch((error) => {

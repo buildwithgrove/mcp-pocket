@@ -1,12 +1,10 @@
 # MCP Server for Pocket Network
 
-**Model Context Protocol (MCP)** server for blockchain data access across **[70+ networks](https://grove.city/services)** via Grove's public endpoints.
+**Model Context Protocol (MCP)** server for blockchain data access across **60+ networks** via Pocket Network's public RPC endpoints.
 
 Not a standalone CLI — **requires an MCP client** such as Claude Desktop, Claude Code CLI, or MCP Inspector.
 
 Turn Claude into a blockchain analysis tool with natural language queries, token analytics, transaction inspection, domain resolution, and multi-chain comparisons.
-
-> **Free Public Access**: Uses Grove's free public RPC endpoints by default (may be rate limited). See https://grove.city/public-endpoints. For higher rate limits, set `GROVE_APP_ID` (get it at [portal.grove.city](https://portal.grove.city)).
 
 ## Table of Contents
 
@@ -43,26 +41,7 @@ Prerequisites: Node.js 18+ and npm
    npm run build
    ```
 
-2. **Optional: Set `GROVE_APP_ID`** (for higher rate limits):
-
-   **macOS/Linux:**
-   ```bash
-   export GROVE_APP_ID=your_app_id
-   ```
-
-   **Windows (Command Prompt):**
-   ```cmd
-   set GROVE_APP_ID=your_app_id
-   ```
-
-   **Windows (PowerShell):**
-   ```powershell
-   $env:GROVE_APP_ID="your_app_id"
-   ```
-
-   Default uses public endpoints (may be rate limited). Get it at [portal.grove.city](https://portal.grove.city).
-
-3. **Configure MCP client:**
+2. **Configure MCP client:**
 
    **Claude Desktop:**
 
@@ -90,7 +69,7 @@ Prerequisites: Node.js 18+ and npm
    npx @modelcontextprotocol/inspector node dist/index.js
    ```
 
-4. **Restart client** and start querying:
+3. **Restart client** and start querying:
    ```
    "Get the balance of vitalik.eth"
    "Compare balances for 0x... across all EVM chains"
@@ -100,13 +79,9 @@ Prerequisites: Node.js 18+ and npm
 ## Features
 
 ### Core Blockchain Access
-- **70+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
+- **60+ Networks**: Ethereum, Polygon, Arbitrum, Optimism, Base, Solana, NEAR, Sui, and more
 - **Natural Language Queries**: "get the latest height for ethereum" → direct results
-- **Free Public Access**: No API keys required (may be rate limited)
-- **Optional Rate Limit Bypass**: Set `GROVE_APP_ID` for higher limits
 - **Live JSON-RPC**: Execute any blockchain RPC method directly
-
-**Tip**: Set `GROVE_APP_ID` once; it applies to all chains (EVM, Solana, Cosmos, Sui).
 
 ### Chain-Specific Features
 
@@ -162,7 +137,7 @@ npm run build
 ### Core Blockchain Tools (5 tools)
 
 - `query_blockchain` - Natural language queries (e.g., "get the latest height for ethereum")
-- `list_blockchain_services` - List all [70+ available networks](https://grove.city/services)
+- `list_blockchain_services` - List all 60+ available networks
 - `get_blockchain_service` - Get blockchain details and supported methods
 - `call_rpc_method` - Call any JSON-RPC method directly
 - `get_supported_methods` - Get all available RPC methods for a blockchain
@@ -284,9 +259,9 @@ npm run build
 
 ### Documentation (3 tools)
 
-- `get_doc_page` - Get documentation pages from docs.grove.city
+- `get_doc_page` - Get documentation pages from Pocket Network docs
 - `get_endpoint_docs` - Get endpoint documentation
-- `search_docs` - Search Grove documentation
+- `search_docs` - Search documentation
 
 ## Extending with New Blockchains
 
@@ -298,7 +273,7 @@ Add new blockchain networks by editing `src/config/blockchain-services.json`:
   "name": "New Chain Mainnet",
   "blockchain": "newchain",
   "network": "mainnet",
-  "rpcUrl": "https://newchain.rpc.grove.city/v1/01fdb492",
+  "rpcUrl": "https://newchain.api.pocket.network",
   "protocol": "json-rpc",
   "category": "evm",
   "supportedMethods": [
@@ -386,7 +361,7 @@ Tests EVM (Ethereum, Polygon, Base), Solana, Sui, Cosmos (Osmosis, Persistence),
 
 ## Supported Blockchains
 
-[70 blockchain networks](https://grove.city/services) available via Grove's public endpoints:
+60+ blockchain networks available via Pocket Network's public endpoints:
 
 **EVM Chains:**
 Ethereum, Polygon, BSC, Avalanche, Gnosis, Celo, Fantom, Harmony, Moonbeam, Moonriver, Fuse, IoTeX, Oasys, Kaia, Berachain, Sonic, Ink, XRPL EVM
@@ -402,8 +377,6 @@ Solana, NEAR, Sui, Tron, Radix
 
 **Testnets:**
 Ethereum, Polygon, Arbitrum, Optimism, Base, Taiko, XRPL EVM, Giwa
-
-Most chains use public endpoint ID `01fdb492`. Foundation-sponsored endpoints (Kaia, XRPL EVM, Radix) offer better performance and are automatically preferred.
 
 ## Example Usage
 
@@ -468,31 +441,11 @@ Get governance proposals on osmosis
 Search transactions by event on kava
 ```
 
-### Using `GROVE_APP_ID`
-Bypass rate limits by setting an environment variable:
-
-**macOS/Linux:**
-```bash
-export GROVE_APP_ID=your_id_from_portal
-```
-
-**Windows (Command Prompt):**
-```cmd
-set GROVE_APP_ID=your_id_from_portal
-```
-
-**Windows (PowerShell):**
-```powershell
-$env:GROVE_APP_ID="your_id_from_portal"
-```
-
-The MCP server will automatically use `GROVE_APP_ID` for all requests. Get it at [portal.grove.city](https://portal.grove.city).
-
 ### Documentation
 ```
-Show me all available Grove endpoints
-Search the Grove documentation for "authentication"
-Get the public endpoints page
+Show me all available Pocket Network endpoints
+Search the documentation for "authentication"
+Get the endpoints documentation
 ```
 
 See [BLOCKCHAIN_USAGE.md](BLOCKCHAIN_USAGE.md) for more examples.

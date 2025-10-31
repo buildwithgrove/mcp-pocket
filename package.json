@@ -1,7 +1,7 @@
 {
   "name": "mcp-grove",
   "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) server for blockchain data access across 70+ networks via Grove's public endpoints",
+  "description": "Model Context Protocol (MCP) server for blockchain data access across 60+ networks via Pocket Network's public endpoints",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "ai",
     "endpoints"
   ],
-  "author": "Grove (https://grove.city)",
+  "author": "Pocket Network (https://pocket.network)",
   "license": "MIT",
   "repository": {
     "type": "git",

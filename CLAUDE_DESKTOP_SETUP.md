@@ -1,6 +1,6 @@
 # Claude Desktop Setup
 
-This guide shows how to add the Grove MCP server to Claude Desktop.
+This guide shows how to add the Pocket Network MCP server to Claude Desktop.
 
 ## Quick Setup
 
@@ -157,7 +157,7 @@ If you have multiple MCP servers:
 
 ## Uninstalling
 
-To remove the Grove MCP server from Claude Desktop:
+To remove the Pocket Network MCP server from Claude Desktop:
 
 1. Open the config file
 2. Remove the `"grove"` entry from `mcpServers`
@@ -166,5 +166,5 @@ To remove the Grove MCP server from Claude Desktop:
 ## Getting Help
 
 - **GitHub Issues:** https://github.com/buildwithgrove/mcp-grove/issues
-- **Grove Documentation:** https://docs.grove.city
+- **Grove Documentation:** https://api.pocket.network/docs
 - **MCP Documentation:** https://modelcontextprotocol.io

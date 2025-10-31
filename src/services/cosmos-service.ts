@@ -21,11 +21,10 @@ export class CosmosService {
       throw new Error(`Cosmos service not found: ${blockchain} (${network})`);
     }
 
-    // Convert RPC URL to REST API URL
-    // Pattern: https://<chain>.rpc.grove.city/v1/rest/<GROVE_APP_ID>
+    // Pocket Network RPC endpoints support Cosmos REST API at the same URL
+    // Pattern: https://<chain>.api.pocket.network
     const rpcUrl = service.rpcUrl.replace(/\/$/, '');
-    const restUrl = rpcUrl.replace(/\/v1\/([^/]+)$/, '/v1/rest/$1');
-    return restUrl;
+    return rpcUrl;
   }
 
   /**
@@ -35,13 +34,7 @@ export class CosmosService {
     url: string
   ): Promise<EndpointResponse> {
     try {
-      const effectiveAppId = process.env.GROVE_APP_ID;
-      // If an override is provided, ensure it is used in the REST URL; otherwise keep URL as-is
-      const finalUrl = effectiveAppId
-        ? url.replace(/\/v1\/rest\/[^/]+/, `/v1/rest/${effectiveAppId}`)
-        : url;
-
-      const response = await fetch(finalUrl, {
+      const response = await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +60,7 @@ export class CosmosService {
         data,
         metadata: {
           timestamp: new Date().toISOString(),
-          endpoint: finalUrl,
+          endpoint: url,
         },
       };
     } catch (error) {
