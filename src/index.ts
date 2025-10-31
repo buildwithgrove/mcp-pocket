@@ -74,7 +74,7 @@ const suiService = new SuiService(blockchainService);
 // Create MCP server
 const server = new Server(
   {
-    name: 'mcp-grove',
+    name: 'mcp-pocket',
     version: '1.0.0',
   },
   {

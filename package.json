@@ -1,7 +1,7 @@
 {
-  "name": "mcp-grove",
+  "name": "mcp-pocket",
   "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) server for blockchain data access across 60+ networks via Pocket Network's public endpoints",
+  "description": "Model Context Protocol (MCP) server for blockchain data access across 69 networks via Pocket Network's public endpoints",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "bin": {
-    "mcp-grove": "./dist/index.js"
+    "mcp-pocket": "./dist/index.js"
   },
   "keywords": [
     "mcp",
@@ -39,12 +39,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/buildwithgrove/mcp-grove.git"
+    "url": "git+https://github.com/pokt-network/mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/buildwithgrove/mcp-grove/issues"
+    "url": "https://github.com/pokt-network/mcp/issues"
   },
-  "homepage": "https://github.com/buildwithgrove/mcp-grove#readme",
+  "homepage": "https://github.com/pokt-network/mcp#readme",
   "engines": {
     "node": ">=18.0.0"
   },

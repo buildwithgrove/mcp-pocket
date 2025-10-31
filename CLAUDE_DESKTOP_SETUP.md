@@ -30,13 +30,13 @@ Or open it manually at: `~/Library/Application Support/Claude/claude_desktop_con
   "mcpServers": {
     "pocket-network": {
       "command": "node",
-      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-pocket/dist/index.js"]
     }
   }
 }
 ```
 
-**Note:** Replace `/absolute/path/to/mcp-grove` with the actual absolute path to your installation.
+**Note:** Replace `/absolute/path/to/mcp-pocket` with the actual absolute path to your installation.
 
 3. **Restart Claude Desktop**
 
@@ -77,7 +77,7 @@ Check the Claude Desktop developer console:
 If you get permission errors:
 
 ```bash
-cd /path/to/mcp-grove
+cd /path/to/mcp-pocket
 chmod +x dist/index.js
 ```
 
@@ -100,7 +100,7 @@ brew install node
 Once published to npm, you'll be able to install globally:
 
 ```bash
-npm install -g mcp-grove
+npm install -g mcp-pocket
 ```
 
 And configure with just:
@@ -108,7 +108,7 @@ And configure with just:
 {
   "mcpServers": {
     "pocket-network": {
-      "command": "mcp-grove"
+      "command": "mcp-pocket"
     }
   }
 }
@@ -145,7 +145,7 @@ If you have multiple MCP servers:
   "mcpServers": {
     "pocket-network": {
       "command": "node",
-      "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+      "args": ["/absolute/path/to/mcp-pocket/dist/index.js"]
     },
     "other-server": {
       "command": "npx",
@@ -165,6 +165,6 @@ To remove the Pocket Network MCP server from Claude Desktop:
 
 ## Getting Help
 
-- **GitHub Issues:** https://github.com/buildwithgrove/mcp-grove/issues
+- **GitHub Issues:** https://github.com/buildwithgrove/mcp-pocket/issues
 - **Pocket Network Documentation:** https://api.pocket.network/docs
 - **MCP Documentation:** https://modelcontextprotocol.io

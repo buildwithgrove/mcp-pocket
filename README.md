@@ -53,7 +53,7 @@ Prerequisites: Node.js 18+ and npm
      "mcpServers": {
        "pocket-network": {
          "command": "node",
-         "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
+         "args": ["/absolute/path/to/mcp-pocket/dist/index.js"]
        }
      }
    }
@@ -61,7 +61,7 @@ Prerequisites: Node.js 18+ and npm
 
    **Claude Code CLI:**
    ```bash
-   claude mcp add grove node /absolute/path/to/mcp-grove/dist/index.js
+   claude mcp add grove node /absolute/path/to/mcp-pocket/dist/index.js
    ```
 
    **MCP Inspector** (testing):
@@ -121,8 +121,8 @@ See [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md) for complete setup instru
 
 ```bash
 # Clone and build
-git clone https://github.com/buildwithgrove/mcp-grove.git
-cd mcp-grove
+git clone https://github.com/buildwithgrove/mcp-pocket.git
+cd mcp-pocket
 npm install
 npm run build
 
