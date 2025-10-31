@@ -51,7 +51,7 @@ Prerequisites: Node.js 18+ and npm
    ```json
    {
      "mcpServers": {
-       "grove": {
+       "pocket-network": {
          "command": "node",
          "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
        }

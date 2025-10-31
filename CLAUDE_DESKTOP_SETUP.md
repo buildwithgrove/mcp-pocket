@@ -28,7 +28,7 @@ Or open it manually at: `~/Library/Application Support/Claude/claude_desktop_con
 ```json
 {
   "mcpServers": {
-    "grove": {
+    "pocket-network": {
       "command": "node",
       "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
     }
@@ -107,7 +107,7 @@ And configure with just:
 ```json
 {
   "mcpServers": {
-    "grove": {
+    "pocket-network": {
       "command": "mcp-grove"
     }
   }
@@ -143,7 +143,7 @@ If you have multiple MCP servers:
 ```json
 {
   "mcpServers": {
-    "grove": {
+    "pocket-network": {
       "command": "node",
       "args": ["/absolute/path/to/mcp-grove/dist/index.js"]
     },
@@ -160,7 +160,7 @@ If you have multiple MCP servers:
 To remove the Pocket Network MCP server from Claude Desktop:
 
 1. Open the config file
-2. Remove the `"grove"` entry from `mcpServers`
+2. Remove the `"pocket-network"` entry from `mcpServers`
 3. Restart Claude Desktop
 
 ## Getting Help
