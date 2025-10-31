@@ -298,7 +298,7 @@ src/
 ├── index.ts                            # MCP server entry point (40+ tools)
 ├── types.ts                            # TypeScript type definitions
 ├── config/
-│   ├── blockchain-services.json        # 70 blockchain network configurations
+│   ├── blockchain-services.json        # Blockchain network configurations (69 networks)
 │   └── endpoints.json                  # HTTP endpoint configurations
 ├── handlers/                            # Tool handlers organized by feature
 │   ├── blockchain-handlers.ts          # Core blockchain tools

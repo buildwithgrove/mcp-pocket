@@ -46,7 +46,7 @@ Close and reopen the Claude Desktop app for changes to take effect.
 
 In Claude Desktop, try asking:
 ```
-List all available blockchain services from Grove
+List all available blockchain services
 ```
 
 or
@@ -166,5 +166,5 @@ To remove the Pocket Network MCP server from Claude Desktop:
 ## Getting Help
 
 - **GitHub Issues:** https://github.com/buildwithgrove/mcp-grove/issues
-- **Grove Documentation:** https://api.pocket.network/docs
+- **Pocket Network Documentation:** https://api.pocket.network/docs
 - **MCP Documentation:** https://modelcontextprotocol.io
