@@ -61,7 +61,7 @@ Prerequisites: Node.js 18+ and npm
 
    **Claude Code CLI:**
    ```bash
-   claude mcp add grove node /absolute/path/to/mcp-pocket/dist/index.js
+   claude mcp add pocket-network node /absolute/path/to/mcp-pocket/dist/index.js
    ```
 
    **MCP Inspector** (testing):
@@ -121,7 +121,7 @@ See [CLAUDE_DESKTOP_SETUP.md](CLAUDE_DESKTOP_SETUP.md) for complete setup instru
 
 ```bash
 # Clone and build
-git clone https://github.com/buildwithgrove/mcp-pocket.git
+git clone https://github.com/pokt-network/mcp.git
 cd mcp-pocket
 npm install
 npm run build

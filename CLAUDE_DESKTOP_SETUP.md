@@ -165,6 +165,6 @@ To remove the Pocket Network MCP server from Claude Desktop:
 
 ## Getting Help
 
-- **GitHub Issues:** https://github.com/buildwithgrove/mcp-pocket/issues
+- **GitHub Issues:** https://github.com/pokt-network/mcp/issues
 - **Pocket Network Documentation:** https://api.pocket.network/docs
 - **MCP Documentation:** https://modelcontextprotocol.io
